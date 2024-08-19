@@ -80,7 +80,7 @@ def save_dataframe_to_csv(df: pd.DataFrame, file_path: str, index: bool = False)
 
 ### SECTION: Pipelines
 
-def run_codegen_humaneval(humaneval_train_df: pd.DataFrame, idx_range: Tuple[int, int], model: str, iter_no: int, get_prompt_template: Callable[[str], str]) -> None:
+def run_codegen_humaneval(humaneval_train_df: pd.DataFrame, idx_range: Tuple[int, int], model: str, iter_no: int, get_prompt_template: Callable[[str], str], temperature: float = None) -> None:
   (start_idx, end_idx) = idx_range
   humaneval_length = len(humaneval_train_df)
   if (start_idx > humaneval_length or end_idx > humaneval_length):
@@ -91,7 +91,7 @@ def run_codegen_humaneval(humaneval_train_df: pd.DataFrame, idx_range: Tuple[int
   for idx in tqdm(range(start_idx, end_idx), desc="Codegen (HumanEval)"):
     prompt = humaneval_train_df.iloc[idx]['prompt']
     prompt_template = get_prompt_template(prompt)
-    completion = get_completion(prompt_template, model)
+    completion = get_completion(prompt_template, model, temperature)
     humaneval_train_df.at[idx, result_col_name] = completion
 
 def run_unit_tests(humaneval_train_df: pd.DataFrame, idx_range: Tuple[int, int], model: str, iter_no: int):
