@@ -9,7 +9,7 @@ from completion import get_completion
 
 ### SECTION: HELPERS
 
-def get_prompt_template_claude(prompt: str) -> str:
+def get_prompt_template_data_collection_claude(prompt: str) -> str:
   return f"""<instructions>
   <bullets>
     <bullet>Only include code that logically follows the provided docstring (function header + comments).</bullet>
@@ -22,7 +22,29 @@ def get_prompt_template_claude(prompt: str) -> str:
 {prompt}
 </docstring>"""
 
+def get_prompt_template_judge_claude(ground_truth_code: str, buggy_code: str) -> str:
+  return f"""<instructions>
+  <bullets>
+    <bullet>The following ground truth code is the correct implementation for the given function description that has no issues.</bullet>
+    <bullet>The following buggy code is a wrong implementation that contains one or more bugs.</bullet>
+    <bullet>Firstly, find all of the bugs within the buggy code. Make sure to quotate each part of the buggy code that contains a bug.</bullet>
+    <bullet>Afterwards, for each of the bugs, describe the issue with each part of the buggy code with the bug, and outline how to fix the issue by referencing the ground truth code.</bullet>
+    <bullet>You can utilize the ground truth code in your answer, but do not mention the presence of the ground truth code explicitly.</bullet>
+    <bullet>Make sure your answer covers (1) all of the existing bugs, (2) do not hallucinate non-existing bugs, and (3) be concise as possible.</bullet>
+    <bullet>IMPORTANT!: While abiding by the above instructions, keep your answer as brief as possible.</bullet>
+  </bullets>
+</instructions>
+
+<ground_truth_code>
+{ground_truth_code}
+</ground_truth_code>
+
+<buggy_code>
+{buggy_code}
+</buggy_code>"""
+
 def indent_lines(string: str) -> str:
+
   indented_string = '\n'.join('    ' + line for line in string.splitlines())
   return indented_string
 
