@@ -1,3 +1,9 @@
 TASK ID: HumanEval/93
 
 CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Incorrect Conditional:
+- The line `encoded += new_char.upper() if char.isupper() else new_char` incorrectly uses `char.isupper()` in the conditional check. 
+- We instead want to check if the character is lowercase to correctly swap the case of the new character.
+- To fix this, replace `char.isupper()` with `char.islower()` in the conditional check.

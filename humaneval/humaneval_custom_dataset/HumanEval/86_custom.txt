@@ -1,3 +1,11 @@
 TASK ID: HumanEval/86
 
 CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Unnecessary Separation Between Alphabet and Non-alphabet Characters:
+- The buggy code separates alphabetic and non-alphabetic characters, which is not required in the function description, and will output incorrect answers.
+- To fix this, remove all code that separates the alphabet characters from non-alphabet characters. The code within the line `for word in words:` should only contain the following, for example:
+```python
+ordered_words.append(''.join(sorted(word)))
+```

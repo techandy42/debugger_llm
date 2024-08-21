@@ -1,9 +1,9 @@
 TASK ID: HumanEval/83
 
 CUSTOM ANALYSIS:
-The buggy code contains one issue.
+The buggy code contains one issue:
 
-1. Incorrect Formula
+1. Incorrect Formula:
 - The formula `return 2 * 10**(n - 1) - 10**(n - 2)` incorrectly calculate the permutation.
 - The formula incorrectly assumes that the total count of numbers that start or end with 1 can be caclulated by simply subtracting the overlap, without accounting for the permutation of digits in the middle of the number.
 - Thus, the formula overcounts the permutation.

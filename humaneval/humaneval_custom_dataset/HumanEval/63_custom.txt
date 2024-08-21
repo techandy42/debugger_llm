@@ -1,7 +1,7 @@
 TASK ID: HumanEval/63
 
 CUSTOM ANALYSIS:
-The buggy code has one issue.
+The buggy code contains one issue:
 
 1. Indentation Issue:
 - The lines following the line `if n < 2:` contains an additional level of indentation, which causes runtime error.

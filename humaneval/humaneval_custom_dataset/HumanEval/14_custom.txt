@@ -1,7 +1,7 @@
 TASK ID: HumanEval/14
 
 CUSTOM ANALYSIS:
-The buggy code contains one issue.
+The buggy code contains one issue:
 
 1. Identation Issue:
 - The lines following the line `prefixes = []` have an additional level of indentation, which causes runtime error.

@@ -1,8 +1,8 @@
 TASK ID: HumanEval/81
 
 CUSTOM ANALYSIS:
-The buggy code contains one issue.
+The buggy code contains one issue:
 
-1. Indentation Issue
+1. Indentation Issue:
 - The lines following the line `letter_grades = []` has an additional level of identation which causes runtime error.
 - To fix this, remove a level of indentation from all of the lines following the line "letter_grades = []".
