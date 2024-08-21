@@ -5,5 +5,5 @@ The buggy code contains one issue.
 
 1. Incorrect Comparison Operator
 - The comment in the function definition states that the digits are reversed if shift > number of digits.
-- However, in the buggy code, the line "if shift >= length:" incorrectly uses ">=" operator instead of ">".
-- To fix this, replace ">=" with ">" operator in line "if shift >= length:" (i.e. "if shift > length:").
+- However, in the buggy code, the line `if shift >= length:` incorrectly uses >= operator instead of >.
+- To fix this, replace >= with > operator in line `if shift >= length:` (i.e. `if shift > length:`).
