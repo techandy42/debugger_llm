@@ -1,0 +1,120 @@
+TASK ID: HumanEval/115
+
+GROUND TRUTH SOLUTION:
+def max_fill(grid, capacity):
+    import math
+    """
+    You are given a rectangular grid of wells. Each row represents a single well,
+    and each 1 in a row represents a single unit of water.
+    Each well has a corresponding bucket that can be used to extract water from it, 
+    and all buckets have the same capacity.
+    Your task is to use the buckets to empty the wells.
+    Output the number of times you need to lower the buckets.
+
+    Example 1:
+        Input: 
+            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+            bucket_capacity : 1
+        Output: 6
+
+    Example 2:
+        Input: 
+            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+            bucket_capacity : 2
+        Output: 5
+    
+    Example 3:
+        Input: 
+            grid : [[0,0,0], [0,0,0]]
+            bucket_capacity : 5
+        Output: 0
+
+    Constraints:
+        * all wells have the same length
+        * 1 <= grid.length <= 10^2
+        * 1 <= grid[:,1].length <= 10^2
+        * grid[i][j] -> 0 | 1
+        * 1 <= capacity <= 10
+    """
+    return sum([math.ceil(sum(arr)/capacity) for arr in grid])
+
+BUGGY SOLUTION:
+def max_fill(grid, capacity):
+    import math
+    """
+    You are given a rectangular grid of wells. Each row represents a single well,
+    and each 1 in a row represents a single unit of water.
+    Each well has a corresponding bucket that can be used to extract water from it, 
+    and all buckets have the same capacity.
+    Your task is to use the buckets to empty the wells.
+    Output the number of times you need to lower the buckets.
+
+    Example 1:
+        Input: 
+            grid : [[0,0,1,0], [0,1,0,0], [1,1,1,1]]
+            bucket_capacity : 1
+        Output: 6
+
+    Example 2:
+        Input: 
+            grid : [[0,0,1,1], [0,0,0,0], [1,1,1,1], [0,1,1,1]]
+            bucket_capacity : 2
+        Output: 5
+    
+    Example 3:
+        Input: 
+            grid : [[0,0,0], [0,0,0]]
+            bucket_capacity : 5
+        Output: 0
+
+    Constraints:
+        * all wells have the same length
+        * 1 <= grid.length <= 10^2
+        * 1 <= grid[:,1].length <= 10^2
+        * grid[i][j] -> 0 | 1
+        * 1 <= capacity <= 10
+    """
+    total_water = sum(sum(row) for row in grid)
+    return math.ceil(total_water / capacity)
+
+ANALYSIS ROUND 1:
+The buggy code contains one issue:
+
+`total_water = sum(sum(row) for row in grid)
+return math.ceil(total_water / capacity)`
+
+This calculation treats the entire grid as one large well, which is incorrect. Each row should be treated as a separate well.
+
+To fix this, we need to calculate the number of bucket lowerings for each well individually and then sum these values. The correct implementation is:
+
+`return sum([math.ceil(sum(arr)/capacity) for arr in grid])`
+
+This calculates the sum of water units in each row (well), divides by the bucket capacity, rounds up, and then sums these values for all wells.
+
+ANALYSIS ROUND 2:
+The buggy code contains one issue:
+
+`total_water = sum(sum(row) for row in grid)`
+`return math.ceil(total_water / capacity)`
+
+This implementation incorrectly calculates the total number of bucket lowerings needed. It sums all the water units in the grid and divides by the bucket capacity, which doesn't account for each well separately.
+
+To fix this, we should calculate the number of bucket lowerings needed for each well individually and then sum these values. The correct implementation is:
+
+`return sum([math.ceil(sum(arr)/capacity) for arr in grid])`
+
+This calculates the ceiling of the sum of each row divided by the capacity, then sums these values for all rows in the grid.
+
+ANALYSIS ROUND 3:
+The buggy code contains one issue:
+
+"`total_water = sum(sum(row) for row in grid)`"
+"`return math.ceil(total_water / capacity)`"
+
+This calculates the total water across all wells and divides it by the bucket capacity. However, it doesn't consider each well separately.
+
+To fix this, we should calculate the number of bucket lowerings for each well individually and then sum these values. The correct implementation is:
+
+`return sum([math.ceil(sum(arr)/capacity) for arr in grid])`
+
+This calculates the sum of water units in each well (row), divides by the capacity, rounds up, and then sums these values for all wells.

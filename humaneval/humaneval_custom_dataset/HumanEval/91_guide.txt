@@ -1,0 +1,64 @@
+TASK ID: HumanEval/91
+
+GROUND TRUTH SOLUTION:
+def is_bored(S):
+    """
+    You'll be given a string of words, and your task is to count the number
+    of boredoms. A boredom is a sentence that starts with the word "I".
+    Sentences are delimited by '.', '?' or '!'.
+   
+    For example:
+    >>> is_bored("Hello world")
+    0
+    >>> is_bored("The sky is blue. The sun is shining. I love this weather")
+    1
+    """
+    import re
+    sentences = re.split(r'[.?!]\s*', S)
+    return sum(sentence[0:2] == 'I ' for sentence in sentences)
+
+BUGGY SOLUTION:
+def is_bored(S):
+    """
+    You'll be given a string of words, and your task is to count the number
+    of boredoms. A boredom is a sentence that starts with the word "I".
+    Sentences are delimited by '.', '?' or '!'.
+   
+    For example:
+    >>> is_bored("Hello world")
+    0
+    >>> is_bored("The sky is blue. The sun is shining. I love this weather")
+    1
+    """
+    sentences = re.split('[.?!]', S)
+    boredom_count = sum(1 for sentence in sentences if sentence.strip().startswith('I '))
+    return boredom_count
+
+ANALYSIS ROUND 1:
+The buggy code contains two issues:
+
+1. `re` module is not imported:
+   Add `import re` at the beginning of the function.
+
+2. `re.split('[.?!]', S)` doesn't account for possible spaces after delimiters:
+   Change it to `re.split(r'[.?!]\s*', S)` to handle potential spaces after delimiters.
+
+These changes will make the function work correctly for all cases, including sentences with spaces after delimiters.
+
+ANALYSIS ROUND 2:
+The buggy code contains two issues:
+
+1. `"re.split('[.?!]', S)"`: This doesn't account for possible spaces after punctuation marks. It should be `re.split(r'[.?!]\s*', S)` to handle potential spaces.
+
+2. `"import re"` is missing at the beginning of the function. The `re` module needs to be imported to use `re.split()`.
+
+To fix these issues, add the import statement and modify the split pattern to match the correct implementation.
+
+ANALYSIS ROUND 3:
+There are two bugs in the buggy code:
+
+1. `re` is not imported. Add `import re` at the beginning of the function.
+
+2. In `re.split('[.?!]', S)`, the spaces after punctuation are not considered. Change it to `re.split(r'[.?!]\s*', S)` to handle potential spaces after punctuation marks.
+
+These changes will make the function work correctly for all input cases.

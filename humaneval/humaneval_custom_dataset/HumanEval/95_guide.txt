@@ -1,0 +1,116 @@
+TASK ID: HumanEval/95
+
+GROUND TRUTH SOLUTION:
+def check_dict_case(dict):
+    """
+    Given a dictionary, return True if all keys are strings in lower 
+    case or all keys are strings in upper case, else return False.
+    The function should return False is the given dictionary is empty.
+    Examples:
+    check_dict_case({"a":"apple", "b":"banana"}) should return True.
+    check_dict_case({"a":"apple", "A":"banana", "B":"banana"}) should return False.
+    check_dict_case({"a":"apple", 8:"banana", "a":"apple"}) should return False.
+    check_dict_case({"Name":"John", "Age":"36", "City":"Houston"}) should return False.
+    check_dict_case({"STATE":"NC", "ZIP":"12345" }) should return True.
+    """
+    if len(dict.keys()) == 0:
+        return False
+    else:
+        state = "start"
+        for key in dict.keys():
+
+            if isinstance(key, str) == False:
+                state = "mixed"
+                break
+            if state == "start":
+                if key.isupper():
+                    state = "upper"
+                elif key.islower():
+                    state = "lower"
+                else:
+                    break
+            elif (state == "upper" and not key.isupper()) or (state == "lower" and not key.islower()):
+                    state = "mixed"
+                    break
+            else:
+                break
+        return state == "upper" or state == "lower" 
+
+BUGGY SOLUTION:
+def check_dict_case(dict):
+    """
+    Given a dictionary, return True if all keys are strings in lower 
+    case or all keys are strings in upper case, else return False.
+    The function should return False is the given dictionary is empty.
+    Examples:
+    check_dict_case({"a":"apple", "b":"banana"}) should return True.
+    check_dict_case({"a":"apple", "A":"banana", "B":"banana"}) should return False.
+    check_dict_case({"a":"apple", 8:"banana", "a":"apple"}) should return False.
+    check_dict_case({"Name":"John", "Age":"36", "City":"Houston"}) should return False.
+    check_dict_case({"STATE":"NC", "ZIP":"12345" }) should return True.
+    """
+    if not dict:
+        return False
+    
+    keys = list(dict.keys())
+    if not all(isinstance(key, str) for key in keys):
+        return False
+    
+    first_key = keys[0]
+    expected_case = first_key.islower() if first_key.islower() else first_key.isupper()
+    
+    return all(key.islower() == expected_case if key.islower() else key.isupper() == expected_case for key in keys)
+
+ANALYSIS ROUND 1:
+The buggy code contains the following issue:
+
+`return all(key.islower() == expected_case if key.islower() else key.isupper() == expected_case for key in keys)`
+
+This line incorrectly handles keys that are neither all lowercase nor all uppercase. It should return False for such cases, but it doesn't.
+
+To fix this, we should use a state machine approach similar to the correct implementation. We should iterate through the keys, checking if they're all uppercase or all lowercase, and break the loop if we find a mixed case or non-string key. The function should return True only if all keys are consistently uppercase or lowercase.
+
+ANALYSIS ROUND 2:
+The buggy code contains two issues:
+
+1. `if not dict:` incorrectly handles empty dictionaries. It should be:
+   ```python
+   if len(dict.keys()) == 0:
+   ```
+
+2. The logic for checking case consistency is flawed. The correct implementation should use a state machine approach:
+   ```python
+   state = "start"
+   for key in dict.keys():
+       if isinstance(key, str) == False:
+           state = "mixed"
+           break
+       if state == "start":
+           if key.isupper():
+               state = "upper"
+           elif key.islower():
+               state = "lower"
+           else:
+               break
+       elif (state == "upper" and not key.isupper()) or (state == "lower" and not key.islower()):
+           state = "mixed"
+           break
+       else:
+           break
+   return state == "upper" or state == "lower"
+   ```
+
+This approach correctly handles mixed case scenarios and non-string keys.
+
+ANALYSIS ROUND 3:
+The buggy code contains two issues:
+
+1. `if not dict:` 
+This condition will return False for an empty dictionary, which is correct. However, it will also return False for dictionaries that evaluate to False in a boolean context (e.g., {0: 'zero'}), which is incorrect.
+
+Fix: Replace with `if len(dict.keys()) == 0:` to specifically check for an empty dictionary.
+
+2. `expected_case = first_key.islower() if first_key.islower() else first_key.isupper()`
+This line assumes the first key is either all lowercase or all uppercase, which may not be true. It doesn't handle mixed-case keys correctly.
+
+Fix: Use a state variable to track the case of keys, checking each key individually. Initialize the state as "start" and update it based on each key's case, breaking the loop if a mixed case is found.

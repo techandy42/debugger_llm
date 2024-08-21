@@ -1,0 +1,72 @@
+TASK ID: HumanEval/56
+
+GROUND TRUTH SOLUTION:
+def correct_bracketing(brackets: str):
+    """ brackets is a string of "<" and ">".
+    return True if every opening bracket has a corresponding closing bracket.
+
+    >>> correct_bracketing("<")
+    False
+    >>> correct_bracketing("<>")
+    True
+    >>> correct_bracketing("<<><>>")
+    True
+    >>> correct_bracketing("><<>")
+    False
+    """
+    depth = 0
+    for b in brackets:
+        if b == "<":
+            depth += 1
+        else:
+            depth -= 1
+        if depth < 0:
+            return False
+    return depth == 0
+
+BUGGY SOLUTION:
+def correct_bracketing(brackets: str):
+    """ brackets is a string of "<" and ">".
+    return True if every opening bracket has a corresponding closing bracket.
+
+    >>> correct_bracketing("<")
+    False
+    >>> correct_bracketing("<>")
+    True
+    >>> correct_bracketing("<<><>>")
+    True
+    >>> correct_bracketing("><<>")
+    False
+    """
+    stack = []
+        
+        for bracket in brackets:
+            if bracket == '<':
+                stack.append(bracket)
+            elif bracket == '>':
+                if not stack:
+                    return False
+                stack.pop()
+        
+        return len(stack) == 0
+
+ANALYSIS ROUND 1:
+The buggy code has one issue:
+
+`for bracket in brackets:` is indented incorrectly. It should be at the same level as `stack = []`.
+
+To fix this, simply remove the extra indentation before the for loop. The correct implementation uses a depth counter instead of a stack, which is more efficient, but the stack-based approach is also valid if implemented correctly.
+
+ANALYSIS ROUND 2:
+The buggy code has one indentation issue:
+
+`for bracket in brackets:` and the subsequent lines are indented unnecessarily. They should be aligned with the `stack = []` line.
+
+To fix this, simply remove the extra indentation for these lines. The correct implementation uses a `depth` variable instead of a stack, incrementing it for '<' and decrementing for '>', returning False if depth becomes negative, and True if depth is 0 at the end.
+
+ANALYSIS ROUND 3:
+The buggy code has one issue:
+
+`for bracket in brackets:` is indented incorrectly. It should be at the same level as `stack = []`.
+
+To fix this, remove the extra indentation before the for loop. The correct implementation uses a depth counter instead of a stack, incrementing for '<' and decrementing for '>', returning False if depth becomes negative, and True if depth is 0 at the end.
