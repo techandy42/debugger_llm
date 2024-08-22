@@ -72,8 +72,8 @@ ANALYSIS ROUND 3:
 CUSTOM ANALYSIS:
 """
 
-    file_path_guide = f'{STORAGE_PATH}/{task_id}_guide.txt'
-    file_path_custom = f'{STORAGE_PATH}/{task_id}_custom.txt'
+    file_path_guide = f'{STORAGE_PATH}/{task_id[10:]}_guide.txt'
+    file_path_custom = f'{STORAGE_PATH}/{task_id[10:]}_custom.txt'
     create_directories(file_path_guide)
     save_string_to_file(file_path_guide, guide_content)
     save_string_to_file(file_path_custom, custom_content)

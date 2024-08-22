@@ -102,8 +102,8 @@ SCORES (i.e. TARGET ANALYSIS):
 COL NAME: {analysis_col_name}
 """
 
-      file_path_analysis = f'{STORAGE_PATH}/{task_id}_{idx+1}.txt'
-      file_path_metadata = f'{STORAGE_PATH}/{task_id}_metadata_{idx+1}.txt'
+      file_path_analysis = f'{STORAGE_PATH}/{task_id[10:]}_{idx+1}.txt'
+      file_path_metadata = f'{STORAGE_PATH}/{task_id[10:]}_metadata_{idx+1}.txt'
       create_directories(file_path_analysis)
       save_string_to_file(file_path_analysis, analysis_content)
       save_string_to_file(file_path_metadata, metadata_content)
