@@ -9,3 +9,8 @@
 !conda install datasets pandas python-dotenv tqdm
 !pip install litellm
 ```
+
+> Human Annotated Evaluation
+
+- Evaluting bug analysis from LLM Judges follows the same grading criteria as the [OpenAI's paper](https://arxiv.org/abs/2407.00215).
+<img src="./assets/critic_eval_table.PNG" alt="Description" width="400">
