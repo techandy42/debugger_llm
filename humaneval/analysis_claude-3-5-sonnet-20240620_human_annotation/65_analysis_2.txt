@@ -48,4 +48,6 @@ The buggy code contains one issue:
 
 `if shift >= length:`
 
-This condition should be `if shift > length:`. The current implementation will reverse the digits even when the shift is equal to the length of the number, which is incorrect. To fix this, change the condition to strictly greater than, as in the correct implementation.
+This condition should be `if shift > length:`. The current implementation reverses the string when shift is equal to the length, which is incorrect. The string should only be reversed when shift is strictly greater than the length.
+
+To fix this, change the condition to `if shift > length:` to match the correct implementation.

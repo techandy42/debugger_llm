@@ -93,13 +93,12 @@ return total_bucket_use
 TARGET ANALYSIS:
 The buggy code contains one issue:
 
-"`total_water = sum(sum(row) for row in grid)`"
-"`return math.ceil(total_water / capacity)`"
-
-This calculates the total water across all wells and divides it by the bucket capacity. However, it doesn't consider each well separately.
-
-To fix this, we should calculate the number of bucket lowerings for each well individually and then sum these values. The correct implementation is:
-
-`return sum([math.ceil(sum(arr)/capacity) for arr in grid])`
-
-This calculates the sum of water units in each well (row), divides by the capacity, rounds up, and then sums these values for all wells.
+1. Incorrect Logic:
+- The function description states that each row of the grid is a well.
+- However, the buggy code is treating the entire grid as a single well, which is not true.
+- To fix this, the number of times the bucket must be lowered should be calculated for each row of the grid, then summed afterwards.
+- A potential solution could be:
+```python
+total_bucket_use = sum(math.ceil(sum(row)/capacity) for row in grid)
+return total_bucket_use
+```

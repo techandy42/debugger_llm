@@ -44,9 +44,8 @@ The buggy code contains one issue:
 - To fix this, replace >= with > operator in line `if shift >= length:`.
 
 TARGET ANALYSIS:
-The buggy code contains one issue:
+The buggy code contains one bug:
 
-1. Incorrect Operator:
-- The comment in the function definition states that the digits are reversed if shift > number of digits.
-- However, in the buggy code, the line `if shift >= length:` incorrectly uses >= operator instead of >.
-- To fix this, replace >= with > operator in line `if shift >= length:`.
+`if shift >= length:`
+
+This condition should be `if shift > length:`. The current implementation reverses the string when shift is equal to the length, which is incorrect. To fix this, change the condition to strictly greater than, as in the correct implementation.

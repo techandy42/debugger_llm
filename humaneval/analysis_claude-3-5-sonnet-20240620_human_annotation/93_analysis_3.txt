@@ -54,14 +54,9 @@ The buggy code contains one issue:
 - To fix this, replace `char.isupper()` with `char.islower()` in the conditional check.
 
 TARGET ANALYSIS:
-The buggy code contains two issues:
+The buggy code contains one issue:
 
-1. `"if char.lower() in vowels:"` - This part doesn't account for uppercase vowels correctly.
-
-Fix: Create a vowel replacement dictionary as in the correct implementation.
-
-2. `"encoded += char.lower() if char.isupper() else char.upper()"` - This swaps the case for all characters, including vowels that have already been replaced.
-
-Fix: Swap the case of the entire message at once using the swapcase() method before processing vowels.
-
-To correct these issues, implement the vowel replacement dictionary and apply swapcase() to the entire message first, then replace vowels as needed.
+1. Incorrect Conditional:
+- The line `encoded += new_char.upper() if char.isupper() else new_char` incorrectly uses `char.isupper()` in the conditional check.
+- We instead want to check if the character is lowercase to correctly swap the case of the new character.
+- To fix this, replace `char.isupper()` with `char.islower()` in the conditional check.

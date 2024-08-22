@@ -31,10 +31,12 @@ The buggy code contains one issue:
 TARGET ANALYSIS:
 The buggy code contains one issue:
 
-`sum(lst[i] for i in range(1, len(lst), 2) if lst[i] % 2 == 0)`
+"`sum(lst[i] for i in range(1, len(lst), 2) if lst[i] % 2 == 0)`"
 
-This line lacks a `return` statement. To fix it, add `return` at the beginning of the line:
+The problem is that the function doesn't return the result of the sum. To fix this, add a `return` statement before the sum operation:
 
-`return sum(lst[i] for i in range(1, len(lst), 2) if lst[i] % 2 == 0)`
+```python
+return sum(lst[i] for i in range(1, len(lst), 2) if lst[i] % 2 == 0)
+```
 
-This ensures the function returns the calculated sum.
+This will ensure the function returns the sum of even elements at odd indices as intended.

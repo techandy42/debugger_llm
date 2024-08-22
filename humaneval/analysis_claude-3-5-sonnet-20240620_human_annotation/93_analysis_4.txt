@@ -54,9 +54,17 @@ The buggy code contains one issue:
 - To fix this, replace `char.isupper()` with `char.islower()` in the conditional check.
 
 TARGET ANALYSIS:
-The buggy code contains one issue:
+Bugs in the buggy code:
 
-1. Incorrect Conditional:
-- The line `encoded += new_char.upper() if char.isupper() else new_char` incorrectly uses `char.isupper()` in the conditional check.
-- We instead want to check if the character is lowercase to correctly swap the case of the new character.
-- To fix this, replace `char.isupper()` with `char.islower()` in the conditional check.
+1. `"new_char = chr((ord(char.lower()) - 97 + 2) % 26 + 97)"`:
+   This calculation doesn't handle uppercase vowels correctly. It should use a dictionary for vowel replacement.
+
+2. `"encoded += new_char.upper() if char.isupper() else new_char"`:
+   This line maintains the original case for vowels, which is incorrect. All characters should have their case swapped.
+
+To fix these issues:
+1. Create a dictionary for vowel replacement.
+2. Swap the case of all characters first.
+3. Replace vowels using the dictionary.
+
+The correct implementation would use `message.swapcase()` and a dictionary comprehension for vowel replacement, then apply the replacement in a list comprehension.

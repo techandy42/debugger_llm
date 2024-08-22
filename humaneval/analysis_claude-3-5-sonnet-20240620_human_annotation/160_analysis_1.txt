@@ -87,17 +87,16 @@ return eval(expression)
 Note, the use of built-in `eval` function can pose security risks, use if only necessary, and make sure to sanitize the inputs to prevent injection attacks if needed (don't worry about it for this particular example).
 
 TARGET ANALYSIS:
-The buggy code has one main issue:
+The bug code contains one issue.
 
-"`result = operand[0]`" and the subsequent arithmetic operations don't consider operator precedence. This leads to incorrect results when the expression involves operators with different precedence levels.
-
-To fix this, we should build a string expression and use `eval()` to evaluate it, respecting operator precedence:
-
+1. Incorrect Logic
+- The buggy code is computing the operators sequentially without accounting for order of operation.
+- To fix this, instead of computing each operators and corresponding operands, the operators and operands can be combined as a string to form a expression, and use the built-in `eval` function to compute the expression. The following is an example of the correct implementation:
 ```python
 expression = str(operand[0])
 for oprt, oprn in zip(operator, operand[1:]):
-    expression += oprt + str(oprn)
+expression+= oprt + str(oprn)
 return eval(expression)
 ```
 
-This approach ensures correct evaluation of the algebraic expression, considering all operator precedences.
+Note, the use of built-in `eval` function can pose security risks, use if only necessary, and make sure to sanitize the inputs to prevent injection attacks if needed (don't worry about it for this particular example).

@@ -32,18 +32,15 @@ return 18 * (10 ** (n - 2))
 ```
 
 TARGET ANALYSIS:
-The buggy code contains the following issue:
+The buggy code contains two issues:
 
-`return 2 * 10**(n - 1) - 10**(n - 2)`
+1. `return 2 * 10**(n - 1) - 10**(n - 2)`
+This formula is incorrect. It doesn't account for the special case when n = 1, and it overcounts numbers that start and end with 1.
 
-This formula is incorrect. It overcounts the numbers that start and end with 1, and doesn't handle the case when n = 1.
+To fix this, implement the correct logic:
+- For n = 1, return 1
+- For n > 1, return 18 * (10 ** (n - 2))
 
-To fix this:
-1. Use `18 * (10 ** (n - 2))` for n > 1.
-2. Add a special case for n = 1, returning 1.
+2. The function doesn't handle the case when n = 1 separately.
 
-The correct implementation should be:
-```python
-if n == 1: return 1
-return 18 * (10 ** (n - 2))
-```
+To fix this, add a condition to check if n = 1 before the main calculation.

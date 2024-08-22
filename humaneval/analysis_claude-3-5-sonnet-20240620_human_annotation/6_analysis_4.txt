@@ -61,17 +61,14 @@ The buggy code contains one issue:
 - To fix this, remove the three spaces of Indentation from the line `result = []` and four spaces of Indentation from the rest of the code so they align with the comments in the function.
 
 TARGET ANALYSIS:
-The buggy code contains the following issues:
+There are two bugs in the buggy code:
 
-1. "result = []" and the subsequent lines are indented incorrectly. They should be at the same level as the function definition.
+1. `"result = []"` and `"for group in paren_string.split():"` are indented incorrectly. They should be at the same level as the function definition.
 
-To fix this, align these lines with the function definition:
+2. `"result.append(max_depth)"` is inside the inner loop. It should be outside the inner loop but inside the outer loop.
 
-```python
-def parse_nested_parens(paren_string: str) -> List[int]:
-    result = []
-    for group in paren_string.split():
-        # ... rest of the code ...
-```
+To fix these issues:
+1. Remove the indentation for the first two lines of the function body.
+2. Move the result.append(max_depth) line to be aligned with the for char in group loop.
 
-This aligns with the correct implementation and ensures proper function structure.
+These changes will make the function behave correctly, matching the expected output.

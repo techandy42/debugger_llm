@@ -58,8 +58,8 @@ The buggy code contains one issue:
 - To fix this, remove a level of Indentation from all of the lines from the line `stack = []`.
 
 TARGET ANALYSIS:
-The buggy code has one indentation issue:
+The buggy code has one issue:
 
-`for bracket in brackets:` and the subsequent lines are indented unnecessarily. They should be aligned with the `stack = []` line.
+`for bracket in brackets:` is indented incorrectly. It should be at the same level as `stack = []`.
 
-To fix this, simply remove the extra indentation for these lines. The correct implementation uses a `depth` variable instead of a stack, incrementing it for '<' and decrementing for '>', returning False if depth becomes negative, and True if depth is 0 at the end.
+To fix this, simply remove the extra indentation before the for loop. The correct implementation uses a depth counter instead of a stack, which is more efficient, but the stack-based approach is also valid if implemented correctly.

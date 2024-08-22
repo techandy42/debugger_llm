@@ -56,22 +56,14 @@ pile.append(current)
 ```
 
 TARGET ANALYSIS:
-The buggy code contains two issues:
+The buggy code contains one issue:
 
-1. `if current % 2 == 0:
-            current += 2
-        else:
-            current += 1`
-
-This logic is incorrect. It should always add 2 to the current number, regardless of whether it's odd or even.
-
-2. `pile = [n]
-    current = n`
-
-This initialization is unnecessary and complicates the logic. The function can be simplified to use a list comprehension.
-
-To fix these issues, replace the entire function body with:
-
-`return [n + 2*i for i in range(n)]`
-
-This correctly generates the sequence of numbers, adding 2 each time, starting from n, for n levels.
+1. Incorrect Logic:
+- The buggy code is incrementing the number of stones by 1 for odd number of stones.
+- However, in order to next the next odd/even number, the correct approach is to add 2 to the current number of stones regardless of odd/even.
+- To fix this, replace the `if` and `else` statements under the `for _ in range(1, n):` line with `current += 2`. The for loop should now look like:
+```python
+for _ in range(1, n):
+current += 2
+pile.append(current)
+```

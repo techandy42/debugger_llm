@@ -39,9 +39,15 @@ The buggy code contains one issue.
 - To fix this, add a return statement to line `sum(num**2 for num in lst if isinstance(num, int) and num > 0 and num % 2 != 0)`.
 
 TARGET ANALYSIS:
-The buggy code contains one issue.
+Bugs in the buggy code:
 
-1. Missing Return Statement:
-- As outlined in the function description, the function should return the computed result.
-- The buggy code is missing the return statement to return the result of the line `sum(num**2 for num in lst if isinstance(num, int) and num > 0 and num % 2 != 0)`.
-- To fix this, add a return statement to line `sum(num**2 for num in lst if isinstance(num, int) and num > 0 and num % 2 != 0)`.
+1. `sum(num**2 for num in lst if isinstance(num, int) and num > 0 and num % 2 != 0)`
+
+Issues and fixes:
+1. The function is missing a `return` statement. Add `return` at the beginning of the line.
+2. `isinstance(num, int)` doesn't exclude float values. Replace it with `"." not in str(num)` to properly exclude non-integer values.
+
+Corrected implementation:
+```python
+return sum(num**2 for num in lst if "." not in str(num) and num > 0 and num % 2 != 0)
+```

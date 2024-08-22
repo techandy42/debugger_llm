@@ -63,15 +63,15 @@ The buggy code contains two issues:
         else:
             current += 1`
 
-This logic is incorrect. It should always increment by 2, regardless of whether the current number is odd or even.
+This logic is incorrect. It should always add 2 to the current number, regardless of whether it's odd or even.
 
 2. `pile = [n]
     current = n`
 
-This initialization is unnecessary. The function can be simplified to use a list comprehension.
+This initialization is unnecessary and complicates the logic. The function can be simplified to use a list comprehension.
 
 To fix these issues, replace the entire function body with:
 
 `return [n + 2*i for i in range(n)]`
 
-This single line correctly generates the pile of stones for both odd and even numbers, always incrementing by 2 for each level.
+This correctly generates the sequence of numbers, adding 2 each time, starting from n, for n levels.

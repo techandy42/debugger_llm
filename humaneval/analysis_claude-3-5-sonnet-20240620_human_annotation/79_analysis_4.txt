@@ -42,14 +42,10 @@ The buggy code contains one issue:
 TARGET ANALYSIS:
 The buggy code contains one issue:
 
-`padded_binary = binary.zfill(8)`
+"`padded_binary = binary.zfill(8)`"
 
-This line pads the binary string to 8 bits, which is unnecessary and incorrect for the given function description. The function should return the binary representation without any fixed-length padding.
+This line unnecessarily pads the binary representation to 8 bits. The correct implementation should not pad the binary number to a fixed length. To fix this, simply remove the padding line and return the binary representation directly:
 
-To fix this, simply remove the padding line and directly return the binary string with 'db' added at the beginning and end:
-
-```python
 return "db" + binary + "db"
-```
 
-This matches the correct implementation, which uses `bin(decimal)[2:]` to convert the decimal to binary and remove the '0b' prefix, then adds 'db' to both ends of the string.
+This change will ensure the function returns the correct binary representation for any decimal input, without unnecessary padding.

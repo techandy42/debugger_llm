@@ -46,18 +46,11 @@ The buggy code contains two issues:
 
 1. `"Here's the implementation of the `sort_array` function based on the provided docstring:"` should be removed as it's not part of the function implementation.
 
-2. `"return sorted(arr, key=lambda x: (bin(abs(x)).count('1'), x))"` has two problems:
-   a. It uses `abs(x)` which is unnecessary and incorrect for handling negative numbers.
-   b. It doesn't perform a preliminary sort based on decimal value.
+2. `return sorted(arr, key=lambda x: (bin(abs(x)).count('1'), x))` is incorrect. It should be:
+   `return sorted(sorted(arr), key=lambda x: bin(x)[2:].count('1'))`
 
-To fix these issues:
-1. Remove the explanatory text.
-2. Use `bin(x)[2:]` instead of `bin(abs(x))` to correctly handle negative numbers.
-3. Apply a preliminary sort using `sorted(arr)` before the main sort.
-
-The correct implementation should be:
-```python
-return sorted(sorted(arr), key=lambda x: bin(x)[2:].count('1'))
-```
-
-This ensures correct handling of negative numbers and proper sorting based on both binary ones count and decimal value.
+To fix:
+- Remove the unnecessary comment.
+- Use `sorted(sorted(arr))` to ensure correct ordering for similar number of ones.
+- Remove `abs()` as it's not needed and may cause incorrect results for negative numbers.
+- Use `bin(x)[2:]` to remove the '0b' prefix from the binary representation.

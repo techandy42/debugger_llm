@@ -57,19 +57,17 @@ return 0 if result == 1 and not changed else result
 ```
 
 TARGET ANALYSIS:
-The buggy code contains one issue:
+Bugs found:
 
-1. Incorrect Conditional statement:
-- In line `return result if result != 1 else 0`, if the result after computing the product of odd digits is 1, then the function will return 0, which is incorrect.
-- To fix this, add a boolean variable to check if some value has been multiplied to the result. If this is true, return the result as it is even if it is 1. The code after fixing the issue might look like:
-```python
-result = 1
-changed = False
-while n > 0:
-digit = n % 10
-if digit % 2 != 0:
-result *= digit
-changed = True
-n //= 10
-return 0 if result == 1 and not changed else result
-```
+1. `result = 1` and `return result if result != 1 else 0`:
+This logic fails to correctly handle cases where the product of odd digits is 1. It should initialize result to 0 and update it only when odd digits are found.
+
+2. Missing odd digit counter:
+The code doesn't keep track of whether any odd digits were found.
+
+To fix these issues:
+- Initialize `result = 0` and `odd_count = 0`.
+- Update result and increment odd_count when an odd digit is found.
+- Return result if odd_count > 0, otherwise return 0.
+
+The correct implementation would use a loop to iterate through digits, update the product and count of odd digits, and return the appropriate result based on whether any odd digits were found.

@@ -124,8 +124,9 @@ The buggy code contains one issue:
 TARGET ANALYSIS:
 The buggy code contains one indentation error:
 
-```python
-    for gpa in grades:
-```
+"`
+    letter_grades = []
+        for gpa in grades:
+"`
 
-This line and all subsequent lines within the function should be indented one level to the right. To fix this, simply align the `for` loop and its contents with the `letter_grades = []` line.
+The `for` loop and its contents should be at the same indentation level as the `letter_grades = []` line. To fix this, simply remove the extra indentation before the `for` loop and its contents.

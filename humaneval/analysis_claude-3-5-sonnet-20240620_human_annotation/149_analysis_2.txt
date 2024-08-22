@@ -57,14 +57,12 @@ The buggy code contains two issues:
 TARGET ANALYSIS:
 The buggy code contains one issue:
 
-"`Here's the implementation of the `sorted_list_sum` function based on the provided docstring:`"
+"Here's the implementation of the `sorted_list_sum` function based on the provided docstring:"
 
 This line should be removed as it's not part of the function implementation.
 
-To fix this, simply remove the line and keep only the return statement. The correct implementation should be:
+To fix this, simply remove the explanatory text and keep only the return statement:
 
-```python
 return sorted([word for word in lst if len(word) % 2 == 0], key=lambda x: (len(x), x))
-```
 
-This implementation correctly filters out odd-length strings, sorts the remaining strings by length and then alphabetically.
+This implementation correctly filters out odd-length strings, sorts by length and then alphabetically.

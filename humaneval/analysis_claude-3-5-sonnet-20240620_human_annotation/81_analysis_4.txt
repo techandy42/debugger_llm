@@ -129,4 +129,4 @@ The buggy code contains one indentation error:
         for gpa in grades:
 "`
 
-The `for` loop and its contents should be at the same indentation level as the `letter_grades = []` line. To fix this, simply remove the extra indentation before the `for` loop and its contents.
+The `for` loop and its contents should be aligned with the `letter_grades` list initialization. To fix this, remove the extra indentation before the `for` loop and its contents, aligning them with the `letter_grades = []` line.

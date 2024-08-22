@@ -72,4 +72,4 @@ The buggy code contains one issue:
 
 `return sorted(arr)[-k:]`
 
-This line doesn't handle the case when k is 0. To fix this, add a check for k == 0 at the beginning of the function and return an empty list in that case. Also, sorting the array in-place is more efficient than creating a new sorted array. The corrected implementation should sort the input array, then return the last k elements.
+This line doesn't handle the case when k is 0. To fix it, add a check for k == 0 at the beginning of the function and return an empty list in that case. Then, sort the array and return the last k elements as in the current implementation.

@@ -15,7 +15,7 @@ SCORES (0-7):
 - S3: _/7
 
 - Q4: Does the critique have ≥ 1 FAKE PROBLEM?
-- Guideline: 1: no, 4: I'm unsure, 7: yes
+- Guideline: 1: yes, 4: I'm unsure, 7: no
 - S4: _/7
 
 - Q5: How concise is this critique?

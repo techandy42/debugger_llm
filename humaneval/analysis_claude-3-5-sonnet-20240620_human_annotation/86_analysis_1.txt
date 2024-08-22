@@ -53,18 +53,17 @@ ordered_words.append(''.join(sorted(word)))
 ```
 
 TARGET ANALYSIS:
-The buggy code contains two issues:
+The buggy code contains the following issue:
 
-1. `''.join(char for char in word if char.isalnum())` and `''.join(char for char in word if not char.isalnum())`
+"`alpha = ''.join(char for char in word if char.isalnum())`
+`non_alpha = ''.join(char for char in word if not char.isalnum())`
+`ordered_alpha = ''.join(sorted(alpha))`
+`ordered_word = ordered_alpha + non_alpha`"
 
-These lines separate alphabetic and non-alphabetic characters, which is unnecessary and incorrect. All characters should be sorted together.
+This approach separates alphanumeric and non-alphanumeric characters, sorts only the alphanumeric ones, and then concatenates them. This is incorrect as it changes the relative positions of non-alphanumeric characters.
 
-2. `ordered_alpha + non_alpha`
+To fix this, we should sort all characters in each word, regardless of whether they are alphanumeric or not. The correct implementation is:
 
-This line reattaches the non-alphabetic characters at the end, which is incorrect. All characters should be sorted together.
+`return ' '.join([''.join(sorted(list(i))) for i in s.split(' ')])`
 
-To fix these issues, replace the entire loop with a list comprehension that sorts all characters in each word:
-
-`[''.join(sorted(list(word))) for word in s.split()]`
-
-This correctly sorts all characters in each word while maintaining word order and spaces.
+This sorts all characters in each word while maintaining the order of words and spaces in the sentence.

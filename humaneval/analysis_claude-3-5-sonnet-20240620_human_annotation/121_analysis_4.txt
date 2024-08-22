@@ -35,11 +35,11 @@ The buggy code contains one issue:
 TARGET ANALYSIS:
 The buggy code contains two issues:
 
-1. `sum(num for i, num in enumerate(lst) if i % 2 == 0 and num % 2 != 0)`
-   The function is missing a `return` statement. To fix this, add `return` at the beginning of the line.
+1. "sum(num for i, num in enumerate(lst) if i % 2 == 0 and num % 2 != 0)"
+The function is missing a return statement. To fix this, add "return" at the beginning of the line.
 
-2. `sum(num for i, num in enumerate(lst) if i % 2 == 0 and num % 2 != 0)`
-   The generator expression is not enclosed in square brackets. To fix this, wrap the entire expression in square brackets.
+2. "sum(num for i, num in enumerate(lst) if i % 2 == 0 and num % 2 != 0)"
+The generator expression is not enclosed in square brackets. To fix this, wrap the entire expression in square brackets.
 
-The corrected code should look like:
-`return sum([num for i, num in enumerate(lst) if i % 2 == 0 and num % 2 != 0])`
+Corrected code:
+return sum([num for i, num in enumerate(lst) if i % 2 == 0 and num % 2 != 0])

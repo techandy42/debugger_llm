@@ -70,14 +70,6 @@ The buggy code contains one issue:
 TARGET ANALYSIS:
 The buggy code contains one issue:
 
-`return sorted(arr)[-k:]`
-
-This line fails to handle the case when k is 0. To fix it, add a check for k == 0 at the beginning of the function and return an empty list in that case. The correct implementation should be:
-
-```python
-if k == 0:
-    return []
-return sorted(arr)[-k:]
-```
-
-This change ensures the function handles all valid inputs correctly.
+1. Unhandled Edge Case:
+- If k = 0, then `[-k:]` in line `return sorted(arr)[-k:]` returns the entire array, which is incorrect.
+- To fix this, add a conditional check if k is 0, then return an empty list.

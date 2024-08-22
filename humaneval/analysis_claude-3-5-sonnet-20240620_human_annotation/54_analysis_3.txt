@@ -49,10 +49,7 @@ The buggy code contains one issue:
 TARGET ANALYSIS:
 The buggy code contains one issue:
 
-`set(s0) == set(s1)`
-
-This line compares the sets of characters in s0 and s1, but it doesn't return the result. To fix this, add a return statement:
-
-return set(s0) == set(s1)
-
-This will correctly return True if the sets of characters in both strings are equal, and False otherwise.
+1. Missing Return Statement:
+- As outlined in the function description, the function should return the computed boolean value.
+- The buggy code is missing the return statement to return the result of the line `set(s0) == set(s1)`.
+- To fix this, add a return statement to line `set(s0) == set(s1)`.
