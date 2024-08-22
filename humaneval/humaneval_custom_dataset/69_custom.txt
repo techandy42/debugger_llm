@@ -8,5 +8,5 @@ The buggy code contains two issues:
 - To fix this, remove the comment or add the comment symbol "#" at the beginning of the line.
 
 2. Incorrect Indentation:
-- The rest of the code has an additional level of indentation, which causes a runtime error.
+- The rest of the code has an additional level of indentation, which causes a indentation error.
 - To fix this, remove an additional level of indentation from the code.

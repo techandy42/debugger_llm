@@ -1,3 +1,8 @@
 TASK ID: HumanEval/118
 
 CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Identation Issue:
+- The lines following the line `vowels = set('aeiouAEIOU')` has an unnecessary additional level of indentation, which causes indentation error.
+- To fix this, remove an additional level of indentation from the lines following the line `vowels = set('aeiouAEIOU')`.
