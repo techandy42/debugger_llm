@@ -1,0 +1,81 @@
+TASK ID: HumanEval/116
+
+GROUND TRUTH SOLUTION:
+def sort_array(arr):
+    """
+    In this Kata, you have to sort an array of non-negative integers according to
+    number of ones in their binary representation in ascending order.
+    For similar number of ones, sort based on decimal value.
+
+    It must be implemented like this:
+    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
+    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
+    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]
+    """
+    return sorted(sorted(arr), key=lambda x: bin(x)[2:].count('1'))
+
+BUGGY SOLUTION:
+def sort_array(arr):
+    """
+    In this Kata, you have to sort an array of non-negative integers according to
+    number of ones in their binary representation in ascending order.
+    For similar number of ones, sort based on decimal value.
+
+    It must be implemented like this:
+    >>> sort_array([1, 5, 2, 3, 4]) == [1, 2, 3, 4, 5]
+    >>> sort_array([-2, -3, -4, -5, -6]) == [-6, -5, -4, -3, -2]
+    >>> sort_array([1, 0, 2, 3, 4]) [0, 1, 2, 3, 4]
+    """
+    Here's the implementation of the `sort_array` function based on the provided docstring:
+    
+        return sorted(arr, key=lambda x: (bin(abs(x)).count('1'), x))
+
+CUSTOM ANALYSIS:
+The buggy code contains two issues:
+
+1. Non-Code Comment in Code:
+- The comment `Here's the implementation of the `sort_array` function based on the provided docstring:` does not have a comment symbol in front of it, which causes runtime error.
+- To fix this, remove the comment entirely, or add a comment symbol `#` in front of it.
+
+2. Incorrect Indentation:
+- The line `return sorted(arr, key=lambda x: (bin(abs(x)).count('1'), x))` contains an additional level of indentation compared to the comments in the function description, which causes a indentation error.
+- To fix this, remove a level of identation from the line so it aligns with the comments in the function description.
+
+TARGET ANALYSIS:
+The buggy code contains the following issues:
+
+1. `"Here's the implementation of the `sort_array` function based on the provided docstring:"` should be removed as it's not part of the function implementation.
+
+2. `bin(abs(x))` should be `bin(x)[2:]`. The `abs()` function is unnecessary and may lead to incorrect results for negative numbers. Also, we need to remove the '0b' prefix from the binary representation.
+
+3. The sorting order is incorrect. It should first sort by decimal value, then by the number of ones in the binary representation.
+
+To fix these issues:
+1. Remove the explanatory text.
+2. Use `bin(x)[2:]` instead of `bin(abs(x))`.
+3. Change the sorting key to `sorted(sorted(arr), key=lambda x: bin(x)[2:].count('1'))`.
+
+SCORES (i.e. TARGET ANALYSIS):
+- Q1: Did this critique point out the particular problem described just above?
+- Guideline: 1: definitely missed, 4: I'm unsure, 7: definitely included
+- S1: _/7
+
+- Q2: Are there any clear and severe problems that the critique missed?
+- Guideline: 1: missing problems, 4: I'm unsure, 7: all problems mentioned
+- S2: _/7
+
+- Q3: Does the critique have ≥ 1 NITPICK
+- Guideline: 1: no, 4: I'm unsure, 7: yes
+- S3: _/7
+
+- Q4: Does the critique have ≥ 1 FAKE PROBLEM?
+- Guideline: 1: no, 4: I'm unsure, 7: yes
+- S4: _/7
+
+- Q5: How concise is this critique?
+- Guideline: 1: very wordy, 4: I'm unsure, 7: very concise
+- S5: _/7
+
+- Q6: Overall, how good is this critique relative to the others?
+- Guideline: 1: this is the worst critique, 7: this is the best critique
+- S6: _/7

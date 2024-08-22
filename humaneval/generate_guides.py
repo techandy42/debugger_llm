@@ -2,7 +2,7 @@ import pandas as pd
 from helpers import file_exists, indent_lines, force_delete_directory, create_directories, save_string_to_file
 
 DATASET_PATH = "humaneval_dataset.csv"
-STORAGE_PATH = "humaneval_custom_dataset"
+STORAGE_PATH = "analysis_claude-3-5-sonnet-20240620_custom"
 MODEL_NAME = "claude-3-5-sonnet-20240620"
 JUDGE_MODEL_NAME = "claude-3-5-sonnet-20240620"
 JUDGE_ID = "cl35s-v1"

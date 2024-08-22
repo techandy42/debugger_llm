@@ -29,16 +29,18 @@ def extract_text_from_file(file_path):
     return task_id, remaining_text
 
 DATASET_PATH = "humaneval_dataset.csv"
+DIRECTORY_PATH = "analysis_claude-3-5-sonnet-20240620_custom"
+COL_NAME = "analysis_claude-3-5-sonnet-20240620_custom"
 
 if file_exists(DATASET_PATH):
   humaneval_train_df = pd.read_csv(DATASET_PATH)
 else:
   raise FileNotFoundError(f"File {DATASET_PATH} not found")
 
-custom_analysis_filenames = get_custom_txt_files('humaneval_custom_dataset')
+custom_analysis_filenames = get_custom_txt_files(DIRECTORY_PATH)
 for filename in custom_analysis_filenames:
-    file_path = os.path.join('humaneval_custom_dataset', filename)
+    file_path = os.path.join(DIRECTORY_PATH, filename)
     task_id, content = extract_text_from_file(file_path)
-    humaneval_train_df.loc[humaneval_train_df['task_id'] == task_id, 'analysis_claude-3-5-sonnet-20240620_custom'] = content
+    humaneval_train_df.loc[humaneval_train_df['task_id'] == task_id, COL_NAME] = content
 
 humaneval_train_df.to_csv(DATASET_PATH, index=False)
