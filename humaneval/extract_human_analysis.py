@@ -39,6 +39,6 @@ custom_analysis_filenames = get_custom_txt_files('humaneval_custom_dataset')
 for filename in custom_analysis_filenames:
     file_path = os.path.join('humaneval_custom_dataset', filename)
     task_id, content = extract_text_from_file(file_path)
-    humaneval_train_df.loc[humaneval_train_df['task_id'] == task_id, 'analysis_custom'] = content
+    humaneval_train_df.loc[humaneval_train_df['task_id'] == task_id, 'analysis_claude-3-5-sonnet-20240620_custom'] = content
 
 humaneval_train_df.to_csv(DATASET_PATH, index=False)
