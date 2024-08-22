@@ -1,0 +1,70 @@
+TASK ID: HumanEval/86
+
+GROUND TRUTH SOLUTION:
+def anti_shuffle(s):
+    """
+    Write a function that takes a string and returns an ordered version of it.
+    Ordered version of string, is a string where all words (separated by space)
+    are replaced by a new word where all the characters arranged in
+    ascending order based on ascii value.
+    Note: You should keep the order of words and blank spaces in the sentence.
+
+    For example:
+    anti_shuffle('Hi') returns 'Hi'
+    anti_shuffle('hello') returns 'ehllo'
+    anti_shuffle('Hello World!!!') returns 'Hello !!!Wdlor'
+    """
+    return ' '.join([''.join(sorted(list(i))) for i in s.split(' ')])
+
+BUGGY SOLUTION:
+def anti_shuffle(s):
+    """
+    Write a function that takes a string and returns an ordered version of it.
+    Ordered version of string, is a string where all words (separated by space)
+    are replaced by a new word where all the characters arranged in
+    ascending order based on ascii value.
+    Note: You should keep the order of words and blank spaces in the sentence.
+
+    For example:
+    anti_shuffle('Hi') returns 'Hi'
+    anti_shuffle('hello') returns 'ehllo'
+    anti_shuffle('Hello World!!!') returns 'Hello !!!Wdlor'
+    """
+    words = s.split()
+    ordered_words = []
+    
+    for word in words:
+        alpha = ''.join(char for char in word if char.isalnum())
+        non_alpha = ''.join(char for char in word if not char.isalnum())
+        ordered_alpha = ''.join(sorted(alpha))
+        ordered_word = ordered_alpha + non_alpha
+        ordered_words.append(ordered_word)
+    
+    return ' '.join(ordered_words)
+
+CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Unnecessary Separation Between Alphabet and Non-alphabet Characters:
+- The buggy code separates alphabetic and non-alphabetic characters, which is not required in the function description, and will output incorrect answers.
+- To fix this, remove all code that separates the alphabet characters from non-alphabet characters. The code within the line `for word in words:` should only contain the following, for example:
+```python
+ordered_words.append(''.join(sorted(word)))
+```
+
+TARGET ANALYSIS:
+The buggy code contains two issues:
+
+1. `''.join(char for char in word if char.isalnum())` and `''.join(char for char in word if not char.isalnum())`
+
+These lines separate alphabetic and non-alphabetic characters, which is unnecessary and incorrect. All characters should be sorted together.
+
+2. `ordered_alpha + non_alpha`
+
+This line reattaches the non-alphabetic characters at the end, which is incorrect. All characters should be sorted together.
+
+To fix these issues, replace the entire loop with a list comprehension that sorts all characters in each word:
+
+`[''.join(sorted(list(word))) for word in s.split()]`
+
+This correctly sorts all characters in each word while maintaining word order and spaces.

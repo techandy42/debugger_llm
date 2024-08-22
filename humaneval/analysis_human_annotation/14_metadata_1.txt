@@ -1,2 +1,2 @@
 TASK ID: HumanEval/14
-COL NAME: analysis_claude-3-5-sonnet-20240620_custom
+COL NAME: analysis_claude-3-5-sonnet-20240620_wt_cl35s-v1_rd3

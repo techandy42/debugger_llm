@@ -1,0 +1,47 @@
+TASK ID: HumanEval/79
+
+GROUND TRUTH SOLUTION:
+def decimal_to_binary(decimal):
+    """You will be given a number in decimal form and your task is to convert it to
+    binary format. The function should return a string, with each character representing a binary
+    number. Each character in the string will be '0' or '1'.
+
+    There will be an extra couple of characters 'db' at the beginning and at the end of the string.
+    The extra characters are there to help with the format.
+
+    Examples:
+    decimal_to_binary(15)   # returns "db1111db"
+    decimal_to_binary(32)   # returns "db100000db"
+    """
+    return "db" + bin(decimal)[2:] + "db"
+
+BUGGY SOLUTION:
+def decimal_to_binary(decimal):
+    """You will be given a number in decimal form and your task is to convert it to
+    binary format. The function should return a string, with each character representing a binary
+    number. Each character in the string will be '0' or '1'.
+
+    There will be an extra couple of characters 'db' at the beginning and at the end of the string.
+    The extra characters are there to help with the format.
+
+    Examples:
+    decimal_to_binary(15)   # returns "db1111db"
+    decimal_to_binary(32)   # returns "db100000db"
+    """
+    binary = bin(decimal)[2:]  # Convert to binary and remove '0b' prefix
+    padded_binary = binary.zfill(8)  # Pad with zeros to ensure at least 8 bits
+    return "db" + padded_binary + "db"
+
+CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Unnecessary Code:
+- The line `padded_binary = binary.zfill(8)` pads the binary with zeroes to ensure at least 8 bits, which is unnecessary operation that causes the output to be different than what was specified in the function description.
+- To fix this, remove the line `padded_binary = binary.zfill(8)`.
+
+TARGET ANALYSIS:
+The buggy code contains one issue:
+
+1. Unnecessary Code:
+- The line `padded_binary = binary.zfill(8)` pads the binary with zeroes to ensure at least 8 bits, which is unnecessary operation that causes the output to be different than what was specified in the function description.
+- To fix this, remove the line `padded_binary = binary.zfill(8)`.

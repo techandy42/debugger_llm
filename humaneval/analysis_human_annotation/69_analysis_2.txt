@@ -1,0 +1,69 @@
+TASK ID: HumanEval/69
+
+GROUND TRUTH SOLUTION:
+def search(lst):
+    '''
+    You are given a non-empty list of positive integers. Return the greatest integer that is greater than 
+    zero, and has a frequency greater than or equal to the value of the integer itself. 
+    The frequency of an integer is the number of times it appears in the list.
+    If no such a value exist, return -1.
+    Examples:
+        search([4, 1, 2, 2, 3, 1]) == 2
+        search([1, 2, 2, 3, 3, 3, 4, 4, 4]) == 3
+        search([5, 5, 4, 4, 4]) == -1
+    '''
+    frq = [0] * (max(lst) + 1)
+    for i in lst:
+        frq[i] += 1;
+
+    ans = -1
+    for i in range(1, len(frq)):
+        if frq[i] >= i:
+            ans = i
+    
+    return ans
+
+BUGGY SOLUTION:
+def search(lst):
+    '''
+    You are given a non-empty list of positive integers. Return the greatest integer that is greater than 
+    zero, and has a frequency greater than or equal to the value of the integer itself. 
+    The frequency of an integer is the number of times it appears in the list.
+    If no such a value exist, return -1.
+    Examples:
+        search([4, 1, 2, 2, 3, 1]) == 2
+        search([1, 2, 2, 3, 3, 3, 4, 4, 4]) == 3
+        search([5, 5, 4, 4, 4]) == -1
+    '''
+    Here's the implementation of the `search` function based on the provided docstring:
+    
+        from collections import Counter
+    
+        count = Counter(lst)
+        result = -1
+    
+        for num, freq in count.items():
+            if num > 0 and freq >= num and num > result:
+                result = num
+    
+        return result
+
+CUSTOM ANALYSIS:
+The buggy code contains two issues:
+
+1. Missing Comment Symbol/Non-Code Text in Code:
+- The comment `Here's the implementation of the `search` function based on the provided docstring:` is inside the function without the comment symbol.
+- To fix this, remove the comment or add the comment symbol "#" at the beginning of the line.
+
+2. Incorrect Indentation:
+- The rest of the code has an additional level of indentation, which causes a indentation error.
+- To fix this, remove an additional level of indentation from the code.
+
+TARGET ANALYSIS:
+The buggy code contains the following issue:
+
+"Here's the implementation of the `search` function based on the provided docstring:"
+
+This line should be removed as it's not part of the actual code implementation.
+
+To fix this, simply remove the line and start the function with the import statement. The correct implementation should use a frequency list approach instead of Counter, initialize the list with the maximum value in the input, and iterate through the frequency list to find the answer.

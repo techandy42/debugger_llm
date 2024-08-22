@@ -1,0 +1,53 @@
+TASK ID: HumanEval/65
+
+GROUND TRUTH SOLUTION:
+def circular_shift(x, shift):
+    """Circular shift the digits of the integer x, shift the digits right by shift
+    and return the result as a string.
+    If shift > number of digits, return digits reversed.
+    >>> circular_shift(12, 1)
+    "21"
+    >>> circular_shift(12, 2)
+    "12"
+    """
+    s = str(x)
+    if shift > len(s):
+        return s[::-1]
+    else:
+        return s[len(s) - shift:] + s[:len(s) - shift]
+
+BUGGY SOLUTION:
+def circular_shift(x, shift):
+    """Circular shift the digits of the integer x, shift the digits right by shift
+    and return the result as a string.
+    If shift > number of digits, return digits reversed.
+    >>> circular_shift(12, 1)
+    "21"
+    >>> circular_shift(12, 2)
+    "12"
+    """
+    str_x = str(x)
+    length = len(str_x)
+    
+    if shift >= length:
+        return str_x[::-1]
+    
+    shifted = str_x[-shift:] + str_x[:-shift]
+    return shifted
+
+CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Incorrect Operator:
+- The comment in the function definition states that the digits are reversed if shift > number of digits.
+- However, in the buggy code, the line `if shift >= length:` incorrectly uses >= operator instead of >.
+- To fix this, replace >= with > operator in line `if shift >= length:`.
+
+TARGET ANALYSIS:
+The buggy code contains one issue:
+
+`if shift >= length:`
+
+This condition should be `if shift > length:`. The current implementation reverses the string when shift is equal to the length, which is incorrect. The string should only be reversed when shift is strictly greater than the length.
+
+To fix this, change the condition to `if shift > length:` to match the correct implementation.

@@ -3,9 +3,9 @@ TASK ID: HumanEval/132
 CUSTOM ANALYSIS:
 The buggy code contains two issues:
 
-1. Identation Issue:
+1. Indentation Issue:
 - The lines following the line `stack = []` have an addition level of indentation, which causes indentation error.
-- To fix this, remove an additional level of identation from all of the lines following the line `stack = []`.
+- To fix this, remove an additional level of Indentation from all of the lines following the line `stack = []`.
 
 2. Logic Error:
 - The buggy code checks if there is equal or more number of opening brackets than closing brackets in a series of nested brackets, without checking if the nested brackets close properly.

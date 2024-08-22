@@ -1,0 +1,44 @@
+TASK ID: HumanEval/14
+
+GROUND TRUTH SOLUTION:
+from typing import List
+
+
+def all_prefixes(string: str) -> List[str]:
+    """ Return list of all prefixes from shortest to longest of the input string
+    >>> all_prefixes('abc')
+    ['a', 'ab', 'abc']
+    """
+    result = []
+
+    for i in range(len(string)):
+        result.append(string[:i+1])
+    return result
+
+BUGGY SOLUTION:
+from typing import List
+
+
+def all_prefixes(string: str) -> List[str]:
+    """ Return list of all prefixes from shortest to longest of the input string
+    >>> all_prefixes('abc')
+    ['a', 'ab', 'abc']
+    """
+    prefixes = []
+        for i in range(1, len(string) + 1):
+            prefixes.append(string[:i])
+        return prefixes
+
+CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Indentation Issue:
+- The lines following the line `prefixes = []` have an additional level of indentation, which causes indentation error.
+- To fix this, remove a level of indentation from all of the lines following the line `prefixes = []`.
+
+TARGET ANALYSIS:
+The buggy code contains one issue:
+
+1. Indentation Issue:
+- The lines following the line `prefixes = []` have an additional level of indentation, which causes indentation error.
+- To fix this, remove a level of indentation from all of the lines following the line `prefixes = []`.

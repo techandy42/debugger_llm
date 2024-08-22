@@ -9,4 +9,4 @@ The buggy code contains two issues:
 
 2. Incorrect Indentation:
 - The line `return sorted(arr, key=lambda x: (bin(abs(x)).count('1'), x))` contains an additional level of indentation compared to the comments in the function description, which causes a indentation error.
-- To fix this, remove a level of identation from the line so it aligns with the comments in the function description.
+- To fix this, remove a level of Indentation from the line so it aligns with the comments in the function description.

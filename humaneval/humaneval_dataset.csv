@@ -137,9 +137,9 @@ To fix this, simply remove the extra indentation for these lines. The correct im
 
 To fix this, remove the extra indentation before the for loop. The correct implementation uses a depth counter instead of a stack, incrementing for '<' and decrementing for '>', returning False if depth becomes negative, and True if depth is 0 at the end.","The buggy code contains one issue:
 
-1. Identation Issue:
+1. Indentation Issue:
 - The lines following the line `stack = []` has an additional level of indentation, which causes indentation error.
-- To fix this, remove a level of identation from all of the lines from the line `stack = []`."
+- To fix this, remove a level of Indentation from all of the lines from the line `stack = []`."
 HumanEval/122,"
 def add_elements(arr, k):
     """"""
@@ -3104,7 +3104,7 @@ The `for` loop and its contents should be at the same indentation level as the `
 The `for` loop and its contents should be aligned with the `letter_grades` list initialization. To fix this, remove the extra indentation before the `for` loop and its contents, aligning them with the `letter_grades = []` line.","The buggy code contains one issue:
 
 1. Indentation Issue:
-- The lines following the line `letter_grades = []` has an additional level of identation which causes indentation error.
+- The lines following the line `letter_grades = []` has an additional level of Indentation which causes indentation error.
 - To fix this, remove a level of indentation from all of the lines following the line ""letter_grades = []""."
 HumanEval/135,"
 def can_arrange(arr):
@@ -3564,7 +3564,7 @@ This implementation correctly finds the minimum path by alternating between 1 an
 - To fix this, remove the comment entirely, or add a comment symbol `#` in front of it.
 
 2. Incorrect Indentation:
-- All of the lines following the non-code comment have an additional level of identation, which causes indentation error.
+- All of the lines following the non-code comment have an additional level of Indentation, which causes indentation error.
 - To fix this, remove an additional level of indentation from all of the valid-code lines."
 HumanEval/98,"
 def count_upper(s):
@@ -6453,7 +6453,7 @@ This ensures correct handling of negative numbers and proper sorting based on bo
 
 2. Incorrect Indentation:
 - The line `return sorted(arr, key=lambda x: (bin(abs(x)).count('1'), x))` contains an additional level of indentation compared to the comments in the function description, which causes a indentation error.
-- To fix this, remove a level of identation from the line so it aligns with the comments in the function description."
+- To fix this, remove a level of Indentation from the line so it aligns with the comments in the function description."
 HumanEval/26,"from typing import List
 
 
@@ -7865,7 +7865,7 @@ These changes will make the code functionally equivalent to the correct implemen
 
 These changes will make the function work correctly for all input cases, including short words.","The buggy code contains one issue:
 
-1. Identation Issue:
+1. Indentation Issue:
 - The lines following the line `vowels = set('aeiouAEIOU')` has an unnecessary additional level of indentation, which causes indentation error.
 - To fix this, remove an additional level of indentation from the lines following the line `vowels = set('aeiouAEIOU')`."
 HumanEval/42,"
@@ -10785,9 +10785,9 @@ To fix these issues:
 
 The correct implementation should track the indices of opening and closing brackets separately, reverse the closing bracket indices, and then count the number of valid nested pairs. It should return True if there are at least two nested pairs.","The buggy code contains two issues:
 
-1. Identation Issue:
+1. Indentation Issue:
 - The lines following the line `stack = []` have an addition level of indentation, which causes indentation error.
-- To fix this, remove an additional level of identation from all of the lines following the line `stack = []`.
+- To fix this, remove an additional level of Indentation from all of the lines following the line `stack = []`.
 
 2. Logic Error:
 - The buggy code checks if there is equal or more number of opening brackets than closing brackets in a series of nested brackets, without checking if the nested brackets close properly.
@@ -11813,11 +11813,11 @@ def parse_nested_parens(paren_string: str) -> List[int]:
 
 This aligns with the correct implementation and ensures proper function structure.","The buggy code contains one issue:
 
-1. Identation Issue:
+1. Indentation Issue:
 - The code is indented incorrectly.
-- Specifically, the line `result = []` uses three spaces for identation, while the rest of the code uses four spaces.
-- Additionally, the code has an additional identation level that is not necessary.
-- To fix this, remove the three spaces of identation from the line `result = []` and four spaces of identation from the rest of the code so they align with the comments in the function."
+- Specifically, the line `result = []` uses three spaces for Indentation, while the rest of the code uses four spaces.
+- Additionally, the code has an additional Indentation level that is not necessary.
+- To fix this, remove the three spaces of Indentation from the line `result = []` and four spaces of Indentation from the rest of the code so they align with the comments in the function."
 HumanEval/102,"
 def choose_num(x, y):
     """"""This function takes two positive numbers x and y and returns the
@@ -12689,7 +12689,7 @@ To fix these issues:
 
 These changes will ensure all prefixes are included, starting from the shortest to the longest.","The buggy code contains one issue:
 
-1. Identation Issue:
+1. Indentation Issue:
 - The lines following the line `prefixes = []` have an additional level of indentation, which causes indentation error.
 - To fix this, remove a level of indentation from all of the lines following the line `prefixes = []`."
 HumanEval/141,"

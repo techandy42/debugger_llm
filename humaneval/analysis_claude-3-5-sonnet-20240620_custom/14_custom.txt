@@ -3,6 +3,6 @@ TASK ID: HumanEval/14
 CUSTOM ANALYSIS:
 The buggy code contains one issue:
 
-1. Identation Issue:
+1. Indentation Issue:
 - The lines following the line `prefixes = []` have an additional level of indentation, which causes indentation error.
 - To fix this, remove a level of indentation from all of the lines following the line `prefixes = []`.

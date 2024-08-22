@@ -1,0 +1,27 @@
+TASK ID: HumanEval/120
+ANALYSIS ID: 1 
+
+SCORES (0-7):
+- Q1: Did this critique point out the particular problem described just above?
+- Guideline: 1: definitely missed, 4: I'm unsure, 7: definitely included
+- S1: _/7
+
+- Q2: Are there any clear and severe problems that the critique missed?
+- Guideline: 1: missing problems, 4: I'm unsure, 7: all problems mentioned
+- S2: _/7
+
+- Q3: Does the critique have ≥ 1 NITPICK
+- Guideline: 1: no, 4: I'm unsure, 7: yes
+- S3: _/7
+
+- Q4: Does the critique have ≥ 1 FAKE PROBLEM?
+- Guideline: 1: no, 4: I'm unsure, 7: yes
+- S4: _/7
+
+- Q5: How concise is this critique?
+- Guideline: 1: very wordy, 4: I'm unsure, 7: very concise
+- S5: _/7
+
+- Q6: Overall, how good is this critique relative to the others?
+- Guideline: 1: this is the worst critique, 7: this is the best critique
+- S6: _/7

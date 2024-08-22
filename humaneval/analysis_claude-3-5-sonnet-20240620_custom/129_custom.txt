@@ -8,5 +8,5 @@ The buggy code contains two issues:
 - To fix this, remove the comment entirely, or add a comment symbol `#` in front of it.
 
 2. Incorrect Indentation:
-- All of the lines following the non-code comment have an additional level of identation, which causes indentation error.
+- All of the lines following the non-code comment have an additional level of Indentation, which causes indentation error.
 - To fix this, remove an additional level of indentation from all of the valid-code lines.

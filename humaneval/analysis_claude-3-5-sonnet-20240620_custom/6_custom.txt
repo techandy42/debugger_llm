@@ -3,8 +3,8 @@ TASK ID: HumanEval/6
 CUSTOM ANALYSIS:
 The buggy code contains one issue:
 
-1. Identation Issue:
+1. Indentation Issue:
 - The code is indented incorrectly.
-- Specifically, the line `result = []` uses three spaces for identation, while the rest of the code uses four spaces.
-- Additionally, the code has an additional identation level that is not necessary.
-- To fix this, remove the three spaces of identation from the line `result = []` and four spaces of identation from the rest of the code so they align with the comments in the function.
+- Specifically, the line `result = []` uses three spaces for Indentation, while the rest of the code uses four spaces.
+- Additionally, the code has an additional Indentation level that is not necessary.
+- To fix this, remove the three spaces of Indentation from the line `result = []` and four spaces of Indentation from the rest of the code so they align with the comments in the function.

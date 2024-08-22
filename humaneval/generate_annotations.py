@@ -71,8 +71,11 @@ CUSTOM ANALYSIS:
 
 TARGET ANALYSIS:
 {analysis}
+"""
+      scoring_content = f"""TASK ID: {task_id}
+ANALYSIS ID: {idx+1} 
 
-SCORES (i.e. TARGET ANALYSIS):
+SCORES (0-7):
 - Q1: Did this critique point out the particular problem described just above?
 - Guideline: 1: definitely missed, 4: I'm unsure, 7: definitely included
 - S1: _/7
@@ -102,10 +105,12 @@ SCORES (i.e. TARGET ANALYSIS):
 COL NAME: {analysis_col_name}
 """
 
-      file_path_analysis = f'{STORAGE_PATH}/{task_id[10:]}_{idx+1}.txt'
+      file_path_analysis = f'{STORAGE_PATH}/{task_id[10:]}_analysis_{idx+1}.txt'
+      file_path_scoring = f'{STORAGE_PATH}/{task_id[10:]}_scoring_{idx+1}.txt'
       file_path_metadata = f'{STORAGE_PATH}/{task_id[10:]}_metadata_{idx+1}.txt'
       create_directories(file_path_analysis)
       save_string_to_file(file_path_analysis, analysis_content)
+      save_string_to_file(file_path_scoring, scoring_content)
       save_string_to_file(file_path_metadata, metadata_content)
 
     break
