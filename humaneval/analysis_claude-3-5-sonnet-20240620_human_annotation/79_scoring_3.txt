@@ -20,8 +20,8 @@ SCORES (0-7):
 
 - Q5: How concise is this critique?
 - Guideline: 1: very wordy, 4: I'm unsure, 7: very concise
-- S5: _/7
+- S5: 5/7
 
 - Q6: Overall, how good is this critique relative to the others?
 - Guideline: 1: this is the worst critique, 7: this is the best critique
-- S6: _/7
+- S6: 4/7
