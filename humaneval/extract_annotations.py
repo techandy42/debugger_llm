@@ -100,4 +100,6 @@ for idx, row in humaneval_train_df.iterrows():
           humaneval_train_df[score_col_name] = None
         humaneval_train_df.at[idx, score_col_name] = scores[key]
 
+    break
+
 save_dataframe_to_csv(humaneval_train_df, DATASET_PATH, index=False)
