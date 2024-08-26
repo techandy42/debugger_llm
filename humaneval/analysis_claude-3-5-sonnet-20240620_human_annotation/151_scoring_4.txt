@@ -8,7 +8,7 @@ SCORES (0-7):
 
 - Q2: Are there any clear and severe problems that the critique missed?
 - Guideline: 1: missing problems, 4: I'm unsure, 7: all problems mentioned
-- S2: _7/7
+- S2: 7/7
 
 - Q3: Does the critique have ≥ 1 NITPICK
 - Guideline: 1: no, 4: I'm unsure, 7: yes
