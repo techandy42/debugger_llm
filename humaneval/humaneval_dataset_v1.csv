@@ -1,4 +1,4 @@
-task_id,prompt,canonical_solution,test,entry_point,analysis_rd1,analysis_rd2,analysis_rd3,analysis_custom,score_s1_custom,score_s2_custom,score_s3_custom,score_s4_custom,score_s5_custom,score_s6_custom,score_s1_rd1,score_s2_rd1,score_s3_rd1,score_s4_rd1,score_s5_rd1,score_s6_rd1,score_s1_rd2,score_s2_rd2,score_s3_rd2,score_s4_rd2,score_s5_rd2,score_s6_rd2,score_s1_rd3,score_s2_rd3,score_s3_rd3,score_s4_rd3,score_s5_rd3,score_s6_rd3
+task_id,prompt,canonical_solution,test,entry_point,result,analysis_rd1,analysis_rd2,analysis_rd3,analysis_custom,score_s1_custom,score_s2_custom,score_s3_custom,score_s4_custom,score_s5_custom,score_s6_custom,score_s1_rd1,score_s2_rd1,score_s3_rd1,score_s4_rd1,score_s5_rd1,score_s6_rd1,score_s1_rd2,score_s2_rd2,score_s3_rd2,score_s4_rd2,score_s5_rd2,score_s6_rd2,score_s1_rd3,score_s2_rd3,score_s3_rd3,score_s4_rd3,score_s5_rd3,score_s6_rd3
 HumanEval/6,"from typing import List
 
 
@@ -35,7 +35,18 @@ def check(candidate):
     assert candidate('(()()) ((())) () ((())()())') == [2, 3, 1, 3]
     assert candidate('() (()) ((())) (((())))') == [1, 2, 3, 4]
     assert candidate('(()(())((())))') == [4]
-",parse_nested_parens,"There are two bugs in the buggy code:
+",parse_nested_parens,"   result = []
+    for group in paren_string.split():
+        depth = 0
+        max_depth = 0
+        for char in group:
+            if char == '(':
+                depth += 1
+                max_depth = max(max_depth, depth)
+            elif char == ')':
+                depth -= 1
+        result.append(max_depth)
+    return result","There are two bugs in the buggy code:
 
 1. `""result = []""` and `""for group in paren_string.split():""` are indented incorrectly. They should be at the same level as the function definition.
 
@@ -105,7 +116,10 @@ def check(candidate):
     assert candidate('') == []
     assert candidate('asdfgh') == ['a', 'as', 'asd', 'asdf', 'asdfg', 'asdfgh']
     assert candidate('WWW') == ['W', 'WW', 'WWW']
-",all_prefixes,"There are two bugs in the buggy code:
+",all_prefixes,"prefixes = []
+    for i in range(1, len(string) + 1):
+        prefixes.append(string[:i])
+    return prefixes","There are two bugs in the buggy code:
 
 1. `prefixes = []` is not properly indented. It should be aligned with the function body.
 
@@ -170,7 +184,7 @@ def check(candidate):
     assert candidate('eabcdzzzz', 'dddzzzzzzzddddabc') == False
     assert candidate('aabb', 'aaccc') == False
 
-",same_chars,"The buggy code contains one issue:
+",same_chars,set(s0) == set(s1),"The buggy code contains one issue:
 
 `set(s0) == set(s1)`
 
@@ -243,7 +257,17 @@ def check(candidate):
     assert not candidate(""<><><<><>><>><<>"")
     assert not candidate(""<><><<><>><>>><>"")
 
-",correct_bracketing,"The buggy code has one issue:
+",correct_bracketing,"stack = []
+    
+    for bracket in brackets:
+        if bracket == '<':
+            stack.append(bracket)
+        elif bracket == '>':
+            if not stack:
+                return False
+            stack.pop()
+    
+    return len(stack) == 0","The buggy code has one issue:
 
 `for bracket in brackets:` is indented incorrectly. It should be at the same level as `stack = []`.
 
@@ -297,7 +321,16 @@ def check(candidate):
     assert candidate(12) == 274
     assert candidate(14) == 927
 
-",fibfib,"The buggy code contains no actual bugs. It's an alternative, more efficient implementation of the fibfib function using iteration instead of recursion. This implementation correctly handles the base cases and calculates the nth FibFib number using three variables to keep track of the previous three values in the sequence.",The buggy code actually doesn't contain any bugs. It's an efficient implementation of the fibfib sequence using iteration instead of recursion. Both the buggy code and the ground truth code will produce the same correct results for the fibfib sequence.,"The buggy code contains no actual bugs. It's an alternative, more efficient implementation of the fibfib function using iteration instead of recursion. This approach avoids redundant calculations and has better time complexity for larger values of n.
+",fibfib,"if n < 2:
+        return 0
+    elif n == 2:
+        return 1
+    
+    a, b, c = 0, 0, 1
+    for _ in range(3, n + 1):
+        a, b, c = b, c, a + b + c
+    
+    return c","The buggy code contains no actual bugs. It's an alternative, more efficient implementation of the fibfib function using iteration instead of recursion. This implementation correctly handles the base cases and calculates the nth FibFib number using three variables to keep track of the previous three values in the sequence.",The buggy code actually doesn't contain any bugs. It's an efficient implementation of the fibfib sequence using iteration instead of recursion. Both the buggy code and the ground truth code will produce the same correct results for the fibfib sequence.,"The buggy code contains no actual bugs. It's an alternative, more efficient implementation of the fibfib function using iteration instead of recursion. This approach avoids redundant calculations and has better time complexity for larger values of n.
 
 The only minor issue is the indentation of the first three lines inside the function, which should be aligned with the rest of the code:
 
@@ -339,7 +372,14 @@ def circular_shift(x, shift):
     # Check some edge cases that are easy to work out by hand.
     assert candidate(11, 101) == ""11"", ""This prints if this assert fails 2 (also good for debugging!)""
 
-",circular_shift,"The buggy code contains one bug:
+",circular_shift,"str_x = str(x)
+length = len(str_x)
+
+if shift >= length:
+    return str_x[::-1]
+
+shifted = str_x[-shift:] + str_x[:-shift]
+return shifted","The buggy code contains one bug:
 
 `if shift >= length:`
 
@@ -412,7 +452,18 @@ def search(lst):
     assert candidate([7, 9, 9, 9, 3, 4, 1, 5, 9, 1, 2, 1, 1, 10, 7, 5, 6, 7, 6, 7, 7, 6]) == 1
     assert candidate([3, 10, 10, 9, 2]) == -1
 
-",search,"The buggy code contains two issues:
+",search,"Here's the implementation of the `search` function based on the provided docstring:
+
+    from collections import Counter
+
+    count = Counter(lst)
+    result = -1
+
+    for num, freq in count.items():
+        if num > 0 and freq >= num and num > result:
+            result = num
+
+    return result","The buggy code contains two issues:
 
 1. ""Here's the implementation of the `search` function based on the provided docstring:"" should be removed as it's not part of the function implementation.
 
@@ -462,7 +513,9 @@ def decimal_to_binary(decimal):
     # Check some edge cases that are easy to work out by hand.
     assert True, ""This prints if this assert fails 2 (also good for debugging!)""
 
-",decimal_to_binary,"The buggy code contains one issue:
+",decimal_to_binary,"binary = bin(decimal)[2:]  # Convert to binary and remove '0b' prefix
+padded_binary = binary.zfill(8)  # Pad with zeros to ensure at least 8 bits
+return ""db"" + padded_binary + ""db""","The buggy code contains one issue:
 
 ""`padded_binary = binary.zfill(8)`""
 
@@ -567,7 +620,35 @@ def numerical_letter_grade(grades):
     # Check some edge cases that are easy to work out by hand.
     assert True
 
-",numerical_letter_grade,"The buggy code contains one indentation error:
+",numerical_letter_grade,"letter_grades = []
+    for gpa in grades:
+        if gpa == 4.0:
+            letter_grades.append('A+')
+        elif gpa > 3.7:
+            letter_grades.append('A')
+        elif gpa > 3.3:
+            letter_grades.append('A-')
+        elif gpa > 3.0:
+            letter_grades.append('B+')
+        elif gpa > 2.7:
+            letter_grades.append('B')
+        elif gpa > 2.3:
+            letter_grades.append('B-')
+        elif gpa > 2.0:
+            letter_grades.append('C+')
+        elif gpa > 1.7:
+            letter_grades.append('C')
+        elif gpa > 1.3:
+            letter_grades.append('C-')
+        elif gpa > 1.0:
+            letter_grades.append('D+')
+        elif gpa > 0.7:
+            letter_grades.append('D')
+        elif gpa > 0.0:
+            letter_grades.append('D-')
+        else:
+            letter_grades.append('E')
+    return letter_grades","The buggy code contains one indentation error:
 
 ```python
     for gpa in grades:
@@ -613,7 +694,7 @@ def starts_one_ends(n):
     # Check some edge cases that are easy to work out by hand.
     assert True, ""This prints if this assert fails 2 (also good for debugging!)""
 
-",starts_one_ends,"The buggy code contains the following issue:
+",starts_one_ends,return 2 * 10**(n - 1) - 10**(n - 2),"The buggy code contains the following issue:
 
 `return 2 * 10**(n - 1) - 10**(n - 2)`
 
@@ -683,7 +764,7 @@ def add(lst):
 
     # Check some edge cases that are easy to work out by hand.
     
-",add,"The buggy code contains one issue:
+",add,"sum(lst[i] for i in range(1, len(lst), 2) if lst[i] % 2 == 0)","The buggy code contains one issue:
 
 `sum(lst[i] for i in range(1, len(lst), 2) if lst[i] % 2 == 0)`
 
@@ -743,7 +824,17 @@ def anti_shuffle(s):
     # Check some edge cases that are easy to work out by hand.
     assert True
 
-",anti_shuffle,"The buggy code contains two issues:
+",anti_shuffle,"words = s.split()
+ordered_words = []
+
+for word in words:
+    alpha = ''.join(char for char in word if char.isalnum())
+    non_alpha = ''.join(char for char in word if not char.isalnum())
+    ordered_alpha = ''.join(sorted(alpha))
+    ordered_word = ordered_alpha + non_alpha
+    ordered_words.append(ordered_word)
+
+return ' '.join(ordered_words)","The buggy code contains two issues:
 
 1. `''.join(char for char in word if char.isalnum())` and `''.join(char for char in word if not char.isalnum())`
 
@@ -820,7 +911,9 @@ def is_bored(S):
     # Check some edge cases that are easy to work out by hand.
     assert True, ""This prints if this assert fails 2 (also good for debugging!)""
 
-",is_bored,"The buggy code contains two issues:
+",is_bored,"sentences = re.split('[.?!]', S)
+boredom_count = sum(1 for sentence in sentences if sentence.strip().startswith('I '))
+return boredom_count","The buggy code contains two issues:
 
 1. `re` module is not imported:
    Add `import re` at the beginning of the function.
@@ -875,7 +968,15 @@ def encode(message):
     assert candidate('This is a message') == 'tHKS KS C MGSSCGG', ""This prints if this assert fails 2 (also good for debugging!)""
     assert candidate(""I DoNt KnOw WhAt tO WrItE"") == 'k dQnT kNqW wHcT Tq wRkTg', ""This prints if this assert fails 2 (also good for debugging!)""
 
-",encode,"Bugs in the buggy code:
+",encode,"vowels = 'aeiouAEIOU'
+encoded = ''
+for char in message:
+    if char.lower() in vowels:
+        new_char = chr((ord(char.lower()) - 97 + 2) % 26 + 97)
+        encoded += new_char.upper() if char.isupper() else new_char
+    else:
+        encoded += char.lower() if char.isupper() else char.upper()
+return encoded","Bugs in the buggy code:
 
 1. `""new_char = chr((ord(char.lower()) - 97 + 2) % 26 + 97)""`:
    This calculation doesn't handle uppercase vowels correctly. It should use a dictionary for vowel replacement.
@@ -964,7 +1065,17 @@ def check_dict_case(dict):
     # Check some edge cases that are easy to work out by hand.
     assert candidate({}) == False, ""1st edge test error: "" + str(candidate({}))
 
-",check_dict_case,"The buggy code contains the following issue:
+",check_dict_case,"if not dict:
+    return False
+
+keys = list(dict.keys())
+if not all(isinstance(key, str) for key in keys):
+    return False
+
+first_key = keys[0]
+expected_case = first_key.islower() if first_key.islower() else first_key.isupper()
+
+return all(key.islower() == expected_case if key.islower() else key.isupper() == expected_case for key in keys)","The buggy code contains the following issue:
 
 `return all(key.islower() == expected_case if key.islower() else key.isupper() == expected_case for key in keys)`
 
@@ -1050,7 +1161,15 @@ def make_a_pile(n):
     # Check some edge cases that are easy to work out by hand.
     assert True, ""This prints if this assert fails 2 (also good for debugging!)""
 
-",make_a_pile,"The buggy code contains two issues:
+",make_a_pile,"pile = [n]
+current = n
+for _ in range(1, n):
+    if current % 2 == 0:
+        current += 2
+    else:
+        current += 1
+    pile.append(current)
+return pile","The buggy code contains two issues:
 
 1. `if current % 2 == 0:
             current += 2
@@ -1168,7 +1287,8 @@ def max_fill(grid, capacity):
     assert candidate([[1,1,1,1], [1,1,1,1]], 2) == 4, ""Error""
     assert candidate([[1,1,1,1], [1,1,1,1]], 9) == 2, ""Error""
 
-",max_fill,"The buggy code contains one issue:
+",max_fill,"total_water = sum(sum(row) for row in grid)
+return math.ceil(total_water / capacity)","The buggy code contains one issue:
 
 `total_water = sum(sum(row) for row in grid)
 return math.ceil(total_water / capacity)`
@@ -1241,7 +1361,9 @@ def sort_array(arr):
     # Check some edge cases that are easy to work out by hand.
     assert True, ""This prints if this assert fails 2 (also good for debugging!)""
 
-",sort_array,"The buggy code contains the following issues:
+",sort_array,"Here's the implementation of the `sort_array` function based on the provided docstring:
+
+    return sorted(arr, key=lambda x: (bin(abs(x)).count('1'), x))","The buggy code contains the following issues:
 
 1. `""Here's the implementation of the `sort_array` function based on the provided docstring:""` should be removed as it's not part of the function implementation.
 
@@ -1335,7 +1457,11 @@ def get_closest_vowel(word):
     # Check some edge cases that are easy to work out by hand.
     assert True
 
-",get_closest_vowel,"Bugs in the buggy code:
+",get_closest_vowel,"vowels = set('aeiouAEIOU')
+    for i in range(len(word) - 2, 0, -1):
+        if word[i] in vowels and word[i-1] not in vowels and word[i+1] not in vowels:
+            return word[i]
+    return """"","Bugs in the buggy code:
 
 1. ""vowels = set('aeiouAEIOU')"" is not indented correctly.
 
@@ -1422,7 +1548,7 @@ def maximum(arr, k):
     # Check some edge cases that are easy to work out by hand.
     assert candidate([1, 2, 3, -23, 243, -400, 0], 0) == []
 
-",maximum,"The buggy code contains one issue:
+",maximum,return sorted(arr)[-k:],"The buggy code contains one issue:
 
 `return sorted(arr)[-k:]`
 
@@ -1471,7 +1597,7 @@ def solution(lst):
 
     # Check some edge cases that are easy to work out by hand.
 
-",solution,"The buggy code contains two issues:
+",solution,"sum(num for i, num in enumerate(lst) if i % 2 == 0 and num % 2 != 0)","The buggy code contains two issues:
 
 1. `""sum(num for i, num in enumerate(lst) if i % 2 == 0 and num % 2 != 0)""`: This line is missing the `return` statement.
 
@@ -1533,7 +1659,11 @@ def add_elements(arr, k):
     # Check some edge cases that are easy to work out by hand.
     assert candidate([1], 1) == 1, ""This prints if this assert fails 2 (also good for debugging!)""
 
-",add_elements,"The buggy code contains two issues:
+",add_elements,"sum_two_digit = 0
+for i in range(min(k, len(arr))):
+    if 1 <= arr[i] <= 99:
+        sum_two_digit += arr[i]
+return sum_two_digit","The buggy code contains two issues:
 
 1. `if 1 <= arr[i] <= 99:` 
 This condition incorrectly excludes single-digit numbers (0-9). It should include all numbers with at most two digits.
@@ -1645,7 +1775,34 @@ def minPath(grid, k):
     assert candidate([[1, 2], [3, 4]], 10) == [1, 2, 1, 2, 1, 2, 1, 2, 1, 2]
     assert candidate([[1, 3], [3, 2]], 10) == [1, 3, 1, 3, 1, 3, 1, 3, 1, 3]
 
-",minPath,"The buggy code contains the following issues:
+",minPath,"Here's the implementation for the `minPath` function based on the provided docstring:
+
+    N = len(grid)
+    directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+    
+    def dfs(x, y, path):
+        if len(path) == k:
+            return path
+        
+        min_path = None
+        for dx, dy in directions:
+            nx, ny = x + dx, y + dy
+            if 0 <= nx < N and 0 <= ny < N:
+                new_path = path + [grid[nx][ny]]
+                result = dfs(nx, ny, new_path)
+                if result and (min_path is None or result < min_path):
+                    min_path = result
+        
+        return min_path
+    
+    min_path = None
+    for i in range(N):
+        for j in range(N):
+            result = dfs(i, j, [grid[i][j]])
+            if result and (min_path is None or result < min_path):
+                min_path = result
+    
+    return min_path","The buggy code contains the following issues:
 
 1. ""Here's the implementation for the `minPath` function based on the provided docstring:"" This line should be removed as it's not part of the function implementation.
 
@@ -1787,7 +1944,15 @@ def tri(n):
     # Check some edge cases that are easy to work out by hand.
     assert candidate(0) == [1]
     assert candidate(1) == [1, 3]
-",tri,"Bugs found:
+",tri,"if n == 0:
+    return [1]
+result = [1, 3, 2]
+for i in range(3, n + 1):
+    if i % 2 == 0:
+        result.append(1 + i // 2)
+    else:
+        result.append(result[i - 1] + result[i - 2] + result[i + 1])
+return result","Bugs found:
 
 1. ""result = [1, 3, 2]"": The initial list is incorrect. It should start with [1, 3].
 
@@ -1875,7 +2040,13 @@ def digits(n):
     # Check some edge cases that are easy to work out by hand.
     assert candidate(2468) == 0
 
-",digits,"Bugs found:
+",digits,"result = 1
+while n > 0:
+    digit = n % 10
+    if digit % 2 != 0:
+        result *= digit
+    n //= 10
+return result if result != 1 else 0","Bugs found:
 
 1. `result = 1` and `return result if result != 1 else 0`:
 This logic fails to correctly handle cases where the product of odd digits is 1. It should initialize result to 0 and update it only when odd digits are found.
@@ -1974,7 +2145,16 @@ def is_nested(string):
     assert candidate('[[[[[[[[') == False
     assert candidate(']]]]]]]]') == False
 
-",is_nested,"The buggy code contains the following issues:
+",is_nested,"stack = []
+    nested = False
+    for bracket in string:
+        if bracket == '[':
+            stack.append(bracket)
+        elif bracket == ']' and stack:
+            stack.pop()
+            if stack:
+                nested = True
+    return nested","The buggy code contains the following issues:
 
 1. `stack = []` and `nested = False` are indented incorrectly. They should be aligned with the function body.
 
@@ -2067,7 +2247,9 @@ def sorted_list_sum(lst):
     assert candidate([""a"", ""b"", ""b"", ""c"", ""c"", ""a""]) == []
     assert candidate(['aaaa', 'bbbb', 'dd', 'cc']) == [""cc"", ""dd"", ""aaaa"", ""bbbb""]
 
-",sorted_list_sum,"The buggy code contains one issue:
+",sorted_list_sum,"Here's the implementation of the `sorted_list_sum` function based on the provided docstring:
+
+    return sorted([word for word in lst if len(word) % 2 == 0], key=lambda x: (len(x), x))","The buggy code contains one issue:
 
 ""Here's the implementation of the `sorted_list_sum` function based on the provided docstring:""
 
@@ -2144,7 +2326,7 @@ def double_the_difference(lst):
     odd_sum = sum([i**2 for i in lst if i%2!=0 and i > 0])
     assert candidate(lst) == odd_sum , ""This prints if this assert fails 7 (good for debugging!)""
 
-",double_the_difference,"Bugs in the buggy code:
+",double_the_difference,"sum(num**2 for num in lst if isinstance(num, int) and num > 0 and num % 2 != 0)","Bugs in the buggy code:
 
 1. `sum(num**2 for num in lst if isinstance(num, int) and num > 0 and num % 2 != 0)`
 
@@ -2218,7 +2400,19 @@ def do_algebra(operator, operand):
     # Check some edge cases that are easy to work out by hand.
     assert True, ""This prints if this assert fails 2 (also good for debugging!)""
 
-",do_algebra,"The buggy code contains one main issue:
+",do_algebra,"result = operand[0]
+for i in range(len(operator)):
+    if operator[i] == '+':
+        result += operand[i+1]
+    elif operator[i] == '-':
+        result -= operand[i+1]
+    elif operator[i] == '*':
+        result *= operand[i+1]
+    elif operator[i] == '//':
+        result //= operand[i+1]
+    elif operator[i] == '**':
+        result **= operand[i+1]
+return result","The buggy code contains one main issue:
 
 ""`result = operand[0]`"" and the subsequent operations do not account for operator precedence. This approach performs operations sequentially, which is incorrect for algebraic expressions.
 
@@ -2296,7 +2490,12 @@ def generate_integers(a, b):
     # Check some edge cases that are easy to work out by hand.
     assert True, ""This prints if this assert fails 2 (also good for debugging!)""
 
-",generate_integers,"The buggy code contains two issues:
+",generate_integers,"result = []
+start, end = min(a, b), max(a, b)
+for num in range(start, end + 1):
+    if num % 2 == 0:
+        result.append(num)
+return result","The buggy code contains two issues:
 
 1. `start, end = min(a, b), max(a, b)`: This doesn't enforce the lower bound of 2 and upper bound of 8. It should be:
    ```python

@@ -44,7 +44,6 @@ def get_prompt_template_judge_claude(ground_truth_code: str, buggy_code: str) ->
 </buggy_code>"""
 
 def indent_lines(string: str) -> str:
-
   indented_string = '\n'.join('    ' + line for line in string.splitlines())
   return indented_string
 

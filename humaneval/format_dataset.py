@@ -49,7 +49,7 @@ formatted_humaneval_train_df = []
 
 for idx, row in humaneval_train_df.iterrows():
   for ITER_NO in ITER_NUMS:
-    result_col_name = f"eval_{MODEL_NAME}_no{ITER_NO}"
+    result_col_name = f"result_{MODEL_NAME}_no{ITER_NO}"
     eval_col_name = f"eval_{MODEL_NAME}_no{ITER_NO}"
 
     if result_col_name not in humaneval_train_df.columns:
@@ -57,6 +57,7 @@ for idx, row in humaneval_train_df.iterrows():
     if eval_col_name not in humaneval_train_df.columns:
       raise ValueError(f"Column {eval_col_name} not found in the dataset")
     
+    result = row[result_col_name]
     eval = row[eval_col_name]
     if eval != "INCORRECT":
       continue
@@ -65,6 +66,8 @@ for idx, row in humaneval_train_df.iterrows():
 
     for col_name in DEFAULT_COLS:
       formatted_row[col_name] = row[col_name]
+
+    formatted_row['result'] = result
 
     for col_name in CUSTOM_COLS:
       formatted_row[CUSTOM_COLS[col_name]] = row[col_name]
