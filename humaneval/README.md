@@ -45,7 +45,7 @@
 - Extracts your scoring for each problem and stores them in the CSV file (e.g. `humaneval_test_dataset.py`).
 
 7. `format_dataset.py`
-- Takes a CSV file (e.g. `humaneval_test_dataset.py`) and extracts only the relevant columns and rows and stores them in another CSV file (e.g. `humaneval_test_dataset_v1.py`)
+- Takes a CSV file (e.g. `humaneval_test_dataset.py`) and extracts only the relevant columns and rows and stores them in another CSV file (e.g. `humaneval_test_dataset_v1.py`).
 
 8. `upload_to_hf.py`
 - Uploads the train/test datasets (e.g. stored as CSV files locally, such as `humaneval_train_dataset_v1.py` and `humaneval_test_dataset_v1.py`) into a HuggingFace dataset repo.
