@@ -3,8 +3,8 @@
 import pandas as pd
 from helpers import file_exists, save_dataframe_to_csv
 
-DATASET_PATH = "humaneval_dataset.csv"
-FORMATTED_DATASET_PATH = "humaneval_dataset_v1.csv"
+DATASET_PATH = "humaneval_train_dataset.csv"
+FORMATTED_DATASET_PATH = "humaneval_train_dataset_v1.csv"
 MODEL_NAME = "claude-3-5-sonnet-20240620"
 JUDGE_ID = "cl35s-v1"
 ITER_NUMS = [1, 2, 3, 4, 5]

@@ -1,4 +1,4 @@
-from datasets import Dataset
+from datasets import Dataset, DatasetDict
 import pandas as pd
 from huggingface_hub import HfFolder
 import os
@@ -6,17 +6,20 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-DATASET_PATH = "humaneval_dataset_v1.csv"
-README_PATH = "README_HUMANEVAL_DATASET_V1.md"
-CRITERIA_IMAGE_PATH = "assets/critic_eval_table.PNG"
+TRAIN_DATASET_PATH = "humaneval_train_dataset_v1.csv"
+TEST_DATASET_PATH = "humaneval_test_dataset_v1.csv"
 REPO_NAME = "techandy42/debugger_llm_humaneval_dataset_v1"
-LOCAL_DIR = "debugger_llm_humaneval_dataset_v1"
-REPO_PATH = "https://huggingface.co/datasets/techandy42/debugger_llm_humaneval_dataset_v1"
 huggingface_token = os.getenv('HUGGINGFACE_TOKEN')
 
-df = pd.read_csv(DATASET_PATH)
-dataset = Dataset.from_pandas(df)
+df_train = pd.read_csv(TRAIN_DATASET_PATH)
+df_test = pd.read_csv(TEST_DATASET_PATH)
+dataset_train = Dataset.from_pandas(df_train)
+dataset_test = Dataset.from_pandas(df_test)
+dataset_dict = DatasetDict({
+    'train': dataset_train,
+    'test': dataset_test
+})
 
 HfFolder.save_token(huggingface_token)
 
-dataset.push_to_hub(REPO_NAME)
+dataset_dict.push_to_hub(REPO_NAME)
