@@ -4,7 +4,6 @@ from litellm import completion
 
 load_dotenv()
 
-os.environ['GROQ_API_KEY'] = os.getenv('GROQ_API_KEY')
 os.environ['ANTHROPIC_API_KEY'] = os.getenv('ANTHROPIC_API_KEY')
 
 def get_completion(prompt: str, model: str, temperature: float = None) -> str:
