@@ -24,4 +24,4 @@ SCORES (0-7):
 
 - Q6: Overall, how good is this critique relative to the others?
 - Guideline: 1: this is the worst critique, 7: this is the best critique
-- S6: _/7
+- S6: 7/7
