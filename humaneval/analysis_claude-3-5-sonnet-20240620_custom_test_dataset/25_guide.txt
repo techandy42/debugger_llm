@@ -1,0 +1,104 @@
+TASK ID: HumanEval/25
+
+GROUND TRUTH SOLUTION:
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    import math
+    fact = []
+    i = 2
+    while i <= int(math.sqrt(n) + 1):
+        if n % i == 0:
+            fact.append(i)
+            n //= i
+        else:
+            i += 1
+
+    if n > 1:
+        fact.append(n)
+    return fact
+
+BUGGY SOLUTION:
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    factors = []
+        i = 2
+        while i * i <= n:
+            if n % i:
+                i += 1
+            else:
+                n //= i
+                factors.append(i)
+        if n > 1:
+            factors.append(n)
+        return factors
+
+ANALYSIS ROUND 1:
+Bugs in the buggy code:
+
+1. "factors = []" is not properly indented. It should be aligned with the function body.
+
+2. The condition in the while loop should be "i <= int(math.sqrt(n) + 1)" instead of "i * i <= n" for more precise handling of large numbers.
+
+3. The import statement for the math module is missing.
+
+4. The logic for appending factors is incorrect. It should append the factor and continue dividing by the same factor until it's no longer divisible.
+
+To fix these issues:
+1. Correct the indentation of "factors = []".
+2. Change the while loop condition and import the math module.
+3. Modify the logic inside the loop to continuously divide by the same factor when possible.
+
+These changes will align the implementation with the correct functionality of the factorize function.
+
+ANALYSIS ROUND 2:
+Bugs found in the buggy code:
+
+1. "factors = []" and the following lines are indented incorrectly.
+
+2. The condition "if n % i:" should be "if n % i == 0:".
+
+To fix these issues:
+
+1. Remove the indentation for all lines after "factors = []".
+
+2. Change "if n % i:" to "if n % i == 0:". This ensures factors are added when n is divisible by i.
+
+These changes will make the function work correctly, matching the behavior of the correct implementation.
+
+ANALYSIS ROUND 3:
+The buggy code contains the following issues:
+
+1. Indentation error: The lines starting from `i = 2` are incorrectly indented. They should be aligned with the `factors = []` line.
+
+2. `"if n % i:"` should be `"if n % i == 0:"` to correctly identify factors.
+
+To fix these issues:
+1. Correct the indentation of all lines after `factors = []`.
+2. Change `if n % i:` to `if n % i == 0:`.
+3. Swap the positions of `n //= i` and `factors.append(i)` to ensure factors are added in the correct order.
+
+These changes will make the function work as intended, matching the behavior of the correct implementation.

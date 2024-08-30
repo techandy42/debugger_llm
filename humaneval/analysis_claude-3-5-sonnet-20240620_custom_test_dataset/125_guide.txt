@@ -1,0 +1,92 @@
+TASK ID: HumanEval/125
+
+GROUND TRUTH SOLUTION:
+def split_words(txt):
+    '''
+    Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
+    should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
+    alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
+    Examples
+    split_words("Hello world!") ➞ ["Hello", "world!"]
+    split_words("Hello,world!") ➞ ["Hello", "world!"]
+    split_words("abcdef") == 3 
+    '''
+    if " " in txt:
+        return txt.split()
+    elif "," in txt:
+        return txt.replace(',',' ').split()
+    else:
+        return len([i for i in txt if i.islower() and ord(i)%2 == 0])
+
+BUGGY SOLUTION:
+def split_words(txt):
+    '''
+    Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
+    should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
+    alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
+    Examples
+    split_words("Hello world!") ➞ ["Hello", "world!"]
+    split_words("Hello,world!") ➞ ["Hello", "world!"]
+    split_words("abcdef") == 3 
+    '''
+    words = txt.split()
+    if not words:
+        words = txt.split(',')
+    if not words:
+        return sum(1 for char in txt.lower() if char.isalpha() and (ord(char) - ord('a')) % 2 == 1)
+    return words
+
+ANALYSIS ROUND 1:
+Bugs in the buggy code:
+
+1. "words = txt.split()"
+Issue: This doesn't check if whitespace exists before splitting.
+Fix: Use "if ' ' in txt:" before splitting on whitespace.
+
+2. "words = txt.split(',')"
+Issue: This doesn't preserve spaces in comma-separated words.
+Fix: Use "return txt.replace(',',' ').split()" to replace commas with spaces before splitting.
+
+3. "sum(1 for char in txt.lower() if char.isalpha() and (ord(char) - ord('a')) % 2 == 1)"
+Issue: This counts odd-ordered letters instead of even-ordered.
+Fix: Change the condition to "ord(char) % 2 == 0" to count even-ordered letters.
+
+4. The order of checks is incorrect.
+Fix: Check for whitespace first, then commas, then calculate the letter count.
+
+ANALYSIS ROUND 2:
+Bugs in the buggy code:
+
+1. "words = txt.split()": This doesn't check if whitespace exists before splitting.
+Fix: Use "if ' ' in txt:" before splitting.
+
+2. "words = txt.split(',')": This doesn't replace commas with spaces before splitting.
+Fix: Use "return txt.replace(',',' ').split()" when comma is present.
+
+3. "(ord(char) - ord('a')) % 2 == 1": This checks for odd order, not even.
+Fix: Change to "ord(char) % 2 == 0" to check for even order.
+
+4. "return sum(1 for char in txt.lower()": This counts all lowercase letters, not just those in the original string.
+Fix: Remove ".lower()" and use "char.islower()" in the condition.
+
+ANALYSIS ROUND 3:
+Bugs in the buggy code:
+
+1. "words = txt.split()": This always splits on whitespace, ignoring the comma condition.
+Fix: Check for whitespace first, then commas.
+
+2. "return sum(1 for char in txt.lower() if char.isalpha() and (ord(char) - ord('a')) % 2 == 1)": This counts odd-ordered letters instead of even-ordered.
+Fix: Change the condition to (ord(char) - ord('a')) % 2 == 0.
+
+3. The function doesn't handle the comma case correctly.
+Fix: Use txt.replace(',',' ').split() for comma-separated words.
+
+Correct implementation:
+```python
+if " " in txt:
+    return txt.split()
+elif "," in txt:
+    return txt.replace(',',' ').split()
+else:
+    return len([i for i in txt if i.islower() and ord(i)%2 == 0])
+```

@@ -1,0 +1,8 @@
+TASK ID: HumanEval/101
+
+CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Omitted Import Statement
+- The code uses the `re` package, which is not imported.
+- To fix this, add `import re` before the function body (e.g. `return re.findall(r'\b\w+\b', s)`).
