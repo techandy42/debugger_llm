@@ -1,0 +1,87 @@
+TASK ID: HumanEval/125
+
+GROUND TRUTH SOLUTION:
+def split_words(txt):
+    '''
+    Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
+    should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
+    alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
+    Examples
+    split_words("Hello world!") ➞ ["Hello", "world!"]
+    split_words("Hello,world!") ➞ ["Hello", "world!"]
+    split_words("abcdef") == 3 
+    '''
+    if " " in txt:
+        return txt.split()
+    elif "," in txt:
+        return txt.replace(',',' ').split()
+    else:
+        return len([i for i in txt if i.islower() and ord(i)%2 == 0])
+
+BUGGY SOLUTION:
+def split_words(txt):
+    '''
+    Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
+    should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
+    alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
+    Examples
+    split_words("Hello world!") ➞ ["Hello", "world!"]
+    split_words("Hello,world!") ➞ ["Hello", "world!"]
+    split_words("abcdef") == 3 
+    '''
+    words = txt.split()
+    if not words:
+        words = txt.split(',')
+    if not words:
+        return sum(1 for char in txt.lower() if char.isalpha() and (ord(char) - ord('a')) % 2 == 1)
+    return words
+
+CUSTOM ANALYSIS:
+The buggy code contains two issues:
+
+1. Incorrect Conditional Check
+- In the buggy code, the if statements use `not words` to check if the split result is empty.
+- However, if there was no split, there will be one word in the resulting list.
+- Thus, the condition will never catch cases where there is no space or comma in the string.
+- To fix this, use a different conditional check such as `len(words) <= 1`.
+
+2. Incorrect Use of Method
+- In line `return sum(1 for char in txt.lower() if char.isalpha() and (ord(char) - ord('a')) % 2 == 1)` (e.g. count number of lower-case odd order letters), there is a logical mistake.
+- `txt.lower()` converts all letters into lowercase, which falsely counts uppercase letters as well.
+- To fix this, remove the `.lower()` part, and add an additional check `char.islower()` to only count lowercase letters.
+
+After all of the changes take place, the code should look like:
+```python
+def split_words(txt):
+words = txt.split()
+if len(words) <= 1:
+words = txt.split(',')
+if len(words) <= 1:
+return sum(1 for char in txt if char.isalpha() and char.islower() and (ord(char) - ord('a')) % 2 == 1)
+return words
+```
+
+TARGET ANALYSIS:
+The buggy code contains two issues:
+
+1. Incorrect Conditional Check
+- In the buggy code, the if statements use `not words` to check if the split result is empty.
+- However, if there was no split, there will be one word in the resulting list.
+- Thus, the condition will never catch cases where there is no space or comma in the string.
+- To fix this, use a different conditional check such as `len(words) <= 1`.
+
+2. Incorrect Use of Method
+- In line `return sum(1 for char in txt.lower() if char.isalpha() and (ord(char) - ord('a')) % 2 == 1)` (e.g. count number of lower-case odd order letters), there is a logical mistake.
+- `txt.lower()` converts all letters into lowercase, which falsely counts uppercase letters as well.
+- To fix this, remove the `.lower()` part, and add an additional check `char.islower()` to only count lowercase letters.
+
+After all of the changes take place, the code should look like:
+```python
+def split_words(txt):
+words = txt.split()
+if len(words) <= 1:
+words = txt.split(',')
+if len(words) <= 1:
+return sum(1 for char in txt if char.isalpha() and char.islower() and (ord(char) - ord('a')) % 2 == 1)
+return words
+```

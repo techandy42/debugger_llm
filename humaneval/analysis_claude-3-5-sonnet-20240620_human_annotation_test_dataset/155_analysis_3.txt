@@ -1,0 +1,50 @@
+TASK ID: HumanEval/155
+
+GROUND TRUTH SOLUTION:
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+    even_count = 0
+    odd_count = 0
+    for i in str(abs(num)):
+        if int(i)%2==0:
+            even_count +=1
+        else:
+            odd_count +=1
+    return (even_count, odd_count)
+
+BUGGY SOLUTION:
+def even_odd_count(num):
+    """Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """
+    even_count = 0
+    odd_count = 0
+    num = abs(num)
+    
+    while num > 0:
+        digit = num % 10
+        if digit % 2 == 0:
+            even_count += 1
+        else:
+            odd_count += 1
+        num //= 10
+    
+    return (even_count, odd_count)
+
+CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Unhandled Edge Case
+- Since the while loop has condition `num > 0`, if num has value of 0, then the number of even/odd counts won't be computed.
+- To fix this, add a condition to check if num is 0 and return (1, 0) before the while loop.
+
+TARGET ANALYSIS:
+The buggy code contains no actual bugs. It correctly implements the function to count even and odd digits in a given integer. The approach differs from the ground truth code but produces the same correct results. Both implementations handle negative numbers by using abs(), correctly count even and odd digits, and return the counts as a tuple.

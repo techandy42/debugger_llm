@@ -1,0 +1,53 @@
+TASK ID: HumanEval/101
+
+GROUND TRUTH SOLUTION:
+def words_string(s):
+    """
+    You will be given a string of words separated by commas or spaces. Your task is
+    to split the string into words and return an array of the words.
+    
+    For example:
+    words_string("Hi, my name is John") == ["Hi", "my", "name", "is", "John"]
+    words_string("One, two, three, four, five, six") == ["One", "two", "three", "four", "five", "six"]
+    """
+    if not s:
+        return []
+
+    s_list = []
+
+    for letter in s:
+        if letter == ',':
+            s_list.append(' ')
+        else:
+            s_list.append(letter)
+
+    s_list = "".join(s_list)
+    return s_list.split()
+
+BUGGY SOLUTION:
+def words_string(s):
+    """
+    You will be given a string of words separated by commas or spaces. Your task is
+    to split the string into words and return an array of the words.
+    
+    For example:
+    words_string("Hi, my name is John") == ["Hi", "my", "name", "is", "John"]
+    words_string("One, two, three, four, five, six") == ["One", "two", "three", "four", "five", "six"]
+    """
+    return re.findall(r'\b\w+\b', s)
+
+CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Omitted Import Statement
+- The code uses the `re` package, which is not imported.
+- To fix this, add `import re` before the function body (e.g. `return re.findall(r'\b\w+\b', s)`).
+
+TARGET ANALYSIS:
+The buggy code contains the following issue:
+
+`return re.findall(r'\b\w+\b', s)`
+
+This line uses the `re` module, which is not imported, and a regex pattern that doesn't handle commas correctly. It will fail to split words separated by commas and may include punctuation in the words.
+
+To fix this, replace the entire function body with a solution that handles both space and comma separators. First, replace commas with spaces, then use the `split()` method to separate words. This approach correctly handles both space and comma-separated words without relying on regex.

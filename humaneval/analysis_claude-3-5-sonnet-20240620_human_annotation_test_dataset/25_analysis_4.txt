@@ -1,0 +1,80 @@
+TASK ID: HumanEval/25
+
+GROUND TRUTH SOLUTION:
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    import math
+    fact = []
+    i = 2
+    while i <= int(math.sqrt(n) + 1):
+        if n % i == 0:
+            fact.append(i)
+            n //= i
+        else:
+            i += 1
+
+    if n > 1:
+        fact.append(n)
+    return fact
+
+BUGGY SOLUTION:
+from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """ Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """
+    factors = []
+        i = 2
+        while i * i <= n:
+            if n % i:
+                i += 1
+            else:
+                n //= i
+                factors.append(i)
+        if n > 1:
+            factors.append(n)
+        return factors
+
+CUSTOM ANALYSIS:
+The buggy code contains one issue:
+
+1. Identation Issue:
+- The code is indented incorrectly.
+- The lines following the line `factors = []` has an additional level of indentation, which causes indentation error.
+- To fix this, remove a level of indentation from those lines.
+
+TARGET ANALYSIS:
+Bugs found in the buggy code:
+
+1. "factors = []" and the following lines are indented incorrectly.
+
+2. The condition "if n % i:" should be "if n % i == 0:".
+
+To fix these issues:
+
+1. Remove the indentation for all lines after "factors = []".
+
+2. Change "if n % i:" to "if n % i == 0:". This ensures factors are added when n is divisible by i.
+
+These changes will make the function work correctly, matching the behavior of the correct implementation.
