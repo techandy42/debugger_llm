@@ -28,8 +28,8 @@ def extract_text_from_file(file_path):
 
     return task_id, remaining_text
 
-DATASET_PATH = "humaneval_dataset.csv"
-DIRECTORY_PATH = "analysis_claude-3-5-sonnet-20240620_custom"
+DATASET_PATH = "humaneval_test_dataset.csv"
+DIRECTORY_PATH = "analysis_claude-3-5-sonnet-20240620_custom_test_dataset"
 COL_NAME = "analysis_claude-3-5-sonnet-20240620_custom"
 
 if file_exists(DATASET_PATH):
