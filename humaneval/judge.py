@@ -3,7 +3,7 @@ from tqdm import tqdm
 from helpers import file_exists, indent_lines, get_prompt_template_judge_claude, save_dataframe_to_csv
 from completion import get_completion
 
-DATASET_PATH = "humaneval_dataset.csv"
+DATASET_PATH = "humaneval_test_dataset.csv"
 MODEL_NAME = "claude-3-5-sonnet-20240620"
 JUDGE_MODEL_NAME = "claude-3-5-sonnet-20240620"
 JUDGE_ID = "cl35s-v1"

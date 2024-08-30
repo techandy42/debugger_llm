@@ -1,0 +1,2129 @@
+task_id,prompt,canonical_solution,test,entry_point,result_claude-3-5-sonnet-20240620_no1,eval_claude-3-5-sonnet-20240620_no1,result_claude-3-5-sonnet-20240620_no2,eval_claude-3-5-sonnet-20240620_no2,result_claude-3-5-sonnet-20240620_no3,eval_claude-3-5-sonnet-20240620_no3,result_claude-3-5-sonnet-20240620_no4,eval_claude-3-5-sonnet-20240620_no4,result_claude-3-5-sonnet-20240620_no5,eval_claude-3-5-sonnet-20240620_no5
+HumanEval/52,"
+
+def below_threshold(l: list, t: int):
+    """"""Return True if all numbers in the list l are below threshold t.
+    >>> below_threshold([1, 2, 4, 10], 100)
+    True
+    >>> below_threshold([1, 20, 4, 10], 5)
+    False
+    """"""
+","    for e in l:
+        if e >= t:
+            return False
+    return True
+","
+
+METADATA = {}
+
+
+def check(candidate):
+    assert candidate([1, 2, 4, 10], 100)
+    assert not candidate([1, 20, 4, 10], 5)
+    assert candidate([1, 20, 4, 10], 21)
+    assert candidate([1, 20, 4, 10], 22)
+    assert candidate([1, 8, 4, 10], 11)
+    assert not candidate([1, 8, 4, 10], 10)
+
+",below_threshold,return all(num < t for num in l),CORRECT,return all(num < t for num in l),CORRECT,return all(num < t for num in l),CORRECT,return all(num < t for num in l),CORRECT,return all(num < t for num in l),CORRECT
+HumanEval/134,"
+def check_if_last_char_is_a_letter(txt):
+    '''
+    Create a function that returns True if the last character
+    of a given string is an alphabetical character and is not
+    a part of a word, and False otherwise.
+    Note: ""word"" is a group of characters separated by space.
+
+    Examples:
+    check_if_last_char_is_a_letter(""apple pie"") ➞ False
+    check_if_last_char_is_a_letter(""apple pi e"") ➞ True
+    check_if_last_char_is_a_letter(""apple pi e "") ➞ False
+    check_if_last_char_is_a_letter("""") ➞ False 
+    '''
+"," 
+    check = txt.split(' ')[-1]
+    return True if len(check) == 1 and (97 <= ord(check.lower()) <= 122) else False
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate(""apple"") == False
+    assert candidate(""apple pi e"") == True
+    assert candidate(""eeeee"") == False
+    assert candidate(""A"") == True
+    assert candidate(""Pumpkin pie "") == False
+    assert candidate(""Pumpkin pie 1"") == False
+    assert candidate("""") == False
+    assert candidate(""eeeee e "") == False
+    assert candidate(""apple pie"") == False
+    assert candidate(""apple pi e "") == False
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True
+
+",check_if_last_char_is_a_letter,"if not txt or txt[-1].isspace():
+    return False
+words = txt.split()
+return len(words[-1]) == 1 and words[-1].isalpha()",CORRECT,"if not txt or txt[-1].isspace():
+    return False
+words = txt.split()
+return len(words[-1]) == 1 and words[-1].isalpha()",CORRECT,"if not txt or txt[-1].isspace():
+    return False
+words = txt.split()
+return len(words[-1]) == 1 and words[-1].isalpha()",CORRECT,"if not txt or txt[-1].isspace():
+    return False
+words = txt.split()
+if len(words) == 0:
+    return False
+last_word = words[-1]
+return len(last_word) == 1 and last_word.isalpha()",CORRECT,"if not txt or txt[-1].isspace():
+    return False
+words = txt.split()
+return len(words[-1]) == 1 and words[-1].isalpha()",CORRECT
+HumanEval/51,"
+
+def remove_vowels(text):
+    """"""
+    remove_vowels is a function that takes string and returns string without vowels.
+    >>> remove_vowels('')
+    ''
+    >>> remove_vowels(""abcdef\nghijklm"")
+    'bcdf\nghjklm'
+    >>> remove_vowels('abcdef')
+    'bcdf'
+    >>> remove_vowels('aaaaa')
+    ''
+    >>> remove_vowels('aaBAA')
+    'B'
+    >>> remove_vowels('zbcd')
+    'zbcd'
+    """"""
+","    return """".join([s for s in text if s.lower() not in [""a"", ""e"", ""i"", ""o"", ""u""]])
+","
+
+METADATA = {}
+
+
+def check(candidate):
+    assert candidate('') == ''
+    assert candidate(""abcdef\nghijklm"") == 'bcdf\nghjklm'
+    assert candidate('fedcba') == 'fdcb'
+    assert candidate('eeeee') == ''
+    assert candidate('acBAA') == 'cB'
+    assert candidate('EcBOO') == 'cB'
+    assert candidate('ybcd') == 'ybcd'
+
+",remove_vowels,"vowels = 'aeiouAEIOU'
+return ''.join(char for char in text if char not in vowels)",CORRECT,"vowels = 'aeiouAEIOU'
+return ''.join(char for char in text if char not in vowels)",CORRECT,"vowels = 'aeiouAEIOU'
+return ''.join(char for char in text if char not in vowels)",CORRECT,"vowels = 'aeiouAEIOU'
+return ''.join(char for char in text if char not in vowels)",CORRECT,"vowels = 'aeiouAEIOU'
+return ''.join(char for char in text if char not in vowels)",CORRECT
+HumanEval/66,"
+def digitSum(s):
+    """"""Task
+    Write a function that takes a string as input and returns the sum of the upper characters only'
+    ASCII codes.
+
+    Examples:
+        digitSum("""") => 0
+        digitSum(""abAB"") => 131
+        digitSum(""abcCd"") => 67
+        digitSum(""helloE"") => 69
+        digitSum(""woArBld"") => 131
+        digitSum(""aAaaaXa"") => 153
+    """"""
+","    if s == """": return 0
+    return sum(ord(char) if char.isupper() else 0 for char in s)
+","def check(candidate):
+
+    # Check some simple cases
+    assert True, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate("""") == 0, ""Error""
+    assert candidate(""abAB"") == 131, ""Error""
+    assert candidate(""abcCd"") == 67, ""Error""
+    assert candidate(""helloE"") == 69, ""Error""
+    assert candidate(""woArBld"") == 131, ""Error""
+    assert candidate(""aAaaaXa"") == 153, ""Error""
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True, ""This prints if this assert fails 2 (also good for debugging!)""
+    assert candidate("" How are yOu?"") == 151, ""Error""
+    assert candidate(""You arE Very Smart"") == 327, ""Error""
+
+",digitSum,"sum_upper = 0
+for char in s:
+    if char.isupper():
+        sum_upper += ord(char)
+return sum_upper",CORRECT,return sum(ord(char) for char in s if char.isupper()),CORRECT,return sum(ord(char) for char in s if char.isupper()),CORRECT,"sum_ascii = 0
+for char in s:
+    if char.isupper():
+        sum_ascii += ord(char)
+return sum_ascii",CORRECT,"total = 0
+for char in s:
+    if char.isupper():
+        total += ord(char)
+return total",CORRECT
+HumanEval/147,"
+def get_max_triples(n):
+    """"""
+    You are given a positive integer n. You have to create an integer array a of length n.
+        For each i (1 ≤ i ≤ n), the value of a[i] = i * i - i + 1.
+        Return the number of triples (a[i], a[j], a[k]) of a where i < j < k, 
+    and a[i] + a[j] + a[k] is a multiple of 3.
+
+    Example :
+        Input: n = 5
+        Output: 1
+        Explanation: 
+        a = [1, 3, 7, 13, 21]
+        The only valid triple is (1, 7, 13).
+    """"""
+","    A = [i*i - i + 1 for i in range(1,n+1)]
+    ans = []
+    for i in range(n):
+        for j in range(i+1,n):
+            for k in range(j+1,n):
+                if (A[i]+A[j]+A[k])%3 == 0:
+                    ans += [(A[i],A[j],A[k])]
+    return len(ans)
+","def check(candidate):
+
+    assert candidate(5) == 1
+    assert candidate(6) == 4
+    assert candidate(10) == 36
+    assert candidate(100) == 53361
+",get_max_triples,"a = [i * i - i + 1 for i in range(1, n + 1)]
+count = 0
+for i in range(len(a) - 2):
+    for j in range(i + 1, len(a) - 1):
+        for k in range(j + 1, len(a)):
+            if (a[i] + a[j] + a[k]) % 3 == 0:
+                count += 1
+return count",CORRECT,"a = [i * i - i + 1 for i in range(1, n + 1)]
+count = 0
+for i in range(len(a) - 2):
+    for j in range(i + 1, len(a) - 1):
+        for k in range(j + 1, len(a)):
+            if (a[i] + a[j] + a[k]) % 3 == 0:
+                count += 1
+return count",CORRECT,"a = [i * i - i + 1 for i in range(1, n + 1)]
+count = 0
+for i in range(len(a) - 2):
+    for j in range(i + 1, len(a) - 1):
+        for k in range(j + 1, len(a)):
+            if (a[i] + a[j] + a[k]) % 3 == 0:
+                count += 1
+return count",CORRECT,"a = [i * i - i + 1 for i in range(1, n + 1)]
+count = 0
+for i in range(len(a) - 2):
+    for j in range(i + 1, len(a) - 1):
+        for k in range(j + 1, len(a)):
+            if (a[i] + a[j] + a[k]) % 3 == 0:
+                count += 1
+return count",CORRECT,"a = [i * i - i + 1 for i in range(1, n + 1)]
+count = 0
+for i in range(len(a) - 2):
+    for j in range(i + 1, len(a) - 1):
+        for k in range(j + 1, len(a)):
+            if (a[i] + a[j] + a[k]) % 3 == 0:
+                count += 1
+return count",CORRECT
+HumanEval/101,"
+def words_string(s):
+    """"""
+    You will be given a string of words separated by commas or spaces. Your task is
+    to split the string into words and return an array of the words.
+    
+    For example:
+    words_string(""Hi, my name is John"") == [""Hi"", ""my"", ""name"", ""is"", ""John""]
+    words_string(""One, two, three, four, five, six"") == [""One"", ""two"", ""three"", ""four"", ""five"", ""six""]
+    """"""
+","    if not s:
+        return []
+
+    s_list = []
+
+    for letter in s:
+        if letter == ',':
+            s_list.append(' ')
+        else:
+            s_list.append(letter)
+
+    s_list = """".join(s_list)
+    return s_list.split()
+","def check(candidate):
+
+    # Check some simple cases
+    assert True, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate(""Hi, my name is John"") == [""Hi"", ""my"", ""name"", ""is"", ""John""]
+    assert candidate(""One, two, three, four, five, six"") == [""One"", ""two"", ""three"", ""four"", ""five"", ""six""]
+    assert candidate(""Hi, my name"") == [""Hi"", ""my"", ""name""]
+    assert candidate(""One,, two, three, four, five, six,"") == [""One"", ""two"", ""three"", ""four"", ""five"", ""six""]
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True, ""This prints if this assert fails 2 (also good for debugging!)""
+    assert candidate("""") == []
+    assert candidate(""ahmed     , gamal"") == [""ahmed"", ""gamal""]
+
+",words_string,"return re.findall(r'\b\w+\b', s)",INCORRECT,"return s.replace(',', ' ').split()",CORRECT,"return re.findall(r'\b\w+\b', s)",INCORRECT,"return re.findall(r'\b\w+\b', s)",INCORRECT,"return re.findall(r'\b\w+\b', s)",INCORRECT
+HumanEval/24,"
+
+def largest_divisor(n: int) -> int:
+    """""" For a given number n, find the largest number that divides n evenly, smaller than n
+    >>> largest_divisor(15)
+    5
+    """"""
+","    for i in reversed(range(n)):
+        if n % i == 0:
+            return i
+","
+
+METADATA = {
+    'author': 'jt',
+    'dataset': 'test'
+}
+
+
+def check(candidate):
+    assert candidate(3) == 1
+    assert candidate(7) == 1
+    assert candidate(10) == 5
+    assert candidate(100) == 50
+    assert candidate(49) == 7
+",largest_divisor,"if n < 2:
+    return 1
+for i in range(n - 1, 0, -1):
+    if n % i == 0:
+        return i",CORRECT,"if n == 0:
+    return 0
+for i in range(n - 1, 0, -1):
+    if n % i == 0:
+        return i",CORRECT,"if n < 2:
+    return 1
+for i in range(n - 1, 0, -1):
+    if n % i == 0:
+        return i",CORRECT,"if n < 2:
+    return 1
+for i in range(n - 1, 0, -1):
+    if n % i == 0:
+        return i",CORRECT,"if n < 2:
+    return 1
+for i in range(n - 1, 0, -1):
+    if n % i == 0:
+        return i",CORRECT
+HumanEval/125,"
+def split_words(txt):
+    '''
+    Given a string of words, return a list of words split on whitespace, if no whitespaces exists in the text you
+    should split on commas ',' if no commas exists you should return the number of lower-case letters with odd order in the
+    alphabet, ord('a') = 0, ord('b') = 1, ... ord('z') = 25
+    Examples
+    split_words(""Hello world!"") ➞ [""Hello"", ""world!""]
+    split_words(""Hello,world!"") ➞ [""Hello"", ""world!""]
+    split_words(""abcdef"") == 3 
+    '''
+","    if "" "" in txt:
+        return txt.split()
+    elif "","" in txt:
+        return txt.replace(',',' ').split()
+    else:
+        return len([i for i in txt if i.islower() and ord(i)%2 == 0])
+","def check(candidate):
+
+    assert candidate(""Hello world!"") == [""Hello"",""world!""]
+    assert candidate(""Hello,world!"") == [""Hello"",""world!""]
+    assert candidate(""Hello world,!"") == [""Hello"",""world,!""]
+    assert candidate(""Hello,Hello,world !"") == [""Hello,Hello,world"",""!""]
+    assert candidate(""abcdef"") == 3
+    assert candidate(""aaabb"") == 2
+    assert candidate(""aaaBb"") == 1
+    assert candidate("""") == 0
+",split_words,"words = txt.split()
+if not words:
+    words = txt.split(',')
+if not words:
+    return sum(1 for char in txt.lower() if char.isalpha() and (ord(char) - ord('a')) % 2 == 1)
+return words",INCORRECT,"words = txt.split()
+if words:
+    return words
+words = txt.split(',')
+if words:
+    return words
+return sum(1 for char in txt.lower() if char.isalpha() and (ord(char) - ord('a')) % 2 == 1)",INCORRECT,"words = txt.split()
+if words:
+    return words
+words = txt.split(',')
+if words:
+    return words
+return sum(1 for c in txt.lower() if c.isalpha() and ord(c) - ord('a') % 2 == 1)",INCORRECT,"words = txt.split()
+if words:
+    return words
+words = txt.split(',')
+if words:
+    return words
+return sum(1 for c in txt.lower() if c.isalpha() and ord(c) - ord('a') % 2 == 1)",INCORRECT,"words = txt.split()
+if len(words) > 1:
+    return words
+if ',' in txt:
+    return txt.split(',')
+return sum(1 for c in txt.lower() if c.isalpha() and ord(c) - ord('a') % 2 == 1)",INCORRECT
+HumanEval/145,"
+def order_by_points(nums):
+    """"""
+    Write a function which sorts the given list of integers
+    in ascending order according to the sum of their digits.
+    Note: if there are several items with similar sum of their digits,
+    order them based on their index in original list.
+
+    For example:
+    >>> order_by_points([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]
+    >>> order_by_points([]) == []
+    """"""
+","    def digits_sum(n):
+        neg = 1
+        if n < 0: n, neg = -1 * n, -1 
+        n = [int(i) for i in str(n)]
+        n[0] = n[0] * neg
+        return sum(n)
+    return sorted(nums, key=digits_sum)
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate([1, 11, -1, -11, -12]) == [-1, -11, 1, -12, 11]
+    assert candidate([1234,423,463,145,2,423,423,53,6,37,3457,3,56,0,46]) == [0, 2, 3, 6, 53, 423, 423, 423, 1234, 145, 37, 46, 56, 463, 3457]
+    assert candidate([]) == []
+    assert candidate([1, -11, -32, 43, 54, -98, 2, -3]) == [-3, -32, -98, -11, 1, 2, 43, 54]
+    assert candidate([1,2,3,4,5,6,7,8,9,10,11]) == [1, 10, 2, 11, 3, 4, 5, 6, 7, 8, 9]
+    assert candidate([0,6,6,-76,-21,23,4]) == [-76, -21, 0, 4, 23, 6, 6]
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True, ""This prints if this assert fails 2 (also good for debugging!)""
+
+",order_by_points,"return sorted(nums, key=lambda x: (sum(int(d) for d in str(abs(x))), nums.index(x)))",INCORRECT,"def sum_digits(num):
+    return sum(int(d) for d in str(abs(num)))
+
+sorted_nums = sorted(enumerate(nums), key=lambda x: (sum_digits(x[1]), x[0]))
+return [num for _, num in sorted_nums]",INVALID,"def digit_sum(num):
+    return sum(int(d) for d in str(abs(num)))
+
+sorted_nums = sorted(enumerate(nums), key=lambda x: (digit_sum(x[1]), x[0]))
+return [num for _, num in sorted_nums]",INVALID,"def digit_sum(num):
+    return sum(int(d) for d in str(abs(num)))
+
+sorted_nums = sorted(enumerate(nums), key=lambda x: (digit_sum(x[1]), x[0]))
+return [num for _, num in sorted_nums]",INVALID,"def digit_sum(num):
+    return sum(int(digit) for digit in str(abs(num)))
+
+return sorted(nums, key=lambda x: (digit_sum(x), nums.index(x)))",INVALID
+HumanEval/50,"
+
+def encode_shift(s: str):
+    """"""
+    returns encoded string by shifting every character by 5 in the alphabet.
+    """"""
+    return """".join([chr(((ord(ch) + 5 - ord(""a"")) % 26) + ord(""a"")) for ch in s])
+
+
+def decode_shift(s: str):
+    """"""
+    takes as input string encoded with encode_shift function. Returns decoded string.
+    """"""
+","    return """".join([chr(((ord(ch) - 5 - ord(""a"")) % 26) + ord(""a"")) for ch in s])
+","
+
+METADATA = {}
+
+
+def check(candidate):
+    from random import randint, choice
+    import copy
+    import string
+
+    letters = string.ascii_lowercase
+    for _ in range(100):
+        str = ''.join(choice(letters) for i in range(randint(10, 20)))
+        encoded_str = encode_shift(str)
+        assert candidate(copy.deepcopy(encoded_str)) == str
+
+",decode_shift,"return """".join([chr(((ord(ch) - 5 - ord(""a"")) % 26) + ord(""a"")) for ch in s])",CORRECT,"return """".join([chr(((ord(ch) - 5 - ord(""a"")) % 26) + ord(""a"")) for ch in s])",CORRECT,"return """".join([chr(((ord(ch) - 5 - ord(""a"")) % 26) + ord(""a"")) for ch in s])",CORRECT,"return """".join([chr(((ord(ch) - 5 - ord(""a"")) % 26) + ord(""a"")) for ch in s])",CORRECT,"return """".join([chr(((ord(ch) - 5 - ord(""a"")) % 26) + ord(""a"")) for ch in s])",CORRECT
+HumanEval/38,"
+
+def encode_cyclic(s: str):
+    """"""
+    returns encoded string by cycling groups of three characters.
+    """"""
+    # split string to groups. Each of length 3.
+    groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+    # cycle elements in each group. Unless group has fewer elements than 3.
+    groups = [(group[1:] + group[0]) if len(group) == 3 else group for group in groups]
+    return """".join(groups)
+
+
+def decode_cyclic(s: str):
+    """"""
+    takes as input string encoded with encode_cyclic function. Returns decoded string.
+    """"""
+","    return encode_cyclic(encode_cyclic(s))
+","
+
+METADATA = {}
+
+
+def check(candidate):
+    from random import randint, choice
+    import string
+
+    letters = string.ascii_lowercase
+    for _ in range(100):
+        str = ''.join(choice(letters) for i in range(randint(10, 20)))
+        encoded_str = encode_cyclic(str)
+        assert candidate(encoded_str) == str
+
+",decode_cyclic,"groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+return """".join(groups)",CORRECT,"groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+return """".join(groups)",CORRECT,"groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+return """".join(groups)",CORRECT,"groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+return """".join(groups)",CORRECT,"groups = [s[(3 * i):min((3 * i + 3), len(s))] for i in range((len(s) + 2) // 3)]
+groups = [(group[-1] + group[:-1]) if len(group) == 3 else group for group in groups]
+return """".join(groups)",CORRECT
+HumanEval/142,"
+
+
+def sum_squares(lst):
+    """"""""
+    This function will take a list of integers. For all entries in the list, the function shall square the integer entry if its index is a 
+    multiple of 3 and will cube the integer entry if its index is a multiple of 4 and not a multiple of 3. The function will not 
+    change the entries in the list whose indexes are not a multiple of 3 or 4. The function shall then return the sum of all entries. 
+    
+    Examples:
+    For lst = [1,2,3] the output should be 6
+    For lst = []  the output should be 0
+    For lst = [-1,-5,2,-1,-5]  the output should be -126
+    """"""
+","    result =[]
+    for i in range(len(lst)):
+        if i %3 == 0:
+            result.append(lst[i]**2)
+        elif i % 4 == 0 and i%3 != 0:
+            result.append(lst[i]**3)
+        else:
+            result.append(lst[i])
+    return sum(result)
+","def check(candidate):
+
+    # Check some simple cases
+    
+    assert candidate([1,2,3]) == 6
+    assert candidate([1,4,9]) == 14
+    assert candidate([]) == 0
+    assert candidate([1,1,1,1,1,1,1,1,1]) == 9
+    assert candidate([-1,-1,-1,-1,-1,-1,-1,-1,-1]) == -3
+    assert candidate([0]) == 0
+    assert candidate([-1,-5,2,-1,-5]) == -126
+    assert candidate([-56,-99,1,0,-2]) == 3030
+    assert candidate([-1,0,0,0,0,0,0,0,-1]) == 0
+    assert candidate([-16, -9, -2, 36, 36, 26, -20, 25, -40, 20, -4, 12, -26, 35, 37]) == -14196
+    assert candidate([-1, -3, 17, -1, -15, 13, -1, 14, -14, -12, -5, 14, -14, 6, 13, 11, 16, 16, 4, 10]) == -1448
+    
+    
+    # Don't remove this line:
+",sum_squares,"result = 0
+for i, num in enumerate(lst):
+    if i % 3 == 0:
+        result += num ** 2
+    elif i % 4 == 0:
+        result += num ** 3
+    else:
+        result += num
+return result",CORRECT,"result = 0
+for i, num in enumerate(lst):
+    if i % 3 == 0:
+        result += num ** 2
+    elif i % 4 == 0:
+        result += num ** 3
+    else:
+        result += num
+return result",CORRECT,"result = 0
+for i, num in enumerate(lst):
+    if i % 3 == 0:
+        result += num ** 2
+    elif i % 4 == 0:
+        result += num ** 3
+    else:
+        result += num
+return result",CORRECT,"result = 0
+for i, num in enumerate(lst):
+    if i % 3 == 0:
+        result += num ** 2
+    elif i % 4 == 0:
+        result += num ** 3
+    else:
+        result += num
+return result",CORRECT,"result = 0
+for i, num in enumerate(lst):
+    if i % 3 == 0:
+        result += num ** 2
+    elif i % 4 == 0:
+        result += num ** 3
+    else:
+        result += num
+return result",CORRECT
+HumanEval/127,"
+def intersection(interval1, interval2):
+    """"""You are given two intervals,
+    where each interval is a pair of integers. For example, interval = (start, end) = (1, 2).
+    The given intervals are closed which means that the interval (start, end)
+    includes both start and end.
+    For each given interval, it is assumed that its start is less or equal its end.
+    Your task is to determine whether the length of intersection of these two 
+    intervals is a prime number.
+    Example, the intersection of the intervals (1, 3), (2, 4) is (2, 3)
+    which its length is 1, which not a prime number.
+    If the length of the intersection is a prime number, return ""YES"",
+    otherwise, return ""NO"".
+    If the two intervals don't intersect, return ""NO"".
+
+
+    [input/output] samples:
+    intersection((1, 2), (2, 3)) ==> ""NO""
+    intersection((-1, 1), (0, 4)) ==> ""NO""
+    intersection((-3, -1), (-5, 5)) ==> ""YES""
+    """"""
+","    def is_prime(num):
+        if num == 1 or num == 0:
+            return False
+        if num == 2:
+            return True
+        for i in range(2, num):
+            if num%i == 0:
+                return False
+        return True
+
+    l = max(interval1[0], interval2[0])
+    r = min(interval1[1], interval2[1])
+    length = r - l
+    if length > 0 and is_prime(length):
+        return ""YES""
+    return ""NO""
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate((1, 2), (2, 3)) == ""NO""
+    assert candidate((-1, 1), (0, 4)) == ""NO""
+    assert candidate((-3, -1), (-5, 5)) == ""YES""
+    assert candidate((-2, 2), (-4, 0)) == ""YES""
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate((-11, 2), (-1, -1)) == ""NO""
+    assert candidate((1, 2), (3, 5)) == ""NO""
+    assert candidate((1, 2), (1, 2)) == ""NO""
+    assert candidate((-2, -2), (-3, -2)) == ""NO""
+
+",intersection,"def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+start = max(interval1[0], interval2[0])
+end = min(interval1[1], interval2[1])
+
+if start <= end:
+    length = end - start + 1
+    if is_prime(length):
+        return ""YES""
+return ""NO""",INVALID,"def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+start = max(interval1[0], interval2[0])
+end = min(interval1[1], interval2[1])
+
+if start <= end:
+    length = end - start + 1
+    if is_prime(length):
+        return ""YES""
+
+return ""NO""",INVALID,"def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+start = max(interval1[0], interval2[0])
+end = min(interval1[1], interval2[1])
+
+if start <= end:
+    length = end - start + 1
+    if is_prime(length):
+        return ""YES""
+return ""NO""",INVALID,"def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+start = max(interval1[0], interval2[0])
+end = min(interval1[1], interval2[1])
+
+if start <= end:
+    length = end - start + 1
+    if is_prime(length):
+        return ""YES""
+
+return ""NO""",INVALID,"def is_prime(n):
+    if n < 2:
+        return False
+    for i in range(2, int(n**0.5) + 1):
+        if n % i == 0:
+            return False
+    return True
+
+start = max(interval1[0], interval2[0])
+end = min(interval1[1], interval2[1])
+
+if start <= end:
+    length = end - start + 1
+    return ""YES"" if is_prime(length) else ""NO""
+else:
+    return ""NO""",INVALID
+HumanEval/111,"
+def histogram(test):
+    """"""Given a string representing a space separated lowercase letters, return a dictionary
+    of the letter with the most repetition and containing the corresponding count.
+    If several letters have the same occurrence, return all of them.
+    
+    Example:
+    histogram('a b c') == {'a': 1, 'b': 1, 'c': 1}
+    histogram('a b b a') == {'a': 2, 'b': 2}
+    histogram('a b c a b') == {'a': 2, 'b': 2}
+    histogram('b b b b a') == {'b': 4}
+    histogram('') == {}
+
+    """"""
+","    dict1={}
+    list1=test.split("" "")
+    t=0
+
+    for i in list1:
+        if(list1.count(i)>t) and i!='':
+            t=list1.count(i)
+    if t>0:
+        for i in list1:
+            if(list1.count(i)==t):
+                
+                dict1[i]=t
+    return dict1
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate('a b b a') == {'a':2,'b': 2}, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate('a b c a b') == {'a': 2, 'b': 2}, ""This prints if this assert fails 2 (good for debugging!)""
+    assert candidate('a b c d g') == {'a': 1, 'b': 1, 'c': 1, 'd': 1, 'g': 1}, ""This prints if this assert fails 3 (good for debugging!)""
+    assert candidate('r t g') == {'r': 1,'t': 1,'g': 1}, ""This prints if this assert fails 4 (good for debugging!)""
+    assert candidate('b b b b a') == {'b': 4}, ""This prints if this assert fails 5 (good for debugging!)""
+    assert candidate('r t g') == {'r': 1,'t': 1,'g': 1}, ""This prints if this assert fails 6 (good for debugging!)""
+    
+    
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate('') == {}, ""This prints if this assert fails 7 (also good for debugging!)""
+    assert candidate('a') == {'a': 1}, ""This prints if this assert fails 8 (also good for debugging!)""
+
+",histogram,"words = test.split()
+letter_count = {}
+
+for word in words:
+    for letter in word:
+        letter_count[letter] = letter_count.get(letter, 0) + 1
+
+if not letter_count:
+    return {}
+
+max_count = max(letter_count.values())
+result = {letter: count for letter, count in letter_count.items() if count == max_count}
+
+return result",CORRECT,"words = test.split()
+letter_count = {}
+
+for word in words:
+    for letter in word:
+        letter_count[letter] = letter_count.get(letter, 0) + 1
+
+if not letter_count:
+    return {}
+
+max_count = max(letter_count.values())
+result = {letter: count for letter, count in letter_count.items() if count == max_count}
+
+return result",CORRECT,"words = test.split()
+letter_count = {}
+
+for word in words:
+    for letter in word:
+        letter_count[letter] = letter_count.get(letter, 0) + 1
+
+if not letter_count:
+    return {}
+
+max_count = max(letter_count.values())
+result = {letter: count for letter, count in letter_count.items() if count == max_count}
+
+return result",CORRECT,"words = test.split()
+letter_count = {}
+
+for word in words:
+    for letter in word:
+        letter_count[letter] = letter_count.get(letter, 0) + 1
+
+if not letter_count:
+    return {}
+
+max_count = max(letter_count.values())
+result = {letter: count for letter, count in letter_count.items() if count == max_count}
+
+return result",CORRECT,"words = test.split()
+letter_count = {}
+
+for word in words:
+    for letter in word:
+        letter_count[letter] = letter_count.get(letter, 0) + 1
+
+if not letter_count:
+    return {}
+
+max_count = max(letter_count.values())
+result = {letter: count for letter, count in letter_count.items() if count == max_count}
+return result",CORRECT
+HumanEval/46,"
+
+def fib4(n: int):
+    """"""The Fib4 number sequence is a sequence similar to the Fibbonacci sequnece that's defined as follows:
+    fib4(0) -> 0
+    fib4(1) -> 0
+    fib4(2) -> 2
+    fib4(3) -> 0
+    fib4(n) -> fib4(n-1) + fib4(n-2) + fib4(n-3) + fib4(n-4).
+    Please write a function to efficiently compute the n-th element of the fib4 number sequence.  Do not use recursion.
+    >>> fib4(5)
+    4
+    >>> fib4(6)
+    8
+    >>> fib4(7)
+    14
+    """"""
+","    results = [0, 0, 2, 0]
+    if n < 4:
+        return results[n]
+
+    for _ in range(4, n + 1):
+        results.append(results[-1] + results[-2] + results[-3] + results[-4])
+        results.pop(0)
+
+    return results[-1]
+","
+
+METADATA = {}
+
+
+def check(candidate):
+    assert candidate(5) == 4
+    assert candidate(8) == 28
+    assert candidate(10) == 104
+    assert candidate(12) == 386
+
+",fib4,"if n < 4:
+    return [0, 0, 2, 0][n]
+seq = [0, 0, 2, 0]
+for _ in range(4, n + 1):
+    seq.append(sum(seq[-4:]))
+    seq.pop(0)
+return seq[-1]",CORRECT,"if n < 2:
+    return 0
+elif n == 2:
+    return 2
+elif n == 3:
+    return 0
+else:
+    a, b, c, d = 0, 0, 2, 0
+    for _ in range(4, n + 1):
+        a, b, c, d = b, c, d, a + b + c + d
+    return d",CORRECT,"if n < 4:
+    return [0, 0, 2, 0][n]
+
+sequence = [0, 0, 2, 0]
+for _ in range(4, n + 1):
+    next_value = sum(sequence)
+    sequence.pop(0)
+    sequence.append(next_value)
+
+return sequence[-1]",CORRECT,"if n < 2:
+    return 0
+elif n == 2:
+    return 2
+elif n == 3:
+    return 0
+
+a, b, c, d = 0, 0, 2, 0
+for _ in range(4, n + 1):
+    a, b, c, d = b, c, d, a + b + c + d
+
+return d",CORRECT,"if n < 2:
+    return 0
+elif n == 2:
+    return 2
+elif n == 3:
+    return 0
+
+a, b, c, d = 0, 0, 2, 0
+for _ in range(4, n + 1):
+    a, b, c, d = b, c, d, a + b + c + d
+
+return d",CORRECT
+HumanEval/7,"from typing import List
+
+
+def filter_by_substring(strings: List[str], substring: str) -> List[str]:
+    """""" Filter an input list of strings only for ones that contain given substring
+    >>> filter_by_substring([], 'a')
+    []
+    >>> filter_by_substring(['abc', 'bacd', 'cde', 'array'], 'a')
+    ['abc', 'bacd', 'array']
+    """"""
+","    return [x for x in strings if substring in x]
+","
+
+METADATA = {
+    'author': 'jt',
+    'dataset': 'test'
+}
+
+
+def check(candidate):
+    assert candidate([], 'john') == []
+    assert candidate(['xxx', 'asd', 'xxy', 'john doe', 'xxxAAA', 'xxx'], 'xxx') == ['xxx', 'xxxAAA', 'xxx']
+    assert candidate(['xxx', 'asd', 'aaaxxy', 'john doe', 'xxxAAA', 'xxx'], 'xx') == ['xxx', 'aaaxxy', 'xxxAAA', 'xxx']
+    assert candidate(['grunt', 'trumpet', 'prune', 'gruesome'], 'run') == ['grunt', 'prune']
+",filter_by_substring,return [s for s in strings if substring in s],CORRECT,return [s for s in strings if substring in s],CORRECT,return [s for s in strings if substring in s],CORRECT,return [s for s in strings if substring in s],CORRECT,return [s for s in strings if substring in s],CORRECT
+HumanEval/9,"from typing import List, Tuple
+
+
+def rolling_max(numbers: List[int]) -> List[int]:
+    """""" From a given list of integers, generate a list of rolling maximum element found until given moment
+    in the sequence.
+    >>> rolling_max([1, 2, 3, 2, 3, 4, 2])
+    [1, 2, 3, 3, 3, 4, 4]
+    """"""
+","    running_max = None
+    result = []
+
+    for n in numbers:
+        if running_max is None:
+            running_max = n
+        else:
+            running_max = max(running_max, n)
+
+        result.append(running_max)
+
+    return result
+","
+
+METADATA = {
+    'author': 'jt',
+    'dataset': 'test'
+}
+
+
+def check(candidate):
+    assert candidate([]) == []
+    assert candidate([1, 2, 3, 4]) == [1, 2, 3, 4]
+    assert candidate([4, 3, 2, 1]) == [4, 4, 4, 4]
+    assert candidate([3, 2, 3, 100, 3]) == [3, 3, 3, 100, 100]
+",rolling_max,"result = []
+current_max = float('-inf')
+for num in numbers:
+    current_max = max(current_max, num)
+    result.append(current_max)
+return result",CORRECT,"result = []
+current_max = float('-inf')
+
+for num in numbers:
+    current_max = max(current_max, num)
+    result.append(current_max)
+
+return result",CORRECT,"result = []
+current_max = float('-inf')
+for num in numbers:
+    current_max = max(current_max, num)
+    result.append(current_max)
+return result",CORRECT,"result = []
+current_max = float('-inf')
+
+for num in numbers:
+    current_max = max(current_max, num)
+    result.append(current_max)
+
+return result",CORRECT,"result = []
+current_max = float('-inf')
+for num in numbers:
+    current_max = max(current_max, num)
+    result.append(current_max)
+return result",CORRECT
+HumanEval/112,"
+def reverse_delete(s,c):
+    """"""Task
+    We are given two strings s and c, you have to deleted all the characters in s that are equal to any character in c
+    then check if the result string is palindrome.
+    A string is called palindrome if it reads the same backward as forward.
+    You should return a tuple containing the result string and True/False for the check.
+    Example
+    For s = ""abcde"", c = ""ae"", the result should be ('bcd',False)
+    For s = ""abcdef"", c = ""b""  the result should be ('acdef',False)
+    For s = ""abcdedcba"", c = ""ab"", the result should be ('cdedc',True)
+    """"""
+","    s = ''.join([char for char in s if char not in c])
+    return (s,s[::-1] == s)
+","def check(candidate):
+
+    assert candidate(""abcde"",""ae"") == ('bcd',False)
+    assert candidate(""abcdef"", ""b"") == ('acdef',False)
+    assert candidate(""abcdedcba"",""ab"") == ('cdedc',True)
+    assert candidate(""dwik"",""w"") == ('dik',False)
+    assert candidate(""a"",""a"") == ('',True)
+    assert candidate(""abcdedcba"","""") == ('abcdedcba',True)
+    assert candidate(""abcdedcba"",""v"") == ('abcdedcba',True)
+    assert candidate(""vabba"",""v"") == ('abba',True)
+    assert candidate(""mamma"", ""mia"") == ("""", True)
+",reverse_delete,"result = ''.join(char for char in s if char not in c)
+is_palindrome = result == result[::-1]
+return (result, is_palindrome)",CORRECT,"result = ''.join(char for char in s if char not in c)
+is_palindrome = result == result[::-1]
+return (result, is_palindrome)",CORRECT,"result = ''.join(char for char in s if char not in c)
+is_palindrome = result == result[::-1]
+return (result, is_palindrome)",CORRECT,"result = ''.join(char for char in s if char not in c)
+is_palindrome = result == result[::-1]
+return (result, is_palindrome)",CORRECT,"result = ''.join(char for char in s if char not in c)
+is_palindrome = result == result[::-1]
+return (result, is_palindrome)",CORRECT
+HumanEval/157,"
+def right_angle_triangle(a, b, c):
+    '''
+    Given the lengths of the three sides of a triangle. Return True if the three
+    sides form a right-angled triangle, False otherwise.
+    A right-angled triangle is a triangle in which one angle is right angle or 
+    90 degree.
+    Example:
+    right_angle_triangle(3, 4, 5) == True
+    right_angle_triangle(1, 2, 3) == False
+    '''
+","    return a*a == b*b + c*c or b*b == a*a + c*c or c*c == a*a + b*b
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate(3, 4, 5) == True, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate(1, 2, 3) == False
+    assert candidate(10, 6, 8) == True
+    assert candidate(2, 2, 2) == False
+    assert candidate(7, 24, 25) == True
+    assert candidate(10, 5, 7) == False
+    assert candidate(5, 12, 13) == True
+    assert candidate(15, 8, 17) == True
+    assert candidate(48, 55, 73) == True
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate(1, 1, 1) == False, ""This prints if this assert fails 2 (also good for debugging!)""
+    assert candidate(2, 2, 10) == False
+
+",right_angle_triangle,"sides = sorted([a, b, c])
+return sides[0]**2 + sides[1]**2 == sides[2]**2",CORRECT,"sides = sorted([a, b, c])
+return sides[0]**2 + sides[1]**2 == sides[2]**2",CORRECT,"sides = sorted([a, b, c])
+return sides[0]**2 + sides[1]**2 == sides[2]**2",CORRECT,"sides = sorted([a, b, c])
+return sides[0]**2 + sides[1]**2 == sides[2]**2",CORRECT,"sides = sorted([a, b, c])
+return sides[0]**2 + sides[1]**2 == sides[2]**2",CORRECT
+HumanEval/70,"
+def strange_sort_list(lst):
+    '''
+    Given list of integers, return list in strange order.
+    Strange sorting, is when you start with the minimum value,
+    then maximum of the remaining integers, then minimum and so on.
+
+    Examples:
+    strange_sort_list([1, 2, 3, 4]) == [1, 4, 2, 3]
+    strange_sort_list([5, 5, 5, 5]) == [5, 5, 5, 5]
+    strange_sort_list([]) == []
+    '''
+","    res, switch = [], True
+    while lst:
+        res.append(min(lst) if switch else max(lst))
+        lst.remove(res[-1])
+        switch = not switch
+    return res
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate([1, 2, 3, 4]) == [1, 4, 2, 3]
+    assert candidate([5, 6, 7, 8, 9]) == [5, 9, 6, 8, 7]
+    assert candidate([1, 2, 3, 4, 5]) == [1, 5, 2, 4, 3]
+    assert candidate([5, 6, 7, 8, 9, 1]) == [1, 9, 5, 8, 6, 7]
+    assert candidate([5, 5, 5, 5]) == [5, 5, 5, 5]
+    assert candidate([]) == []
+    assert candidate([1,2,3,4,5,6,7,8]) == [1, 8, 2, 7, 3, 6, 4, 5]
+    assert candidate([0,2,2,2,5,5,-5,-5]) == [-5, 5, -5, 5, 0, 2, 2, 2]
+    assert candidate([111111]) == [111111]
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True
+
+",strange_sort_list,"sorted_lst = sorted(lst)
+result = []
+left, right = 0, len(lst) - 1
+
+while left <= right:
+    if left == right:
+        result.append(sorted_lst[left])
+    else:
+        result.append(sorted_lst[left])
+        result.append(sorted_lst[right])
+    left += 1
+    right -= 1
+
+return result",CORRECT,"sorted_lst = sorted(lst)
+result = []
+left, right = 0, len(lst) - 1
+
+while left <= right:
+    if len(result) % 2 == 0:
+        result.append(sorted_lst[left])
+        left += 1
+    else:
+        result.append(sorted_lst[right])
+        right -= 1
+
+return result",CORRECT,"result = []
+while lst:
+    min_val = min(lst)
+    result.append(min_val)
+    lst.remove(min_val)
+    
+    if lst:
+        max_val = max(lst)
+        result.append(max_val)
+        lst.remove(max_val)
+
+return result",CORRECT,"sorted_lst = sorted(lst)
+result = []
+left, right = 0, len(lst) - 1
+
+while left <= right:
+    if len(result) % 2 == 0:
+        result.append(sorted_lst[left])
+        left += 1
+    else:
+        result.append(sorted_lst[right])
+        right -= 1
+
+return result",CORRECT,"sorted_lst = sorted(lst)
+result = []
+left, right = 0, len(lst) - 1
+
+while left <= right:
+    if len(result) % 2 == 0:
+        result.append(sorted_lst[left])
+        left += 1
+    else:
+        result.append(sorted_lst[right])
+        right -= 1
+
+return result",CORRECT
+HumanEval/133,"
+
+def sum_squares(lst):
+    """"""You are given a list of numbers.
+    You need to return the sum of squared numbers in the given list,
+    round each element in the list to the upper int(Ceiling) first.
+    Examples:
+    For lst = [1,2,3] the output should be 14
+    For lst = [1,4,9] the output should be 98
+    For lst = [1,3,5,7] the output should be 84
+    For lst = [1.4,4.2,0] the output should be 29
+    For lst = [-2.4,1,1] the output should be 6
+    
+
+    """"""
+","    import math
+    squared = 0
+    for i in lst:
+        squared += math.ceil(i)**2
+    return squared
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate([1,2,3])==14, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate([1.0,2,3])==14, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate([1,3,5,7])==84, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate([1.4,4.2,0])==29, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate([-2.4,1,1])==6, ""This prints if this assert fails 1 (good for debugging!)""
+
+    assert candidate([100,1,15,2])==10230, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate([10000,10000])==200000000, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate([-1.4,4.6,6.3])==75, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate([-1.4,17.9,18.9,19.9])==1086, ""This prints if this assert fails 1 (good for debugging!)""
+
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate([0])==0, ""This prints if this assert fails 2 (also good for debugging!)""
+    assert candidate([-1])==1, ""This prints if this assert fails 2 (also good for debugging!)""
+    assert candidate([-1,1,0])==2, ""This prints if this assert fails 2 (also good for debugging!)""
+
+",sum_squares,"import math
+
+return sum(math.ceil(num) ** 2 for num in lst)",CORRECT,return sum(math.ceil(num) ** 2 for num in lst),INCORRECT,return sum(int(num + 0.5) ** 2 for num in lst),INCORRECT,"import math
+
+total = 0
+for num in lst:
+    rounded = math.ceil(num)
+    total += rounded ** 2
+return total",CORRECT,return sum(int(num + 0.5) ** 2 for num in lst),INCORRECT
+HumanEval/88,"
+def sort_array(array):
+    """"""
+    Given an array of non-negative integers, return a copy of the given array after sorting,
+    you will sort the given array in ascending order if the sum( first index value, last index value) is odd,
+    or sort it in descending order if the sum( first index value, last index value) is even.
+
+    Note:
+    * don't change the given array.
+
+    Examples:
+    * sort_array([]) => []
+    * sort_array([5]) => [5]
+    * sort_array([2, 4, 3, 0, 1, 5]) => [0, 1, 2, 3, 4, 5]
+    * sort_array([2, 4, 3, 0, 1, 5, 6]) => [6, 5, 4, 3, 2, 1, 0]
+    """"""
+","    return [] if len(array) == 0 else sorted(array, reverse= (array[0]+array[-1]) % 2 == 0) 
+","def check(candidate):
+
+    # Check some simple cases
+    assert True, ""This prints if this assert fails 1 (good for debugging!)""
+    assert candidate([]) == [], ""Error""
+    assert candidate([5]) == [5], ""Error""
+    assert candidate([2, 4, 3, 0, 1, 5]) == [0, 1, 2, 3, 4, 5], ""Error""
+    assert candidate([2, 4, 3, 0, 1, 5, 6]) == [6, 5, 4, 3, 2, 1, 0], ""Error""
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True, ""This prints if this assert fails 2 (also good for debugging!)""
+    assert candidate([2, 1]) == [1, 2], ""Error""
+    assert candidate([15, 42, 87, 32 ,11, 0]) == [0, 11, 15, 32, 42, 87], ""Error""
+    assert candidate([21, 14, 23, 11]) == [23, 21, 14, 11], ""Error""
+
+",sort_array,"sorted_array = array.copy()
+if len(array) > 1:
+    if (array[0] + array[-1]) % 2 == 0:
+        sorted_array.sort(reverse=True)
+    else:
+        sorted_array.sort()
+return sorted_array",CORRECT,"sorted_array = array.copy()
+if len(array) > 1:
+    if (array[0] + array[-1]) % 2 == 0:
+        sorted_array.sort(reverse=True)
+    else:
+        sorted_array.sort()
+return sorted_array",CORRECT,"if not array:
+    return []
+
+sorted_array = sorted(array)
+if (array[0] + array[-1]) % 2 == 0:
+    sorted_array.reverse()
+
+return sorted_array",CORRECT,"sorted_array = array.copy()
+if len(array) > 1:
+    if (array[0] + array[-1]) % 2 == 0:
+        sorted_array.sort(reverse=True)
+    else:
+        sorted_array.sort()
+return sorted_array",CORRECT,"sorted_array = array.copy()
+if len(sorted_array) > 1:
+    if (sorted_array[0] + sorted_array[-1]) % 2 == 0:
+        sorted_array.sort(reverse=True)
+    else:
+        sorted_array.sort()
+return sorted_array",CORRECT
+HumanEval/25,"from typing import List
+
+
+def factorize(n: int) -> List[int]:
+    """""" Return list of prime factors of given integer in the order from smallest to largest.
+    Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
+    Input number should be equal to the product of all factors
+    >>> factorize(8)
+    [2, 2, 2]
+    >>> factorize(25)
+    [5, 5]
+    >>> factorize(70)
+    [2, 5, 7]
+    """"""
+","    import math
+    fact = []
+    i = 2
+    while i <= int(math.sqrt(n) + 1):
+        if n % i == 0:
+            fact.append(i)
+            n //= i
+        else:
+            i += 1
+
+    if n > 1:
+        fact.append(n)
+    return fact
+","
+
+METADATA = {
+    'author': 'jt',
+    'dataset': 'test'
+}
+
+
+def check(candidate):
+    assert candidate(2) == [2]
+    assert candidate(4) == [2, 2]
+    assert candidate(8) == [2, 2, 2]
+    assert candidate(3 * 19) == [3, 19]
+    assert candidate(3 * 19 * 3 * 19) == [3, 3, 19, 19]
+    assert candidate(3 * 19 * 3 * 19 * 3 * 19) == [3, 3, 3, 19, 19, 19]
+    assert candidate(3 * 19 * 19 * 19) == [3, 19, 19, 19]
+    assert candidate(3 * 2 * 3) == [2, 3, 3]
+",factorize,"factors = []
+    i = 2
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+            factors.append(i)
+    if n > 1:
+        factors.append(n)
+    return factors",INCORRECT,"factors = []
+    i = 2
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+            factors.append(i)
+    if n > 1:
+        factors.append(n)
+    return factors",INCORRECT,"factors = []
+    i = 2
+    while i * i <= n:
+        while n % i == 0:
+            factors.append(i)
+            n //= i
+        i += 1
+    if n > 1:
+        factors.append(n)
+    return factors",INCORRECT,"factors = []
+    i = 2
+    while i * i <= n:
+        while n % i == 0:
+            factors.append(i)
+            n //= i
+        i += 1
+    if n > 1:
+        factors.append(n)
+    return factors",INCORRECT,"factors = []
+    i = 2
+    while i * i <= n:
+        if n % i == 0:
+            factors.append(i)
+            n //= i
+        else:
+            i += 1
+    if n > 1:
+        factors.append(n)
+    return factors",INCORRECT
+HumanEval/3,"from typing import List
+
+
+def below_zero(operations: List[int]) -> bool:
+    """""" You're given a list of deposit and withdrawal operations on a bank account that starts with
+    zero balance. Your task is to detect if at any point the balance of account fallls below zero, and
+    at that point function should return True. Otherwise it should return False.
+    >>> below_zero([1, 2, 3])
+    False
+    >>> below_zero([1, 2, -4, 5])
+    True
+    """"""
+","    balance = 0
+
+    for op in operations:
+        balance += op
+        if balance < 0:
+            return True
+
+    return False
+","
+
+METADATA = {
+    'author': 'jt',
+    'dataset': 'test'
+}
+
+
+def check(candidate):
+    assert candidate([]) == False
+    assert candidate([1, 2, -3, 1, 2, -3]) == False
+    assert candidate([1, 2, -4, 5, 6]) == True
+    assert candidate([1, -1, 2, -2, 5, -5, 4, -4]) == False
+    assert candidate([1, -1, 2, -2, 5, -5, 4, -5]) == True
+    assert candidate([1, -2, 2, -2, 5, -5, 4, -4]) == True
+",below_zero,"balance = 0
+for operation in operations:
+    balance += operation
+    if balance < 0:
+        return True
+return False",CORRECT,"balance = 0
+for operation in operations:
+    balance += operation
+    if balance < 0:
+        return True
+return False",CORRECT,"balance = 0
+for operation in operations:
+    balance += operation
+    if balance < 0:
+        return True
+return False",CORRECT,"balance = 0
+for operation in operations:
+    balance += operation
+    if balance < 0:
+        return True
+return False",CORRECT,"balance = 0
+for operation in operations:
+    balance += operation
+    if balance < 0:
+        return True
+return False",CORRECT
+HumanEval/117,"
+def select_words(s, n):
+    """"""Given a string s and a natural number n, you have been tasked to implement 
+    a function that returns a list of all words from string s that contain exactly 
+    n consonants, in order these words appear in the string s.
+    If the string s is empty then the function should return an empty list.
+    Note: you may assume the input string contains only letters and spaces.
+    Examples:
+    select_words(""Mary had a little lamb"", 4) ==> [""little""]
+    select_words(""Mary had a little lamb"", 3) ==> [""Mary"", ""lamb""]
+    select_words(""simple white space"", 2) ==> []
+    select_words(""Hello world"", 4) ==> [""world""]
+    select_words(""Uncle sam"", 3) ==> [""Uncle""]
+    """"""
+","    result = []
+    for word in s.split():
+        n_consonants = 0
+        for i in range(0, len(word)):
+            if word[i].lower() not in [""a"",""e"",""i"",""o"",""u""]:
+                n_consonants += 1 
+        if n_consonants == n:
+            result.append(word)
+    return result
+
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate(""Mary had a little lamb"", 4) == [""little""], ""First test error: "" + str(candidate(""Mary had a little lamb"", 4))      
+    assert candidate(""Mary had a little lamb"", 3) == [""Mary"", ""lamb""], ""Second test error: "" + str(candidate(""Mary had a little lamb"", 3))  
+    assert candidate(""simple white space"", 2) == [], ""Third test error: "" + str(candidate(""simple white space"", 2))      
+    assert candidate(""Hello world"", 4) == [""world""], ""Fourth test error: "" + str(candidate(""Hello world"", 4))  
+    assert candidate(""Uncle sam"", 3) == [""Uncle""], ""Fifth test error: "" + str(candidate(""Uncle sam"", 3))
+
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate("""", 4) == [], ""1st edge test error: "" + str(candidate("""", 4))
+    assert candidate(""a b c d e f"", 1) == [""b"", ""c"", ""d"", ""f""], ""2nd edge test error: "" + str(candidate(""a b c d e f"", 1))
+
+",select_words,"words = s.split()
+result = []
+consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+
+for word in words:
+    consonant_count = sum(1 for char in word if char in consonants)
+    if consonant_count == n:
+        result.append(word)
+
+return result",CORRECT,"words = s.split()
+result = []
+consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+
+for word in words:
+    consonant_count = sum(1 for char in word if char in consonants)
+    if consonant_count == n:
+        result.append(word)
+
+return result",CORRECT,"words = s.split()
+result = []
+consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+
+for word in words:
+    consonant_count = sum(1 for char in word if char in consonants)
+    if consonant_count == n:
+        result.append(word)
+
+return result",CORRECT,"words = s.split()
+consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+result = []
+
+for word in words:
+    consonant_count = sum(1 for char in word if char in consonants)
+    if consonant_count == n:
+        result.append(word)
+
+return result",CORRECT,"words = s.split()
+result = []
+consonants = set('bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ')
+
+for word in words:
+    consonant_count = sum(1 for char in word if char in consonants)
+    if consonant_count == n:
+        result.append(word)
+
+return result",CORRECT
+HumanEval/62,"
+
+def derivative(xs: list):
+    """""" xs represent coefficients of a polynomial.
+    xs[0] + xs[1] * x + xs[2] * x^2 + ....
+     Return derivative of this polynomial in the same form.
+    >>> derivative([3, 1, 2, 4, 5])
+    [1, 4, 12, 20]
+    >>> derivative([1, 2, 3])
+    [2, 6]
+    """"""
+","    return [(i * x) for i, x in enumerate(xs)][1:]
+","
+
+METADATA = {}
+
+
+def check(candidate):
+    assert candidate([3, 1, 2, 4, 5]) == [1, 4, 12, 20]
+    assert candidate([1, 2, 3]) == [2, 6]
+    assert candidate([3, 2, 1]) == [2, 2]
+    assert candidate([3, 2, 1, 0, 4]) == [2, 2, 0, 16]
+    assert candidate([1]) == []
+
+",derivative,"result = []
+for i in range(1, len(xs)):
+    result.append(i * xs[i])
+return result",CORRECT,"result = []
+for i in range(1, len(xs)):
+    result.append(i * xs[i])
+return result",CORRECT,"result = []
+for i in range(1, len(xs)):
+    result.append(i * xs[i])
+return result",CORRECT,"result = []
+for i in range(1, len(xs)):
+    result.append(i * xs[i])
+return result",CORRECT,"result = []
+for i in range(1, len(xs)):
+    result.append(i * xs[i])
+return result",CORRECT
+HumanEval/8,"from typing import List, Tuple
+
+
+def sum_product(numbers: List[int]) -> Tuple[int, int]:
+    """""" For a given list of integers, return a tuple consisting of a sum and a product of all the integers in a list.
+    Empty sum should be equal to 0 and empty product should be equal to 1.
+    >>> sum_product([])
+    (0, 1)
+    >>> sum_product([1, 2, 3, 4])
+    (10, 24)
+    """"""
+","    sum_value = 0
+    prod_value = 1
+
+    for n in numbers:
+        sum_value += n
+        prod_value *= n
+    return sum_value, prod_value
+","
+
+METADATA = {
+    'author': 'jt',
+    'dataset': 'test'
+}
+
+
+def check(candidate):
+    assert candidate([]) == (0, 1)
+    assert candidate([1, 1, 1]) == (3, 1)
+    assert candidate([100, 0]) == (100, 0)
+    assert candidate([3, 5, 7]) == (3 + 5 + 7, 3 * 5 * 7)
+    assert candidate([10]) == (10, 10)
+",sum_product,"sum_total = 0
+product_total = 1
+
+for num in numbers:
+    sum_total += num
+    product_total *= num
+
+return (sum_total, product_total)",CORRECT,"sum_total = 0
+product_total = 1
+
+for num in numbers:
+    sum_total += num
+    product_total *= num
+
+return (sum_total, product_total)",CORRECT,"sum_total = 0
+product_total = 1
+
+for num in numbers:
+    sum_total += num
+    product_total *= num
+
+return (sum_total, product_total)",CORRECT,"sum_total = 0
+product_total = 1
+
+for num in numbers:
+    sum_total += num
+    product_total *= num
+
+return (sum_total, product_total)",CORRECT,"sum_total = 0
+product_total = 1
+
+for num in numbers:
+    sum_total += num
+    product_total *= num
+
+return (sum_total, product_total)",CORRECT
+HumanEval/33,"
+
+def sort_third(l: list):
+    """"""This function takes a list l and returns a list l' such that
+    l' is identical to l in the indicies that are not divisible by three, while its values at the indicies that are divisible by three are equal
+    to the values of the corresponding indicies of l, but sorted.
+    >>> sort_third([1, 2, 3])
+    [1, 2, 3]
+    >>> sort_third([5, 6, 3, 4, 8, 9, 2])
+    [2, 6, 3, 4, 8, 9, 5]
+    """"""
+","    l = list(l)
+    l[::3] = sorted(l[::3])
+    return l
+","
+
+METADATA = {}
+
+
+def check(candidate):
+    assert tuple(candidate([1, 2, 3])) == tuple(sort_third([1, 2, 3]))
+    assert tuple(candidate([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])) == tuple(sort_third([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10]))
+    assert tuple(candidate([5, 8, -12, 4, 23, 2, 3, 11, 12, -10])) == tuple(sort_third([5, 8, -12, 4, 23, 2, 3, 11, 12, -10]))
+    assert tuple(candidate([5, 6, 3, 4, 8, 9, 2])) == tuple([2, 6, 3, 4, 8, 9, 5])
+    assert tuple(candidate([5, 8, 3, 4, 6, 9, 2])) == tuple([2, 8, 3, 4, 6, 9, 5])
+    assert tuple(candidate([5, 6, 9, 4, 8, 3, 2])) == tuple([2, 6, 9, 4, 8, 3, 5])
+    assert tuple(candidate([5, 6, 3, 4, 8, 9, 2, 1])) == tuple([2, 6, 3, 4, 8, 9, 5, 1])
+
+",sort_third,"result = l.copy()
+third_indices = [i for i in range(0, len(l), 3)]
+third_values = sorted([l[i] for i in third_indices])
+for i, value in zip(third_indices, third_values):
+    result[i] = value
+return result",CORRECT,"result = l.copy()
+third_indices = [i for i in range(0, len(l), 3)]
+third_values = sorted([l[i] for i in third_indices])
+for i, value in zip(third_indices, third_values):
+    result[i] = value
+return result",CORRECT,"result = l.copy()
+third_indices = [i for i in range(0, len(l), 3)]
+third_values = sorted([l[i] for i in third_indices])
+for i, value in zip(third_indices, third_values):
+    result[i] = value
+return result",CORRECT,"result = l.copy()
+third_indices = [i for i in range(0, len(l), 3)]
+third_values = sorted([l[i] for i in third_indices])
+for i, value in zip(third_indices, third_values):
+    result[i] = value
+return result",CORRECT,"result = l.copy()
+third_indices = [i for i in range(0, len(l), 3)]
+third_values = sorted([l[i] for i in third_indices])
+for i, value in zip(third_indices, third_values):
+    result[i] = value
+return result",CORRECT
+HumanEval/119,"
+def match_parens(lst):
+    '''
+    You are given a list of two strings, both strings consist of open
+    parentheses '(' or close parentheses ')' only.
+    Your job is to check if it is possible to concatenate the two strings in
+    some order, that the resulting string will be good.
+    A string S is considered to be good if and only if all parentheses in S
+    are balanced. For example: the string '(())()' is good, while the string
+    '())' is not.
+    Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
+
+    Examples:
+    match_parens(['()(', ')']) == 'Yes'
+    match_parens([')', ')']) == 'No'
+    '''
+","    def check(s):
+        val = 0
+        for i in s:
+            if i == '(':
+                val = val + 1
+            else:
+                val = val - 1
+            if val < 0:
+                return False
+        return True if val == 0 else False
+
+    S1 = lst[0] + lst[1]
+    S2 = lst[1] + lst[0]
+    return 'Yes' if check(S1) or check(S2) else 'No'
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate(['()(', ')']) == 'Yes'
+    assert candidate([')', ')']) == 'No'
+    assert candidate(['(()(())', '())())']) == 'No'
+    assert candidate([')())', '(()()(']) == 'Yes'
+    assert candidate(['(())))', '(()())((']) == 'Yes'
+    assert candidate(['()', '())']) == 'No'
+    assert candidate(['(()(', '()))()']) == 'Yes'
+    assert candidate(['((((', '((())']) == 'No'
+    assert candidate([')(()', '(()(']) == 'No'
+    assert candidate([')(', ')(']) == 'No'
+    
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate(['(', ')']) == 'Yes'
+    assert candidate([')', '(']) == 'Yes' 
+
+",match_parens,"def count_parens(s):
+    return s.count('(') - s.count(')')
+
+combined = lst[0] + lst[1]
+if count_parens(combined) != 0:
+    return 'No'
+
+open_count = 0
+for char in combined:
+    if char == '(':
+        open_count += 1
+    else:
+        open_count -= 1
+    if open_count < 0:
+        return 'No'
+
+return 'Yes'",INVALID,"def count_open_close(s):
+    return s.count('('), s.count(')')
+
+open1, close1 = count_open_close(lst[0])
+open2, close2 = count_open_close(lst[1])
+
+total_open = open1 + open2
+total_close = close1 + close2
+
+if total_open != total_close:
+    return 'No'
+
+combined = lst[0] + lst[1]
+open_count = 0
+
+for char in combined:
+    if char == '(':
+        open_count += 1
+    else:
+        open_count -= 1
+    if open_count < 0:
+        return 'No'
+
+return 'Yes'",INVALID,"def count_parens(s):
+    return s.count('(') - s.count(')')
+
+total_diff = sum(count_parens(s) for s in lst)
+
+if total_diff == 0:
+    return 'Yes'
+else:
+    return 'No'",INVALID,"def count_parens(s):
+    return s.count('(') - s.count(')')
+
+total_count = sum(count_parens(s) for s in lst)
+if total_count != 0:
+    return 'No'
+
+open_count = 0
+for s in lst:
+    for char in s:
+        if char == '(':
+            open_count += 1
+        else:
+            open_count -= 1
+        if open_count < 0:
+            return 'No'
+
+return 'Yes'",INVALID,"def count_parens(s):
+    return s.count('(') - s.count(')')
+
+total_count = sum(count_parens(s) for s in lst)
+if total_count != 0:
+    return 'No'
+
+open_count = 0
+for s in lst:
+    for char in s:
+        if char == '(':
+            open_count += 1
+        else:
+            open_count -= 1
+        if open_count < 0:
+            return 'No'
+
+return 'Yes'",INVALID
+HumanEval/155,"
+def even_odd_count(num):
+    """"""Given an integer. return a tuple that has the number of even and odd digits respectively.
+
+     Example:
+        even_odd_count(-12) ==> (1, 1)
+        even_odd_count(123) ==> (1, 2)
+    """"""
+","    even_count = 0
+    odd_count = 0
+    for i in str(abs(num)):
+        if int(i)%2==0:
+            even_count +=1
+        else:
+            odd_count +=1
+    return (even_count, odd_count)
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate(7) == (0, 1)
+    assert candidate(-78) == (1, 1)
+    assert candidate(3452) == (2, 2)
+    assert candidate(346211) == (3, 3)
+    assert candidate(-345821) == (3, 3)
+    assert candidate(-2) == (1, 0)
+    assert candidate(-45347) == (2, 3)
+    assert candidate(0) == (1, 0)
+
+
+    # Check some edge cases that are easy to work out by hand.
+    assert True
+
+",even_odd_count,"even_count = 0
+odd_count = 0
+num = abs(num)
+
+while num > 0:
+    digit = num % 10
+    if digit % 2 == 0:
+        even_count += 1
+    else:
+        odd_count += 1
+    num //= 10
+
+return (even_count, odd_count)",INCORRECT,"even_count = 0
+odd_count = 0
+num = abs(num)
+
+while num > 0:
+    digit = num % 10
+    if digit % 2 == 0:
+        even_count += 1
+    else:
+        odd_count += 1
+    num //= 10
+
+return (even_count, odd_count)",INCORRECT,"even_count = 0
+odd_count = 0
+
+for digit in str(abs(num)):
+    if int(digit) % 2 == 0:
+        even_count += 1
+    else:
+        odd_count += 1
+
+return (even_count, odd_count)",CORRECT,"even_count = 0
+odd_count = 0
+num = abs(num)
+
+while num > 0:
+    digit = num % 10
+    if digit % 2 == 0:
+        even_count += 1
+    else:
+        odd_count += 1
+    num //= 10
+
+return (even_count, odd_count)",INCORRECT,"even_count = 0
+odd_count = 0
+num = abs(num)
+
+while num > 0:
+    digit = num % 10
+    if digit % 2 == 0:
+        even_count += 1
+    else:
+        odd_count += 1
+    num //= 10
+
+return (even_count, odd_count)",INCORRECT
+HumanEval/20,"from typing import List, Tuple
+
+
+def find_closest_elements(numbers: List[float]) -> Tuple[float, float]:
+    """""" From a supplied list of numbers (of length at least two) select and return two that are the closest to each
+    other and return them in order (smaller number, larger number).
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.2])
+    (2.0, 2.2)
+    >>> find_closest_elements([1.0, 2.0, 3.0, 4.0, 5.0, 2.0])
+    (2.0, 2.0)
+    """"""
+","    closest_pair = None
+    distance = None
+
+    for idx, elem in enumerate(numbers):
+        for idx2, elem2 in enumerate(numbers):
+            if idx != idx2:
+                if distance is None:
+                    distance = abs(elem - elem2)
+                    closest_pair = tuple(sorted([elem, elem2]))
+                else:
+                    new_distance = abs(elem - elem2)
+                    if new_distance < distance:
+                        distance = new_distance
+                        closest_pair = tuple(sorted([elem, elem2]))
+
+    return closest_pair
+","
+
+METADATA = {
+    'author': 'jt',
+    'dataset': 'test'
+}
+
+
+def check(candidate):
+    assert candidate([1.0, 2.0, 3.9, 4.0, 5.0, 2.2]) == (3.9, 4.0)
+    assert candidate([1.0, 2.0, 5.9, 4.0, 5.0]) == (5.0, 5.9)
+    assert candidate([1.0, 2.0, 3.0, 4.0, 5.0, 2.2]) == (2.0, 2.2)
+    assert candidate([1.0, 2.0, 3.0, 4.0, 5.0, 2.0]) == (2.0, 2.0)
+    assert candidate([1.1, 2.2, 3.1, 4.1, 5.1]) == (2.2, 3.1)
+
+",find_closest_elements,"sorted_numbers = sorted(numbers)
+min_diff = float('inf')
+result = (0, 0)
+
+for i in range(len(sorted_numbers) - 1):
+    diff = sorted_numbers[i + 1] - sorted_numbers[i]
+    if diff < min_diff:
+        min_diff = diff
+        result = (sorted_numbers[i], sorted_numbers[i + 1])
+
+return result",CORRECT,"sorted_numbers = sorted(numbers)
+min_diff = float('inf')
+result = (0, 0)
+
+for i in range(len(sorted_numbers) - 1):
+    diff = sorted_numbers[i + 1] - sorted_numbers[i]
+    if diff < min_diff:
+        min_diff = diff
+        result = (sorted_numbers[i], sorted_numbers[i + 1])
+
+return result",CORRECT,"sorted_numbers = sorted(numbers)
+min_diff = float('inf')
+closest_pair = None
+
+for i in range(len(sorted_numbers) - 1):
+    diff = sorted_numbers[i + 1] - sorted_numbers[i]
+    if diff < min_diff:
+        min_diff = diff
+        closest_pair = (sorted_numbers[i], sorted_numbers[i + 1])
+
+return closest_pair",CORRECT,"numbers.sort()
+min_diff = float('inf')
+closest_pair = None
+
+for i in range(len(numbers) - 1):
+    diff = numbers[i + 1] - numbers[i]
+    if diff < min_diff:
+        min_diff = diff
+        closest_pair = (numbers[i], numbers[i + 1])
+
+return closest_pair",CORRECT,"numbers.sort()
+min_diff = float('inf')
+closest_pair = None
+
+for i in range(len(numbers) - 1):
+    diff = numbers[i + 1] - numbers[i]
+    if diff < min_diff:
+        min_diff = diff
+        closest_pair = (numbers[i], numbers[i + 1])
+
+return closest_pair",CORRECT
+HumanEval/161,"
+def solve(s):
+    """"""You are given a string s.
+    if s[i] is a letter, reverse its case from lower to upper or vise versa, 
+    otherwise keep it as it is.
+    If the string contains no letters, reverse the string.
+    The function should return the resulted string.
+    Examples
+    solve(""1234"") = ""4321""
+    solve(""ab"") = ""AB""
+    solve(""#a@C"") = ""#A@c""
+    """"""
+","    flg = 0
+    idx = 0
+    new_str = list(s)
+    for i in s:
+        if i.isalpha():
+            new_str[idx] = i.swapcase()
+            flg = 1
+        idx += 1
+    s = """"
+    for i in new_str:
+        s += i
+    if flg == 0:
+        return s[len(s)::-1]
+    return s
+","def check(candidate):
+
+    # Check some simple cases
+    assert candidate(""AsDf"") == ""aSdF""
+    assert candidate(""1234"") == ""4321""
+    assert candidate(""ab"") == ""AB""
+    assert candidate(""#a@C"") == ""#A@c""
+    assert candidate(""#AsdfW^45"") == ""#aSDFw^45""
+    assert candidate(""#6@2"") == ""2@6#""
+
+    # Check some edge cases that are easy to work out by hand.
+    assert candidate(""#$a^D"") == ""#$A^d""
+    assert candidate(""#ccc"") == ""#CCC""
+
+    # Don't remove this line:
+",solve,"result = """"
+if any(c.isalpha() for c in s):
+    for char in s:
+        if char.isalpha():
+            result += char.swapcase()
+        else:
+            result += char
+else:
+    result = s[::-1]
+return result",CORRECT,"result = """"
+has_letters = False
+
+for char in s:
+    if char.isalpha():
+        result += char.swapcase()
+        has_letters = True
+    else:
+        result += char
+
+if not has_letters:
+    result = result[::-1]
+
+return result",CORRECT,"if any(c.isalpha() for c in s):
+    return ''.join(c.swapcase() if c.isalpha() else c for c in s)
+else:
+    return s[::-1]",CORRECT,"result = """"
+for char in s:
+    if char.isalpha():
+        result += char.swapcase()
+    else:
+        result += char
+
+if not any(c.isalpha() for c in s):
+    result = result[::-1]
+
+return result",CORRECT,"if not any(c.isalpha() for c in s):
+    return s[::-1]
+else:
+    return ''.join(c.swapcase() if c.isalpha() else c for c in s)",CORRECT
+HumanEval/37,"
+
+def sort_even(l: list):
+    """"""This function takes a list l and returns a list l' such that
+    l' is identical to l in the odd indicies, while its values at the even indicies are equal
+    to the values of the even indicies of l, but sorted.
+    >>> sort_even([1, 2, 3])
+    [1, 2, 3]
+    >>> sort_even([5, 6, 3, 4])
+    [3, 6, 5, 4]
+    """"""
+","    evens = l[::2]
+    odds = l[1::2]
+    evens.sort()
+    ans = []
+    for e, o in zip(evens, odds):
+        ans.extend([e, o])
+    if len(evens) > len(odds):
+        ans.append(evens[-1])
+    return ans
+","
+
+METADATA = {}
+
+
+def check(candidate):
+    assert tuple(candidate([1, 2, 3])) == tuple([1, 2, 3])
+    assert tuple(candidate([5, 3, -5, 2, -3, 3, 9, 0, 123, 1, -10])) == tuple([-10, 3, -5, 2, -3, 3, 5, 0, 9, 1, 123])
+    assert tuple(candidate([5, 8, -12, 4, 23, 2, 3, 11, 12, -10])) == tuple([-12, 8, 3, 4, 5, 2, 12, 11, 23, -10])
+
+",sort_even,"even_indices = sorted(l[::2])
+odd_indices = l[1::2]
+result = []
+for i in range(len(l)):
+    if i % 2 == 0:
+        result.append(even_indices[i // 2])
+    else:
+        result.append(odd_indices[i // 2])
+return result",CORRECT,"even_indices = sorted(l[::2])
+odd_indices = l[1::2]
+result = []
+for i in range(len(l)):
+    if i % 2 == 0:
+        result.append(even_indices[i // 2])
+    else:
+        result.append(odd_indices[i // 2])
+return result",CORRECT,"even_indices = [l[i] for i in range(0, len(l), 2)]
+even_indices.sort()
+result = []
+for i in range(len(l)):
+    if i % 2 == 0:
+        result.append(even_indices[i // 2])
+    else:
+        result.append(l[i])
+return result",CORRECT,"even_indices = sorted(l[::2])
+odd_indices = l[1::2]
+result = []
+for i in range(len(l)):
+    if i % 2 == 0:
+        result.append(even_indices[i // 2])
+    else:
+        result.append(odd_indices[i // 2])
+return result",CORRECT,"even_values = sorted([l[i] for i in range(0, len(l), 2)])
+result = []
+even_index = 0
+for i in range(len(l)):
+    if i % 2 == 0:
+        result.append(even_values[even_index])
+        even_index += 1
+    else:
+        result.append(l[i])
+return result",CORRECT
