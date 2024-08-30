@@ -74,15 +74,15 @@ stack = []
 max_nesting_level = 0
 cur_nesting_level = 0
 for bracket in string:
-if bracket == '[':
-stack.append(bracket)
-elif bracket == ']' and stack:
-if stack:
-cur_nesting_level += 1
-stack.pop()
-if not stack:
-max_nesting_level = max(max_nesting_level, cur_nesting_level)
-cur_nesting_level = 0
+    if bracket == '[':
+        stack.append(bracket)
+    elif bracket == ']' and stack:
+        if stack:
+            cur_nesting_level += 1 
+        stack.pop()
+        if not stack:
+            max_nesting_level = max(max_nesting_level, cur_nesting_level)
+            cur_nesting_level = 0
 return max_nesting_level >= 2
 ```
 

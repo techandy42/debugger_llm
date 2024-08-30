@@ -24,7 +24,7 @@ def extract_text_from_file(file_path):
     if remaining_lines and remaining_lines[-1].strip() == "":
         remaining_lines = remaining_lines[:-1]
 
-    remaining_text = '\n'.join([line.strip() for line in remaining_lines])
+    remaining_text = (''.join([line for line in remaining_lines])).strip('\n')
 
     return task_id, remaining_text
 

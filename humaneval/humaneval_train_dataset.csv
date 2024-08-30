@@ -386,8 +386,8 @@ This single line correctly generates the pile of stones for both odd and even nu
 - To fix this, replace the `if` and `else` statements under the `for _ in range(1, n):` line with `current += 2`. The for loop should now look like:
 ```python
 for _ in range(1, n):
-current += 2
-pile.append(current)
+    current += 2
+    pile.append(current)
 ```",7/7,7/7,7/7,7/7,7/7,7/7,7/7,7/7,7/7,5/7,5/7,3/7,1/7,1/7,7/7,1/7,5/7,1/7,7/7,7/7,7/7,5/7,5/7,5/7
 HumanEval/144,"
 def simplify(x, n):
@@ -2080,7 +2080,7 @@ Fix: Swap the case of the entire message at once using the swapcase() method bef
 To correct these issues, implement the vowel replacement dictionary and apply swapcase() to the entire message first, then replace vowels as needed.","The buggy code contains one issue:
 
 1. Incorrect Conditional:
-- The line `encoded += new_char.upper() if char.isupper() else new_char` incorrectly uses `char.isupper()` in the conditional check.
+- The line `encoded += new_char.upper() if char.isupper() else new_char` incorrectly uses `char.isupper()` in the conditional check. 
 - We instead want to check if the character is lowercase to correctly swap the case of the new character.
 - To fix this, replace `char.isupper()` with `char.islower()` in the conditional check.",7/7,7/7,7/7,7/7,7/7,7/7,7/7,7/7,7/7,1/7,5/7,5/7,7/7,7/7,7/7,1/7,5/7,3/7,1/7,1/7,7/7,1/7,5/7,1/7
 HumanEval/0,"from typing import List
@@ -6365,14 +6365,14 @@ Issues and fixes:
 - To fix this, add a boolean variable to check if some value has been multiplied to the result. If this is true, return the result as it is even if it is 1. The code after fixing the issue might look like:
 ```python
 result = 1
-changed = False
-while n > 0:
-digit = n % 10
-if digit % 2 != 0:
-result *= digit
-changed = True
-n //= 10
-return 0 if result == 1 and not changed else result
+    changed = False
+    while n > 0:
+        digit = n % 10
+        if digit % 2 != 0:
+            result *= digit
+            changed = True
+        n //= 10
+    return 0 if result == 1 and not changed else result
 ```",7/7,7/7,7/7,7/7,7/7,7/7,1/7,1/7,7/7,1/7,1/7,3/7,1/7,1/7,7/7,1/7,1/7,2/7,1/7,1/7,7/7,1/7,1/7,1/7
 HumanEval/116,"
 def sort_array(arr):
@@ -10359,7 +10359,7 @@ This approach ensures proper operator precedence and correctly evaluates the alg
 ```python
 expression = str(operand[0])
 for oprt, oprn in zip(operator, operand[1:]):
-expression+= oprt + str(oprn)
+    expression+= oprt + str(oprn)
 return eval(expression)
 ```
 
@@ -10798,15 +10798,15 @@ stack = []
 max_nesting_level = 0
 cur_nesting_level = 0
 for bracket in string:
-if bracket == '[':
-stack.append(bracket)
-elif bracket == ']' and stack:
-if stack:
-cur_nesting_level += 1
-stack.pop()
-if not stack:
-max_nesting_level = max(max_nesting_level, cur_nesting_level)
-cur_nesting_level = 0
+    if bracket == '[':
+        stack.append(bracket)
+    elif bracket == ']' and stack:
+        if stack:
+            cur_nesting_level += 1 
+        stack.pop()
+        if not stack:
+            max_nesting_level = max(max_nesting_level, cur_nesting_level)
+            cur_nesting_level = 0
 return max_nesting_level >= 2
 ```",7/7,7/7,7/7,7/7,7/7,7/7,5/7,7/7,7/7,7/7,1/7,1/7,7/7,7/7,7/7,7/7,1/7,5/7,5/7,7/7,7/7,7/7,1/7,3/7
 HumanEval/23,"

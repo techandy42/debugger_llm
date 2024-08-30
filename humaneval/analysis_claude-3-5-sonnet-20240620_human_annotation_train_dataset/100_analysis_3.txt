@@ -51,8 +51,8 @@ The buggy code contains one issue:
 - To fix this, replace the `if` and `else` statements under the `for _ in range(1, n):` line with `current += 2`. The for loop should now look like:
 ```python
 for _ in range(1, n):
-current += 2
-pile.append(current)
+    current += 2
+    pile.append(current)
 ```
 
 TARGET ANALYSIS:
@@ -64,6 +64,6 @@ The buggy code contains one issue:
 - To fix this, replace the `if` and `else` statements under the `for _ in range(1, n):` line with `current += 2`. The for loop should now look like:
 ```python
 for _ in range(1, n):
-current += 2
-pile.append(current)
+    current += 2
+    pile.append(current)
 ```

@@ -12,11 +12,11 @@ SCORES (0-7):
 
 - Q3: Does the critique have ≥ 1 NITPICK
 - Guideline: 1: no, 4: I'm unsure, 7: yes
-- S3: _/7
+- S3: 7/7
 
 - Q4: Does the critique have ≥ 1 FAKE PROBLEM?
 - Guideline: 1: yes, 4: I'm unsure, 7: no
-- S4: _/7
+- S4: 1/7
 
 - Q5: How concise is this critique?
 - Guideline: 1: very wordy, 4: I'm unsure, 7: very concise

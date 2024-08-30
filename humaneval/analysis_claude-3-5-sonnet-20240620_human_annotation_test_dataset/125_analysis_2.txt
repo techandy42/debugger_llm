@@ -53,12 +53,12 @@ The buggy code contains two issues:
 After all of the changes take place, the code should look like:
 ```python
 def split_words(txt):
-words = txt.split()
-if len(words) <= 1:
-words = txt.split(',')
-if len(words) <= 1:
-return sum(1 for char in txt if char.isalpha() and char.islower() and (ord(char) - ord('a')) % 2 == 1)
-return words
+    words = txt.split()
+    if len(words) <= 1:
+        words = txt.split(',')
+    if len(words) <= 1:
+        return sum(1 for char in txt if char.isalpha() and char.islower() and (ord(char) - ord('a')) % 2 == 1)
+    return words
 ```
 
 TARGET ANALYSIS:
