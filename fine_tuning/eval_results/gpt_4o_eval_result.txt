@@ -1,0 +1,37 @@
+TEST ACCURACY: 85.16
+
+Confusion Matrix for rd1:
+-------------------------------------------------------
+                Predicted Positive   Predicted Negative
+Actual Positive               0.16                 0.17
+Actual Negative               0.07                 0.60
+-------------------------------------------------------
+Combined                      0.23                 0.77
+-------------------------------------------------------
+
+Confusion Matrix for rd2:
+-------------------------------------------------------
+                Predicted Positive   Predicted Negative
+Actual Positive               0.43                 0.14
+Actual Negative               0.04                 0.39
+-------------------------------------------------------
+Combined                      0.47                 0.53
+-------------------------------------------------------
+
+Confusion Matrix for rd3:
+-------------------------------------------------------
+                Predicted Positive   Predicted Negative
+Actual Positive               0.27                 0.00
+Actual Negative               0.07                 0.67
+-------------------------------------------------------
+Combined                      0.33                 0.67
+-------------------------------------------------------
+
+Confusion Matrix for custom:
+-------------------------------------------------------
+                Predicted Positive   Predicted Negative
+Actual Positive               0.78                 0.00
+Actual Negative               0.11                 0.11
+-------------------------------------------------------
+Combined                      0.89                 0.11
+-------------------------------------------------------
