@@ -6,5 +6,6 @@
 ```
 !conda create --name debugger_llm_fine_tuning python=3.10
 !conda activate debugger_llm_fine_tuning
-!conda install datasets openai pandas
+!conda install datasets openai pandas python-dotenv tqdm
+!pip install tiktoken
 ```

@@ -1,8 +1,6 @@
-import random
 from datasets import load_dataset
 import pandas as pd
-from datasets import Dataset, DatasetDict
-from helpers import indent_lines
+from helpers import indent_lines, flip_tuples_with_chance
 
 dataset = load_dataset('techandy42/debugger_llm_humaneval_dataset_v1')
 df_train = pd.DataFrame(dataset['train'])
@@ -11,7 +9,7 @@ df_parts = [df_train, df_test]
 
 formatted_train = []
 formatted_test = []
-formatted_parts = [formatted_train, formatted_test]
+formatted_parts = [(formatted_train, "train"), (formatted_test, "test")]
 
 TRAIN_DATASET_NAME = "openai_humaneval_train_dataset.jsonl"
 TEST_DATASET_NAME = "openai_humaneval_test_dataset.jsonl"
@@ -20,7 +18,7 @@ PREFIXS = ['score_s1_', 'score_s2_', 'score_s3_', 'score_s4_', 'score_s5_', 'sco
 ROUNDS = ['rd1', 'rd2', 'rd3', 'custom']
 PAIRS = [('rd1', 'rd2'), ('rd1', 'rd3'), ('rd1', 'custom'), ('rd2', 'rd3'), ('rd2', 'custom'), ('rd3', 'custom')]
 
-for df, formatted in zip(df_parts, formatted_parts):
+for df, (formatted, part) in zip(df_parts, formatted_parts):
   for idx, row in df.iterrows():
       prompt = row['prompt']
       result = row['result']
@@ -37,7 +35,8 @@ for df, formatted in zip(df_parts, formatted_parts):
         analysis_col = 'analysis_' + ROUND
         solutions_info[ROUND]['analysis'] = row[analysis_col]
         solutions_info[ROUND]['score'] = total_score
-      for ROUND1, ROUND2 in PAIRS:
+      random_pairs = flip_tuples_with_chance(PAIRS)
+      for ROUND1, ROUND2 in random_pairs:
         round1_score = solutions_info[ROUND1]['score']
         round2_score = solutions_info[ROUND2]['score']
         round1_analysis = solutions_info[ROUND1]['analysis']
@@ -45,12 +44,6 @@ for df, formatted in zip(df_parts, formatted_parts):
         if round1_score == round2_score:
           continue
         chosen = "bug_analysis_1" if round1_score > round2_score else "bug_analysis_2"
-        bug_analysis_1 = round1_analysis
-        bug_analysis_2 = round2_analysis
-        # Swap the bug analyzes
-        if random.choice([True, False]):
-          chosen = "bug_analysis_2" if chosen == "bug_analysis_1" else "bug_analysis_1"
-          bug_analysis_1, bug_analysis_2 = bug_analysis_2, bug_analysis_1
 
         system_content = "You are an intelligent system specialized in debugging code."
         user_content = f"""Instruction:
@@ -65,11 +58,11 @@ for df, formatted in zip(df_parts, formatted_parts):
 </buggy_code>
 
 <bug_analysis_1>
-{bug_analysis_1}
+{round1_analysis}
 </bug_analysis_1>
 
 <bug_analysis_2>
-{bug_analysis_2}
+{round2_analysis}
 </bug_analysis_2>"""
         assistant_content = chosen
         messages = [
@@ -77,6 +70,8 @@ for df, formatted in zip(df_parts, formatted_parts):
           {'role': 'user', 'content': user_content},
           {'role': 'assistant', 'content': assistant_content}
         ]
+        if part == "test":
+          messages.append({'role': 'metadata', 'content': {'bug_analysis_1': ROUND1, 'bug_analysis_2': ROUND2}})
         formatted.append({'messages': messages})
 
 df_formatted_train = pd.DataFrame(formatted_train)
