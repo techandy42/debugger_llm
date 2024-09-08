@@ -16,11 +16,11 @@ df_eval = pd.read_csv(DATASET_PATH)
 formatted_eval = []
 
 for MODEL_NAME in MODEL_NAMES:
-  col_names = []
-  for ROUND in range(1, NUM_ROUNDS + 1):
-    col_name = f"analysis_{MODEL_NAME}_wt_{JUDGE_ID}_rd{ROUND}"
-    col_names.append(col_name)
-  col_pairs = list(itertools.combinations(col_names, 2))
+  round_names = []
+  for round in range(1, NUM_ROUNDS + 1):
+    round_name = f"rd{round}"
+    round_names.append(round_name)
+  round_pairs = list(itertools.combinations(round_names, 2))
   for idx, row in df_eval.iterrows():
     eval = row[f'eval_{MODEL_NAME}_no1']
     if eval != 'INCORRECT':
@@ -29,7 +29,9 @@ for MODEL_NAME in MODEL_NAMES:
     prompt = row['prompt']
     result = row[f'result_{MODEL_NAME}_no1']
     full_solution = (prompt + indent_lines(result)).strip('\n')
-    for (col_no1, col_no2) in col_pairs:
+    for (ROUND1, ROUND2) in round_pairs:
+      col_no1 = f"analysis_{MODEL_NAME}_wt_{JUDGE_ID}_{ROUND1}"
+      col_no2 = f"analysis_{MODEL_NAME}_wt_{JUDGE_ID}_{ROUND2}"
       analysis_no1 = row[col_no1]
       analysis_no2 = row[col_no2]
 
@@ -55,7 +57,7 @@ for MODEL_NAME in MODEL_NAMES:
       messages = [
         {'role': 'system', 'content': system_content},
         {'role': 'user', 'content': user_content},
-        {'role': 'metadata', 'content': {'task_id': task_id}}
+        {'role': 'metadata', 'content': {'model': MODEL_NAME, 'task_id': task_id, "bug_analysis_1": ROUND1, "bug_analysis_2": ROUND2}}
       ]
       formatted_eval.append({'messages': messages})
 

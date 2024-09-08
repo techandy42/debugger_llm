@@ -2,9 +2,11 @@ import pandas as pd
 from tqdm import tqdm
 from openai_completion import get_completion
 from helpers import print_confusion_matrices
+from dotenv import load_dotenv
+import os
 
 DATASET_PATH = "openai_humaneval_test_dataset.jsonl" # Must be a test dataset
-MODEL = "<fine_tuned_model_name>"
+MODEL = os.getenv("OPENAI_FINE_TUNED_MODEL")
 
 df = pd.read_json(DATASET_PATH, lines=True)
 
