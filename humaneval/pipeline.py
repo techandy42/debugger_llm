@@ -2,11 +2,12 @@ from datasets import load_dataset
 import pandas as pd
 from helpers import run_codegen_humaneval, run_unit_tests, get_prompt_template_data_collection_claude, file_exists, save_dataframe_to_csv, force_delete_directory
 
-DATASET_PATH = "humaneval_test_dataset.csv"
+# Use for both train/test and eval dataset generation
+DATASET_PATH = "humaneval_eval_dataset.csv"
 UNIT_TESTS_PATH = "humaneval_unit_tests"
 MODEL_NAME = "claude-3-5-sonnet-20240620"
 IDX_RANGE = (0, 33)
-ITER_NO = 4 # Unique identifier for the current iteration; increment this number for each new iteration
+ITER_NO = 1 # Unique identifier for the current iteration; increment this number for each new iteration
 TEMPERATURE = None
 
 if not file_exists(DATASET_PATH):

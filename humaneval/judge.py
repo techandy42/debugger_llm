@@ -3,11 +3,13 @@ from tqdm import tqdm
 from helpers import file_exists, indent_lines, get_prompt_template_judge_claude, save_dataframe_to_csv
 from completion import get_completion
 
-DATASET_PATH = "humaneval_test_dataset.csv"
+# Use for both train/test and eval dataset generation
+DATASET_PATH = "humaneval_eval_dataset.csv"
 MODEL_NAME = "claude-3-5-sonnet-20240620"
 JUDGE_MODEL_NAME = "claude-3-5-sonnet-20240620"
 JUDGE_ID = "cl35s-v1"
-ITER_NUMS = [1, 2, 3, 4, 5]
+ITER_NUMS = [1] # Set to [1, 2, 3, 4, 5] for train/test dataset generation
+NUM_ROUNDS = 5 # Set to 3 for train/test dataset generation
 
 if file_exists(DATASET_PATH):
   humaneval_train_df = pd.read_csv(DATASET_PATH)
@@ -28,10 +30,10 @@ for idx, row in tqdm(humaneval_train_df.iterrows()):
     if eval != "INCORRECT":
       continue
     else:
-      analysis_rd1_col_name = f"analysis_{MODEL_NAME}_wt_{JUDGE_ID}_rd1"
-      analysis_rd2_col_name = f"analysis_{MODEL_NAME}_wt_{JUDGE_ID}_rd2"
-      analysis_rd3_col_name = f"analysis_{MODEL_NAME}_wt_{JUDGE_ID}_rd3"
-      col_names = [analysis_rd1_col_name, analysis_rd2_col_name, analysis_rd3_col_name]
+      col_names = []
+      for ROUND in range(1, NUM_ROUNDS + 1):
+        analysis_rd_col_name = f"analysis_{MODEL_NAME}_wt_{JUDGE_ID}_rd{ROUND}"
+        col_names.append(analysis_rd_col_name)
       for col_name in col_names:
         if col_name not in humaneval_train_df.columns:
           humaneval_train_df[col_name] = None
